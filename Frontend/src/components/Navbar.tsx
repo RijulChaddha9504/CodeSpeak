@@ -9,7 +9,6 @@ function Navbar() {
       <div className="space-x-6">
         <Link to="/" className="text-neutral-400 hover:text-neutral-100 transition">Welcome To CodeSpeak</Link>
         <Link to="/Home" className="text-neutral-400 hover:text-neutral-100 transition"> Write Code</Link>
-        <Link to="/SpeechRec" className="text-neutral-400 hover:text-neutral-100 transition"> Testing</Link>
 
       </div>
       <ScrollProgressBar>
