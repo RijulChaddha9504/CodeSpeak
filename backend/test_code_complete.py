@@ -25,8 +25,9 @@ system_prompt = "Generate the code for the calculation, and only the code in Pyt
                             Use 2 spaces for indentation. No need to include ``` at the beginning and end of code, or python initial keyword."
 
 #prompt = "Write a function that computes the sum of the first 50 prime numbers."
-prompt = "Write a function that creates a list of multiples of 2, starting from 2"
+#prompt = "Write a function that creates a list of multiples of 2, starting from 2"
 #prompt = "Write an algorithm that finds the number of paths within a grid of size n * m from the top left to the bottom right."
+prompt = "Create a 6d array of size 3x3x3x3x3x3 and set all the elements to zero. Use for loops"
 
 response = client.models.generate_content(
     model='gemini-2.0-flash',
@@ -59,5 +60,5 @@ code_analysis_response = client.models.generate_content(
 
 print(code_analysis_response.text)
 #text_to_wav("en-US-Studio-M", code_analysis_response.text.replace("`", ""))
-text_to_wav("en-US-Wavenet-A", code_analysis_response.text.replace("`", ""))
+#text_to_wav("en-US-Wavenet-A", code_analysis_response.text.replace("`", ""))
 

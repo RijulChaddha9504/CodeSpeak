@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { AudioControl } from "../../../util/audioControl";
 
 const sectors = [
   {
@@ -20,6 +21,11 @@ const sectors = [
 ];
 
 const Landingpage = () => {
+  const AC = AudioControl.instance() as AudioControl | null;
+  if (!AC) {
+    console.error("AudioControl instance is null");
+    return null;
+  }
   return (
     <div className="min-h-screen bg-neutral-900 pt-16">
       <div className="text-center px-6 py-12">
@@ -46,7 +52,9 @@ const Landingpage = () => {
           <div className="w-full md:w-1/2 mt-6 md:mt-0 md:px-12 text-left">
             <h2 className="text-3xl text-white font-semibold mb-4">{sector.title}</h2>
             <p className="text-white mb-6">{sector.text}</p>
-            <button className="bg-blue-600 text-white px-5 py-2 rounded-xl hover:bg-blue-700 transition">
+            <button className="bg-blue-600 text-white px-5 py-2 rounded-xl hover:bg-blue-700 transition" 
+                    onClick={async (e) => {if (AC) { 
+                                await AC?.playAudioFromArrayBuffer();}}}>
               Learn More
             </button>
           </div>
