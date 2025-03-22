@@ -18,7 +18,8 @@ import os
 client = genai.Client(api_key=os.getenv("GOOGLE_API_KEY"))
 
 system_prompt = "Generate the code for the calculation, and only the code in Python. \
-                            Do not include any comments or explanations. Avoid list comprehensions."
+                            Do not include any comments or explanations. Avoid list comprehensions. \
+                            Use 2 spaces for indentation."
 
 #prompt = "Write a function that computes the sum of the first 50 prime numbers."
 #prompt = "Write a function that creates a list of multiples of 2, starting from 2"
