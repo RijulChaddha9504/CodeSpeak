@@ -1,9 +1,12 @@
 import "../index.css"
 
+
 function Navbar() {
   return (
-    <div className="p-6">
+    <div className="position-absolute w-100 h-10px">
+      FixedHeaderTest
 
+      
     </div>
   )
 }
