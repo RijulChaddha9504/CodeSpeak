@@ -5,6 +5,7 @@ import Landingpage from "./pages/Landingpage";
 import "./hideScrollbar.css"
 import { PageWrapper } from "./components/PageWrapper";
 import { AnimatePresence } from "framer-motion";
+import TestPage from "./pages/TestPage";
 const App = () => {
    return (
       <Router>
@@ -24,6 +25,7 @@ function AnimatedRoutes() {
       <Routes key={location.pathname} location={location}>
         <Route path="/" element={<PageWrapper><Landingpage /></PageWrapper>} />
         <Route path="/Home" element={<PageWrapper>< Homepage/></PageWrapper>} />
+        <Route path="/SpeechRec" element={<PageWrapper><TestPage/></PageWrapper>} />
       </Routes>
     </AnimatePresence>
   );
