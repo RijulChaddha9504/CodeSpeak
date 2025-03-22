@@ -25,11 +25,35 @@ const GridEditor: React.FC<GridEditorProps> = ({ codeMatrix }) => {
    const maxDepth = Math.max(...codeMatrix.map((row) => row.length));
    const lastRow = codeMatrix.length - 1;
    const hoverClasses = ""; // Optional hover effects
+
+   const lowerTrimmed = (str: string) => str.toLowerCase().trim();
+
    return (
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto mt-3 mb-3">
          <table className="border-collapse">
             <tbody>
+               {/* Script Start Row */}
+               <tr>
+                  <td
+                     colSpan={maxDepth + 1}
+                     className="w-full h-16 border-2 border-black bg-indigo-200 text-black font-mono text-base font-bold px-4 rounded-t-2xl rounded-2xl"
+                  >
+                     # CodeSpeak - Script Begins
+                  </td>
+               </tr>
+
                {codeMatrix.map((row, rowIndex) => {
+                  if (
+                     row.some((cell) =>
+                        [
+                           "#codespeak - script begins",
+                           "#codespeak - script ends",
+                        ].includes(lowerTrimmed(cell))
+                     )
+                  ) {
+                     return null;
+                  }
+
                   const cells = row.map((cellContent, colIndex) => {
                      const isFirstRow = rowIndex === 0;
                      const isLastRow = rowIndex === lastRow;
@@ -83,7 +107,6 @@ const GridEditor: React.FC<GridEditorProps> = ({ codeMatrix }) => {
                      );
                   });
 
-                  // ✅ Gray end-of-row cell with proper corner rounding if it's a corner
                   const isFirstRow = rowIndex === 0;
                   const isLastRow = rowIndex === lastRow;
 
@@ -104,6 +127,16 @@ const GridEditor: React.FC<GridEditorProps> = ({ codeMatrix }) => {
 
                   return <tr key={rowIndex}>{cells}</tr>;
                })}
+
+               {/* Script End Row */}
+               <tr>
+                  <td
+                     colSpan={maxDepth + 1}
+                     className="w-full h-16 border-2 border-black bg-indigo-200 text-black font-mono text-base font-bold px-4 rounded-b-2xl rounded-2xl"
+                  >
+                     # CodeSpeak - Script Ends
+                  </td>
+               </tr>
             </tbody>
          </table>
       </div>

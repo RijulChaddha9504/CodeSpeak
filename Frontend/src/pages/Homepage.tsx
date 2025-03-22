@@ -4,7 +4,6 @@ import ChangingText from "../components/ChangingText";
 import CodeOutputGrid from "../components/CodeOutputGrid";
 import SpeechPrompt from "../components/SpeechPrompt";
 
-
 const messages = [
    "Accessible AI Code Assistant",
    "Speech-Powered Coding",
@@ -14,10 +13,7 @@ const messages = [
 ];
 
 const Homepage: React.FC = () => {
-
    const [userId, setUserId] = useState(0);
-
-
 
    return (
       <div className="w-full min-h-screen flex flex-col items-center bg-gray-900 text-white px-4 pt-32 select-none">
@@ -29,13 +25,30 @@ const Homepage: React.FC = () => {
             <SpeechPrompt></SpeechPrompt>
             <CodeOutputGrid
                codeMatrix={[
-                  ["def is_prime(n):"],
-                  ["i-if", "if n <= 1:"],
-                  ["i-if", "return False"],
-                  ["i-for", "for i in range(2, int(n**0.5) + 1):"],
-                  ["i-for", "i-if", "if n % i == 0:"],
-                  ["i-for", "i-if", "return False"],
-                  ["return True"],
+                  ["import numpy as np"],
+                  ["arr = np.zeros((3, 3, 3, 3, 3, 3))"],
+                  ["for i in range(3):"],
+                  ["i-for", "for j in range(3):"],
+                  ["i-for", "i-for", "for k in range(3):"],
+                  ["i-for", "i-for", "i-for", "for l in range(3):"],
+                  ["i-for", "i-for", "i-for", "i-for", "for m in range(3):"],
+                  [
+                     "i-for",
+                     "i-for",
+                     "i-for",
+                     "i-for",
+                     "i-for",
+                     "for n in range(3):",
+                  ],
+                  [
+                     "i-for",
+                     "i-for",
+                     "i-for",
+                     "i-for",
+                     "i-for",
+                     "i-for",
+                     "arr[i, j, k, l, m, n] = 0",
+                  ],
                ]}
             />
          </div>
