@@ -44,11 +44,21 @@ const Homepage: React.FC = () => {
                      cooldownActive={cooldownActive}
                   />
                   <TranscriptFeedback speechInput={text} />
-                  <CodeOutputGrid codeOutput={[]} /> {/* Placeholder */}
                </>
             ) : (
                <h1>Your browser has no speech recognition support</h1>
             )}
+            <CodeOutputGrid
+               codeMatrix={[
+                  ["def is_prime(n):"],
+                  ["i-if", "if n <= 1:"],
+                  ["i-if", "return False"],
+                  ["i-for", "for i in range(2, int(n**0.5) + 1):"],
+                  ["i-for", "i-if", "if n % i == 0:"],
+                  ["i-for", "i-if", "return False"],
+                  ["return True"],
+               ]}
+            />
          </div>
       </div>
    );
