@@ -2,25 +2,139 @@
     {
         "question": "Write a function to find the similar elements from the given two tuple lists.",
         "positive_response": "def similar_elements(test_tup1, test_tup2):\r\n  res = tuple(set(test_tup1) & set(test_tup2))\r\n  return (res) ",
-        "almost_right_response": "```python\ndef findSimilar(list1, list2):\n    similar_elements = []\n    for tuple1 in list1:\n        for tuple2 in list2:\n            if tuple1 == tuple2:\n                similar_elements.append(tuple1)\n    return similar_elements\n```",
-        "wrong_response": "```python\ndef findSimilarSlow(list1, list2):\n    similarElements = []\n    for tuple1 in list1:\n        for tuple2 in list2:\n            if tuple1 == tuple2:\n                similarElements.append(tuple1)\n    return similarElements\n```\n"
+        "almost_right_response": "```python\ndef find_similar(list1, list2):\n    result = []\n    for tup1 in list1:\n        for tup2 in list2:\n            if tup1 == tup2:\n                result.append(tup1)\n    return result\n```\n",
+        "wrong_response": "```python\ndef findSame(list1, list2):\n    result = []\n    for i in range(len(list1)):\n        for j in range(len(list2)):\n            if list1[i] == list2[j]:\n                found = False\n                for k in range(len(result)):\n                    if list1[i] == result[k]:\n                        found = True\n                        break\n                if not found:\n                    result.append(list1[i])\n    return result\n```\n"
     },
     {
         "question": "Write a python function to identify non-prime numbers.",
         "positive_response": "import math\r\ndef is_not_prime(n):\r\n    result = False\r\n    for i in range(2,int(math.sqrt(n)) + 1):\r\n        if n % i == 0:\r\n            result = True\r\n    return result",
-        "almost_right_response": "```python\ndef identifyNonprimesAttemptOne(number):\n    if number <= 1:\n        return True\n    for i in range(2, number):\n        if number % i == 0:\n            return True\n    return False\n```\n",
-        "wrong_response": "```python\ndef identifyNonPrimesBrute():\n    non_primes = []\n    for number in range(2, 101):\n        is_prime = True\n        for i in range(2, number):\n            if number % i == 0:\n                is_prime = False\n                break\n        if not is_prime:\n            non_primes.append(number)\n    return non_primes\n```"
+        "almost_right_response": "```python\ndef not_prime(num):\n    if num <= 1:\n        return True\n    for i in range(2, num):\n        if num % i == 0:\n            return True\n    return False\n```\n",
+        "wrong_response": "```python\ndef findComposite(number):\n    composite = []\n    for i in range(2, number + 1):\n        is_prime = True\n        for j in range(2, i):\n            if i % j == 0:\n                is_prime = False\n                break\n        if not is_prime:\n            composite.append(i)\n    return composite\n```\n"
     },
     {
         "question": "Write a function to find the largest integers from a given list of numbers using heap queue algorithm.",
         "positive_response": "import heapq as hq\r\ndef heap_queue_largest(nums,n):\r\n  largest_nums = hq.nlargest(n, nums)\r\n  return largest_nums",
-        "almost_right_response": "```python\nimport heapq\n\ndef heapLargest(nums, k):\n    heap = []\n    for num in nums:\n        heapq.heappush(heap, num)\n        if len(heap) > k:\n            heapq.heappop(heap)\n    return heap\n```",
-        "wrong_response": "```python\ndef HeapWorst(numbers, k):\n    numbers_copy = numbers[:]\n    largest_numbers = []\n    for _ in range(k):\n        maximum_number = float('-inf')\n        maximum_index = -1\n        for i in range(len(numbers_copy)):\n            if numbers_copy[i] > maximum_number:\n                maximum_number = numbers_copy[i]\n                maximum_index = i\n        largest_numbers.append(maximum_number)\n        del numbers_copy[maximum_index]\n    return largest_numbers\n```"
+        "almost_right_response": "```python\nimport heapq\n\ndef find largest(nums, k):\n    heapq.heapify(nums)\n    return heapq.nlargest(k, nums)\n```\n",
+        "wrong_response": "```python\ndef findLargest(nums, k):\n    n = len(nums)\n    for i in range(k):\n        for j in range(n - 1):\n            if nums[j] > nums[j + 1]:\n                temp = nums[j]\n                nums[j] = nums[j + 1]\n                nums[j + 1] = temp\n    result = []\n    for i in range(n - k, n):\n        result.append(nums[i])\n    return result\n```"
     },
     {
         "question": "Write a function to find the number of ways to fill it with 2 x 1 dominoes for the given 3 x n board.",
         "positive_response": "def count_ways(n): \r\n\tA = [0] * (n + 1) \r\n\tB = [0] * (n + 1) \r\n\tA[0] = 1\r\n\tA[1] = 0\r\n\tB[0] = 0\r\n\tB[1] = 1\r\n\tfor i in range(2, n+1): \r\n\t\tA[i] = A[i - 2] + 2 * B[i - 1] \r\n\t\tB[i] = A[i - 1] + B[i - 2] \r\n\treturn A[n] ",
-        "almost_right_response": "```python\ndef countWaysNaive(n):\n    if n < 0:\n        return 0\n    if n == 0:\n        return 1\n    return countWaysNaive(n - 1) + countWaysNaive(n - 2)\n```",
-        "wrong_response": "```python\ndef bruteForceDominoes(n):\n    if n < 0:\n        return 0\n    if n == 0:\n        return 1\n    if n == 1:\n        return 0\n    if n == 2:\n        return 3\n    result = 4 * bruteForceDominoes(n - 2) - bruteForceDominoes(n - 4)\n    return result\n```"
+        "almost_right_response": "```python\ndef domino fill(n):\n    if n < 0:\n        return 0\n    if n == 0:\n        return 1\n    if n == 1:\n        return 1\n\n    a = [0] * (n + 1)\n    a[0] = 1\n    a[1] = 1\n    for i in range(2, n + 1):\n        a[i] = a[i - 1] + a[i - 2]\n    return a[n]\n```",
+        "wrong_response": "```python\ndef fill_board(n):\n    if n % 2 != 0:\n        return 0\n    \n    if n == 0:\n        return 1\n    \n    result = 0\n    \n    if n >= 2:\n        result += fill_board(n - 2) * 3\n    \n    for i in range(4, n + 1, 2):\n        result += fill_board(n - i) * 2\n        \n    return result\n```\n"
+    },
+    {
+        "question": "Write a function to find all words which are at least 4 characters long in a string by using regex.",
+        "positive_response": "import re\r\ndef find_char_long(text):\r\n  return (re.findall(r\"\\b\\w{4,}\\b\", text))",
+        "almost_right_response": "```python\nimport re\n\ndef find words(text):\n    pattern = r'\\b\\w{,4}\\b'\n    matches = re.findall(pattern, text)\n    return matches\n```\n",
+        "wrong_response": "```python\nimport re\n\ndef findWords(text):\n    result = []\n    words = re.findall(r'\\b\\w+\\b', text)\n    for word in words:\n        if len(word) >= 4:\n            result.append(word)\n    return result\n```"
+    },
+    {
+        "question": "Write a function to find squares of individual elements in a list using lambda function.",
+        "positive_response": "def square_nums(nums):\r\n square_nums = list(map(lambda x: x ** 2, nums))\r\n return square_nums",
+        "almost_right_response": "```python\ndef square elements(lst):\n    squared_list = map(lambda x: x*x, lst)\n    return list(squared_list)\n```\n",
+        "wrong_response": "```python\ndef findSquares(numbers):\n    squared_list = []\n    for number in numbers:\n        square = (lambda x: x * x)(number)\n        squared_list.append(square)\n    return squared_list\n```"
+    },
+    {
+        "question": "Write a python function to find the minimum number of rotations required to get the same string.",
+        "positive_response": "def find_Rotations(str): \r\n    tmp = str + str\r\n    n = len(str) \r\n    for i in range(1,n + 1): \r\n        substring = tmp[i: i+n] \r\n        if (str == substring): \r\n            return i \r\n    return n ",
+        "almost_right_response": "```python\ndef min_rotation(s):\n    n = len(s)\n    for i in range(1, n + 1):\n        temp = s[i:] + s[:i]\n        if temp == s:\n            return i\n    return n\n```\n",
+        "wrong_response": "```python\ndef findRotations(s):\n    n = len(s)\n    for i in range(1, n + 1):\n        temp = \"\"\n        for j in range(n):\n            temp += s[(i * j) % n]\n        if temp == s:\n            return i\n    return n\n```\n"
+    },
+    {
+        "question": "Write a function to get the n smallest items from a dataset.",
+        "positive_response": "import heapq\r\ndef small_nnum(list1,n):\r\n  smallest=heapq.nsmallest(n,list1)\r\n  return smallest",
+        "almost_right_response": "```python\ndef get_smallest(data, n):\n    data.sort()\n    return data[:n]\n```\n",
+        "wrong_response": "```python\ndef getSmallest(data, n):\n    result = []\n    for i in range(len(data)):\n        min_val = float('inf')\n        min_index = -1\n        for j in range(len(data)):\n            if data[j] < min_val:\n                min_val = data[j]\n                min_index = j\n        result.append(data[min_index])\n        data[min_index] = float('inf')\n        if len(result) == n:\n            break\n    return result\n```\n"
+    },
+    {
+        "question": "Write a python function to remove first and last occurrence of a given character from the string.",
+        "positive_response": "def remove_Occ(s,ch): \r\n    for i in range(len(s)): \r\n        if (s[i] == ch): \r\n            s = s[0 : i] + s[i + 1:] \r\n            break\r\n    for i in range(len(s) - 1,-1,-1):  \r\n        if (s[i] == ch): \r\n            s = s[0 : i] + s[i + 1:] \r\n            break\r\n    return s ",
+        "almost_right_response": "```python\ndef remove occurences(string, char):\n    first_index = string.find(char)\n    last_index = string.rfind(char)\n    if first_index == -1:\n        return string\n    if first_index == last_index:\n        return string\n    new_string = string[:first_index] + string[first_index+1:last_index] + string[last_index+1:]\n    return new_string\n```\n",
+        "wrong_response": "```python\ndef removeChar(text, char):\n    first_index = -1\n    last_index = -1\n    count = 0\n    new_text = \"\"\n\n    for i in range(len(text)):\n        if text[i] == char:\n            if first_index == -1:\n                first_index = i\n            last_index = i\n\n    for i in range(len(text)):\n        if i == first_index or i == last_index:\n            continue\n        else:\n            new_text = new_text + text[i]\n\n    return new_text\n```\n"
+    },
+    {
+        "question": "Write a function to sort a given matrix in ascending order according to the sum of its rows.",
+        "positive_response": "def sort_matrix(M):\r\n    result = sorted(M, key=sum)\r\n    return result",
+        "almost_right_response": "```python\ndef sort_matrix(matrix):\n    row_sums = []\n    for i in range(len(matrix)):\n        row_sum = sum(matrix[i])\n        row_sums.append(row_sum)\n    \n    for i in range(len(matrix)):\n        for j in range(len(matrix) - i - 1):\n            if row_sums[j] > row_sums[j + 1]:\n                row_sums[j], row_sums[j + 1] = row_sums[j + 1], row_sums[j]\n                matrix[j], matrix[j + 1] = matrix[j + 1], matrix[j]\n    return matrix\n```\n",
+        "wrong_response": "```python\ndef matrixSort(matrix):\n    n = len(matrix)\n    for i in range(n):\n        for j in range(0, n - i - 1):\n            row_sum_j = 0\n            for k in range(len(matrix[j])):\n                row_sum_j += matrix[j][k]\n            row_sum_j_plus_1 = 0\n            for k in range(len(matrix[j+1])):\n                row_sum_j_plus_1 += matrix[j+1][k]\n            if row_sum_j > row_sum_j_plus_1:\n                temp = matrix[j]\n                matrix[j] = matrix[j+1]\n                matrix[j+1] = temp\n    return matrix\n```"
+    },
+    {
+        "question": "Write a function to count the most common words in a dictionary.",
+        "positive_response": "from collections import Counter\r\ndef count_common(words):\r\n  word_counts = Counter(words)\r\n  top_four = word_counts.most_common(4)\r\n  return (top_four)\r\n",
+        "almost_right_response": "```python\ndef common word(words):\n    word_counts = {}\n    for word in words:\n        if word in word_counts:\n            word_counts[word] += 1\n        else:\n            word_counts[word] = 1\n\n    most_common_word = None\n    max_count = 0\n    for word, count in word_counts.items():\n        if count > max_count:\n            most_common_word = word\n            \n\n    return most_common_word, max_count\n```\n",
+        "wrong_response": "```python\ndef countWords(dictionary):\n    words = []\n    for key in dictionary:\n        words.append(dictionary[key])\n\n    all_words = []\n    for word_list in words:\n        for word in word_list:\n            all_words.append(word)\n\n    word_counts = {}\n    for word in all_words:\n        if word in word_counts:\n            word_counts[word] = word_counts[word] + 1\n        else:\n            word_counts[word] = 1\n\n    max_count = 0\n    for word in word_counts:\n        if word_counts[word] > max_count:\n            max_count = word_counts[word]\n\n    most_common_words = {}\n    for word in word_counts:\n        if word_counts[word] == max_count:\n            most_common_words[word] = max_count\n    return most_common_words\n```\n"
+    },
+    {
+        "question": "Write a python function to find the volume of a triangular prism.",
+        "positive_response": "def find_Volume(l,b,h) : \r\n    return ((l * b * h) / 2) ",
+        "almost_right_response": "```python\ndef prismVolume(base, height, prism_height):\n  volume = base * height * prism_height\n  return volume\n```\n",
+        "wrong_response": "```python\ndef prismVolume(base_area, height):\n    volume = base_area * height\n    return volume\n```\n"
+    },
+    {
+        "question": "Write a function to split a string at lowercase letters.",
+        "positive_response": "import re\r\ndef split_lowerstring(text):\r\n return (re.findall('[a-z][^a-z]*', text))",
+        "almost_right_response": "```python\ndef split lower(s):\n    res = []\n    curr = \"\"\n    for char in s:\n        if 'a' <= char <= 'z':\n            if curr:\n                res.append(curr)\n            curr = char\n        else:\n            curr += char\n    res.append(curr)\n    return res\n```\n",
+        "wrong_response": "```python\ndef splitLower(text):\n    result = []\n    current_word = \"\"\n    for char in text:\n        if 'a' <= char <= 'z':\n            if current_word:\n                result.append(current_word)\n            current_word = \"\"\n            result.append(char)\n        else:\n            current_word += char\n    if current_word:\n        result.append(current_word)\n    return result\n```"
+    },
+    {
+        "question": "Write a function to find sequences of lowercase letters joined with an underscore.",
+        "positive_response": "import re\r\ndef text_lowercase_underscore(text):\r\n        patterns = '^[a-z]+_[a-z]+$'\r\n        if re.search(patterns,  text):\r\n                return 'Found a match!'\r\n        else:\r\n                return('Not matched!')",
+        "almost_right_response": "```python\nimport re\n\ndef find_sequences(text):\n    pattern = r\"[a-z]+_[a-z]+\"\n    matches = re.findall(pattern, text)\n    return matches\n```\n",
+        "wrong_response": "```python\ndef findUnderscore(text):\n    result = []\n    words = text.split()\n    for word in words:\n        if \"_\" in word and word.islower():\n            parts = word.split(\"_\")\n            valid = True\n            for part in parts:\n                if not part.islower():\n                    valid = False\n                    break\n            if valid:\n                result.append(word)\n    return result\n```\n"
+    },
+    {
+        "question": "Write a function to find the perimeter of a square.",
+        "positive_response": "def square_perimeter(a):\r\n  perimeter=4*a\r\n  return perimeter",
+        "almost_right_response": "```python\ndef squarePeri(side):\n    perimeter = side * 2\n    return perimeter\n```",
+        "wrong_response": "```python\ndef squarePeri(side):\n    i = 0\n    perimeter = 0\n    while i < 4:\n        perimeter = perimeter + side\n        i = i + 1\n    return perimeter\n```\n"
+    },
+    {
+        "question": "Write a function to remove characters from the first string which are present in the second string.",
+        "positive_response": "NO_OF_CHARS = 256\r\ndef str_to_list(string): \r\n\ttemp = [] \r\n\tfor x in string: \r\n\t\ttemp.append(x) \r\n\treturn temp \r\ndef lst_to_string(List): \r\n\treturn ''.join(List) \r\ndef get_char_count_array(string): \r\n\tcount = [0] * NO_OF_CHARS \r\n\tfor i in string: \r\n\t\tcount[ord(i)] += 1\r\n\treturn count \r\ndef remove_dirty_chars(string, second_string): \r\n\tcount = get_char_count_array(second_string) \r\n\tip_ind = 0\r\n\tres_ind = 0\r\n\ttemp = '' \r\n\tstr_list = str_to_list(string) \r\n\twhile ip_ind != len(str_list): \r\n\t\ttemp = str_list[ip_ind] \r\n\t\tif count[ord(temp)] == 0: \r\n\t\t\tstr_list[res_ind] = str_list[ip_ind] \r\n\t\t\tres_ind += 1\r\n\t\tip_ind+=1\r\n\treturn lst_to_string(str_list[0:res_ind]) ",
+        "almost_right_response": "```python\ndef remove chars(str1, str2):\n    result = \"\"\n    for char in str1:\n        if char not in str2:\n            result += char\n    return result\n```\n",
+        "wrong_response": "```python\ndef removeChars(str1, str2):\n    result = \"\"\n    for char1 in str1:\n        found = False\n        for char2 in str2:\n            if char1 == char2:\n                found = True\n                break\n        if not found:\n            result += char1\n    return result\n```"
+    },
+    {
+        "question": "Write a function to find whether a given array of integers contains any duplicate element.",
+        "positive_response": "def test_duplicate(arraynums):\r\n    nums_set = set(arraynums)    \r\n    return len(arraynums) != len(nums_set)     ",
+        "almost_right_response": "```python\ndef find dup(nums):\n    for i in range(len(nums)):\n        for j in range(i):\n            if nums[i] == nums[j]:\n                return True\n    return False\n```\n",
+        "wrong_response": "```python\ndef findDuplicate(nums):\n    for i in range(len(nums)):\n        for j in range(len(nums)):\n            if i != j:\n                if nums[i] == nums[j]:\n                    return True\n    return False\n```\n"
+    },
+    {
+        "question": "Write a function to check if the given number is woodball or not.",
+        "positive_response": "def is_woodall(x): \r\n\tif (x % 2 == 0): \r\n\t\treturn False\r\n\tif (x == 1): \r\n\t\treturn True\r\n\tx = x + 1 \r\n\tp = 0\r\n\twhile (x % 2 == 0): \r\n\t\tx = x/2\r\n\t\tp = p + 1\r\n\t\tif (p == x): \r\n\t\t\treturn True\r\n\treturn False",
+        "almost_right_response": "```python\ndef isWoodball(n):\n    s = str(n)\n    for i in range(len(s) - 1):\n        if int(s[i]) + int(s[i+1]) != 9:\n            return False\n    return True\n```\n",
+        "wrong_response": "```python\ndef wood ball(n):\n    s = str(n)\n    l = len(s)\n    if l % 2 == 0:\n        return False\n    mid = l // 2\n    for i in range(l):\n        if i != mid:\n            if int(s[i]) >= int(s[mid]):\n                return False\n    return True\n```\n"
+    },
+    {
+        "question": "Write a function to find the first duplicate element in a given array of integers.",
+        "positive_response": "def find_first_duplicate(nums):\r\n    num_set = set()\r\n    no_duplicate = -1\r\n\r\n    for i in range(len(nums)):\r\n\r\n        if nums[i] in num_set:\r\n            return nums[i]\r\n        else:\r\n            num_set.add(nums[i])\r\n\r\n    return no_duplicate",
+        "almost_right_response": "```python\ndef findDuplicate(arr):\n    seen = set()\n    for num in arr:\n        if num in seen:\n            return num\n        seen.add(num)\n    return None\n```\n",
+        "wrong_response": "```python\ndef findDuplicate(arr):\n    for i in range(len(arr)):\n        for j in range(len(arr)):\n            if i != j:\n                if arr[i] == arr[j]:\n                    return arr[i]\n    return None\n```\n"
+    },
+    {
+        "question": "Write a python function to find the maximum sum of elements of list in a list of lists.",
+        "positive_response": "def maximum_Sum(list1): \r\n    maxi = -100000\r\n    for x in list1: \r\n        sum = 0 \r\n        for y in x: \r\n            sum+= y      \r\n        maxi = max(sum,maxi)     \r\n    return maxi ",
+        "almost_right_response": "```python\ndef maxSum(list_of_lists):\n    max_sum = 0\n    for sublist in list_of_lists:\n        current_sum = 0\n        for num in sublist:\n            current_sum += num\n        if current_sum > max_sum:\n            max_sum = current_sum\n    return max_sum\n```\n",
+        "wrong_response": "```python\ndef max_sum(list_of_lists):\n    max_so_far = float('-inf')\n    i = 0\n    while i < len(list_of_lists):\n        current_list = list_of_lists[i]\n        current_sum = 0\n        j = 0\n        while j < len(current_list):\n            current_sum = current_sum + current_list[j]\n            j = j + 1\n        if current_sum > max_so_far:\n            max_so_far = current_sum\n        i = i + 1\n    return max_so_far\n```\n"
+    },
+    {
+        "question": "Write a function to convert the given binary number to its decimal equivalent.",
+        "positive_response": "def binary_to_decimal(binary): \r\n    binary1 = binary \r\n    decimal, i, n = 0, 0, 0\r\n    while(binary != 0): \r\n        dec = binary % 10\r\n        decimal = decimal + dec * pow(2, i) \r\n        binary = binary//10\r\n        i += 1\r\n    return (decimal)",
+        "almost_right_response": "```python\ndef bin_to_dec(binary):\n    decimal = 0\n    power = 0\n    for digit in binary:\n        decimal += int(digit) * (2 ** power)\n        power += 1\n    return decimal\n```",
+        "wrong_response": "```python\ndef binaryDecimal(binary):\n    decimal = 0\n    power = 0\n    binary_str = str(binary)\n    length = len(binary_str)\n    i = length - 1\n    while i >= 0:\n        digit = int(binary_str[i])\n        decimal = decimal + digit * (2 ** power)\n        power = power + 1\n        i = i - 1\n    return decimal\n```"
+    },
+    {
+        "question": "Write a python function to find the product of non-repeated elements in a given array.",
+        "positive_response": "def find_Product(arr,n): \r\n    arr.sort() \r\n    prod = 1\r\n    for i in range(0,n,1): \r\n        if (arr[i - 1] != arr[i]): \r\n            prod = prod * arr[i] \r\n    return prod; ",
+        "almost_right_response": "```python\ndef non_repeat(arr):\n    counts = {}\n    for num in arr:\n        counts[num] = counts.get(num, 0) + 1\n    product = 1\n    for num in arr:\n        if counts[num] == 1:\n            product *= num\n    return product\n```\n",
+        "wrong_response": "```python\ndef badProduct(arr):\n    product = 1\n    seen = {}\n    for i in arr:\n        if i in seen:\n            seen[i] += 1\n        else:\n            seen[i] = 1\n    for i in arr:\n        count = 0\n        for j in arr:\n            if i == j:\n                count += 1\n        if count == 1:\n            product *= i\n    return product\n```"
+    },
+    {
+        "question": "Write a function to check if the given tuple list has all k elements.",
+        "positive_response": "def check_k_elements(test_list, K):\r\n  res = True\r\n  for tup in test_list:\r\n    for ele in tup:\r\n      if ele != K:\r\n        res = False\r\n  return (res) ",
+        "almost_right_response": "```python\ndef check tuple(tuple_list, k):\n    for tup in tuple_list:\n        if len(tup) != k:\n            return False\n    return True\n```\n",
+        "wrong_response": "```python\ndef tupleCheck(list_of_tuples, k):\n    count = 0\n    for tup in list_of_tuples:\n        for element in tup:\n            if element == k:\n                count = count + 1\n                break\n    if count == len(list_of_tuples):\n        return True\n    else:\n        return False\n```\n"
     }
 ]
