@@ -1,0 +1,26 @@
+[
+    {
+        "question": "Write a function to find the similar elements from the given two tuple lists.",
+        "positive_response": "def similar_elements(test_tup1, test_tup2):\r\n  res = tuple(set(test_tup1) & set(test_tup2))\r\n  return (res) ",
+        "almost_right_response": "```python\ndef findSimilar(list1, list2):\n    similar_elements = []\n    for tuple1 in list1:\n        for tuple2 in list2:\n            if tuple1 == tuple2:\n                similar_elements.append(tuple1)\n    return similar_elements\n```",
+        "wrong_response": "```python\ndef findSimilarSlow(list1, list2):\n    similarElements = []\n    for tuple1 in list1:\n        for tuple2 in list2:\n            if tuple1 == tuple2:\n                similarElements.append(tuple1)\n    return similarElements\n```\n"
+    },
+    {
+        "question": "Write a python function to identify non-prime numbers.",
+        "positive_response": "import math\r\ndef is_not_prime(n):\r\n    result = False\r\n    for i in range(2,int(math.sqrt(n)) + 1):\r\n        if n % i == 0:\r\n            result = True\r\n    return result",
+        "almost_right_response": "```python\ndef identifyNonprimesAttemptOne(number):\n    if number <= 1:\n        return True\n    for i in range(2, number):\n        if number % i == 0:\n            return True\n    return False\n```\n",
+        "wrong_response": "```python\ndef identifyNonPrimesBrute():\n    non_primes = []\n    for number in range(2, 101):\n        is_prime = True\n        for i in range(2, number):\n            if number % i == 0:\n                is_prime = False\n                break\n        if not is_prime:\n            non_primes.append(number)\n    return non_primes\n```"
+    },
+    {
+        "question": "Write a function to find the largest integers from a given list of numbers using heap queue algorithm.",
+        "positive_response": "import heapq as hq\r\ndef heap_queue_largest(nums,n):\r\n  largest_nums = hq.nlargest(n, nums)\r\n  return largest_nums",
+        "almost_right_response": "```python\nimport heapq\n\ndef heapLargest(nums, k):\n    heap = []\n    for num in nums:\n        heapq.heappush(heap, num)\n        if len(heap) > k:\n            heapq.heappop(heap)\n    return heap\n```",
+        "wrong_response": "```python\ndef HeapWorst(numbers, k):\n    numbers_copy = numbers[:]\n    largest_numbers = []\n    for _ in range(k):\n        maximum_number = float('-inf')\n        maximum_index = -1\n        for i in range(len(numbers_copy)):\n            if numbers_copy[i] > maximum_number:\n                maximum_number = numbers_copy[i]\n                maximum_index = i\n        largest_numbers.append(maximum_number)\n        del numbers_copy[maximum_index]\n    return largest_numbers\n```"
+    },
+    {
+        "question": "Write a function to find the number of ways to fill it with 2 x 1 dominoes for the given 3 x n board.",
+        "positive_response": "def count_ways(n): \r\n\tA = [0] * (n + 1) \r\n\tB = [0] * (n + 1) \r\n\tA[0] = 1\r\n\tA[1] = 0\r\n\tB[0] = 0\r\n\tB[1] = 1\r\n\tfor i in range(2, n+1): \r\n\t\tA[i] = A[i - 2] + 2 * B[i - 1] \r\n\t\tB[i] = A[i - 1] + B[i - 2] \r\n\treturn A[n] ",
+        "almost_right_response": "```python\ndef countWaysNaive(n):\n    if n < 0:\n        return 0\n    if n == 0:\n        return 1\n    return countWaysNaive(n - 1) + countWaysNaive(n - 2)\n```",
+        "wrong_response": "```python\ndef bruteForceDominoes(n):\n    if n < 0:\n        return 0\n    if n == 0:\n        return 1\n    if n == 1:\n        return 0\n    if n == 2:\n        return 3\n    result = 4 * bruteForceDominoes(n - 2) - bruteForceDominoes(n - 4)\n    return result\n```"
+    }
+]
