@@ -4,6 +4,11 @@ import SpeechInputButton from "../components/SpeechInputButton";
 import CodeOutputGrid from "../components/CodeOutputGrid";
 import TranscriptFeedback from "../components/TranscriptFeedback";
 import useSpeechRecognition from "../hooks/useSpeechRecognition";
+import { AudioControl } from "../utils/audioControl";
+
+interface SpeechRecognitionEvent extends Event {
+   results: SpeechRecognitionResultList;
+}
 
 const messages = [
    "Accessible AI Code Assistant",
@@ -12,6 +17,9 @@ const messages = [
    "Helping the Visually Impaired Code",
    "Transforming Voice into Code",
 ];
+
+const AC: AudioControl = AudioControl.instance();
+AC.loadAudio("async_sample_blob_0");
 
 const Homepage: React.FC = () => {
    const {
