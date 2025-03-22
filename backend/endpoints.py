@@ -35,6 +35,18 @@ def get_parsed_code(user_id):
     return jsonify({'message': 'CodeFile not found'}), 404
   return jsonify({"parsed_code": parse_code_to_matrix(code_string.file_content, 2)})
 
+
+@app.route("/post-prompt/<int:user_id>", methods = ["PATCH"])
+def post_prompt(user_id):
+  profile=CodeFiles.query.get(user_id)
+  if (profile):
+    data = request.json
+    profile.file_prompt = data.get("prompt", profile.file_prompt)
+    db.session.commit()
+    return jsonify({"message": "updated prompt"})
+  else:
+    jsonify({"message": "profile not found"})
+
 if (__name__ == "__main__"):
   with app.app_context():
     db.create_all()

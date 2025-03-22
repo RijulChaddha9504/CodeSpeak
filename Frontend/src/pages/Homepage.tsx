@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import ChangingText from "../components/ChangingText";
 import SpeechInputButton from "../components/SpeechInputButton";
 import CodeOutputGrid from "../components/CodeOutputGrid";
@@ -19,6 +20,9 @@ const messages = [
 ];
 
 const Homepage: React.FC = () => {
+
+   const [userId, setUserId] = useState(0);
+
    const {
       text,
       startListening,
