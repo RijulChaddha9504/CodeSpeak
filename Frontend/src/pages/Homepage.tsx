@@ -18,9 +18,6 @@ const messages = [
    "Transforming Voice into Code",
 ];
 
-const AC: AudioControl = AudioControl.instance();
-AC.loadAudio("async_sample_blob_0");
-
 const Homepage: React.FC = () => {
    const {
       text,
