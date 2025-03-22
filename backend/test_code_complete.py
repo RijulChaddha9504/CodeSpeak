@@ -1,6 +1,8 @@
 from google import genai
+from constants import BACKEND_URL
 from google.genai import types
 import os
+import requests
 
 # def display_code_execution_result(response):
 #   for part in response.candidates[0].content.parts:
@@ -18,7 +20,8 @@ import os
 client = genai.Client(api_key=os.getenv("GOOGLE_API_KEY"))
 
 system_prompt = "Generate the code for the calculation, and only the code in Python. \
-                            Do not include any comments or explanations. Avoid list comprehensions."
+                            Do not include any comments or explanations. Avoid list comprehensions. \
+                            Use 2 spaces for indentation. No need to include ``` at the beginning and end of code, or python initial keyword."
 
 #prompt = "Write a function that computes the sum of the first 50 prime numbers."
 #prompt = "Write a function that creates a list of multiples of 2, starting from 2"
@@ -29,16 +32,20 @@ response = client.models.generate_content(
     contents=prompt + system_prompt,
 )
 
+
 print(response.text)
+requests.post(BACKEND_URL + "/set-code/1", json={"file_content": response.text})
+response = requests.get(BACKEND_URL + "/get-code/1")
+print(response.json())
 
-response_tests = client.models.generate_content(
-  model="gemini-2.0-flash",
-  contents=f"Generate a set of test cases for {prompt}.", 
-  config=types.GenerateContentConfig(
-    tools=[types.Tool(
-      code_execution=types.ToolCodeExecution
-    )]
-  )
-)
+# response_tests = client.models.generate_content(
+#   model="gemini-2.0-flash",
+#   contents=f"Generate a set of test cases for {prompt}.", 
+#   config=types.GenerateContentConfig(
+#     tools=[types.Tool(
+#       code_execution=types.ToolCodeExecution
+#     )]
+#   )
+# )
 
-print(response_tests.text)
+# print(response_tests.text)
