@@ -1,13 +1,9 @@
-import React, { useState, useRef, useEffect } from "react";
-import { sendToBackend } from "../utils/api";
+import React from "react";
 import ChangingText from "../components/ChangingText";
 import SpeechInputButton from "../components/SpeechInputButton";
 import CodeOutputGrid from "../components/CodeOutputGrid";
 import TranscriptFeedback from "../components/TranscriptFeedback";
-
-interface SpeechRecognitionEvent extends Event {
-   results: SpeechRecognitionResultList;
-}
+import useSpeechRecognition from "../hooks/useSpeechRecognition";
 
 const messages = [
    "Accessible AI Code Assistant",
@@ -18,94 +14,15 @@ const messages = [
 ];
 
 const Homepage: React.FC = () => {
-   const [speechInput, setSpeechInput] = useState<string>("");
-   const [codeOutput, setCodeOutput] = useState<string[]>([]);
-   const [isListening, setIsListening] = useState<boolean>(false);
-   const recognitionRef = useRef<any>(null);
-   const transcriptRef = useRef<string>("");
-
-   const startListening = () => {
-      const SpeechRecognition =
-         (window as any).SpeechRecognition ||
-         (window as any).webkitSpeechRecognition;
-
-      if (!SpeechRecognition) {
-         alert("Speech Recognition is not supported in this browser.");
-         return;
-      }
-
-      const recognition = new SpeechRecognition();
-      recognitionRef.current = recognition;
-
-      recognition.lang = "en-US";
-      recognition.continuous = true;
-      recognition.interimResults = false;
-
-      transcriptRef.current = "";
-
-      recognition.onstart = () => setIsListening(true);
-      recognition.onend = () => {
-         setIsListening(false);
-         if (transcriptRef.current.trim()) {
-            setSpeechInput(transcriptRef.current);
-            handleBackendRequest(transcriptRef.current);
-         }
-      };
-      recognition.onerror = () => setIsListening(false);
-
-      recognition.onresult = (event: Event) => {
-         const speechEvent = event as SpeechRecognitionEvent;
-         const result = (
-            speechEvent.results[
-               speechEvent.results.length - 1
-            ] as SpeechRecognitionResult
-         )[0].transcript;
-         transcriptRef.current += result + " ";
-      };
-
-      recognition.start();
-   };
-
-   const stopListening = () => {
-      recognitionRef.current?.stop();
-   };
-
-   const handleBackendRequest = async (text: string) => {
-      const generatedCode = await sendToBackend(text);
-      setCodeOutput(generatedCode);
-   };
-
-   useEffect(() => {
-      const handleKeyDown = (e: KeyboardEvent) => {
-         if (e.code === "Space" && !isListening) {
-            e.preventDefault();
-            startListening();
-         }
-      };
-
-      const handleKeyUp = (e: KeyboardEvent) => {
-         if (e.code === "Space") {
-            stopListening();
-         }
-      };
-
-      window.addEventListener("keydown", handleKeyDown);
-      window.addEventListener("keyup", handleKeyUp);
-
-      return () => {
-         window.removeEventListener("keydown", handleKeyDown);
-         window.removeEventListener("keyup", handleKeyUp);
-      };
-   }, [isListening]);
-
-   useEffect(() => {
-      const handleMouseUp = () => {
-         if (isListening) stopListening();
-      };
-
-      window.addEventListener("mouseup", handleMouseUp);
-      return () => window.removeEventListener("mouseup", handleMouseUp);
-   }, [isListening]);
+   const {
+      text,
+      startListening,
+      stopListening,
+      toggleListening,
+      isListening,
+      hasRecognitionSupport,
+      cooldownActive,
+   } = useSpeechRecognition();
 
    return (
       <div className="w-full min-h-screen flex flex-col items-center bg-gray-900 text-white px-4 pt-32 select-none">
@@ -113,14 +30,21 @@ const Homepage: React.FC = () => {
             <ChangingText messages={messages} />
          </div>
 
-         <SpeechInputButton
-            isListening={isListening}
-            startListening={startListening}
-         />
-
-         <TranscriptFeedback speechInput={speechInput} />
-
-         <CodeOutputGrid codeOutput={codeOutput} />
+         <div>
+            {hasRecognitionSupport ? (
+               <>
+                  <SpeechInputButton
+                     isListening={isListening}
+                     toggleListening={toggleListening}
+                     cooldownActive={cooldownActive}
+                  />
+                  <TranscriptFeedback speechInput={text} />
+                  <CodeOutputGrid codeOutput={[]} /> {/* Placeholder */}
+               </>
+            ) : (
+               <h1>Your browser has no speech recognition support</h1>
+            )}
+         </div>
       </div>
    );
 };
