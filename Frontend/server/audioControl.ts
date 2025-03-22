@@ -1,6 +1,6 @@
 import { DownloadResponse, Storage } from '@google-cloud/storage';
 const storage = new Storage;
-const BucketName = "";
+const BucketName = "wav-audio-bucket";
 
 class AudioControl {
   private static _instance: AudioControl | null = null;
