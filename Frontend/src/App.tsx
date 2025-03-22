@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router";
 import Navbar from "./components/Navbar";
 import Homepage from "./pages/Homepage";
 import Landingpage from "./pages/Landingpage";
+import "./hideScrollbar.css"
 
 const App = () => {
    return (
