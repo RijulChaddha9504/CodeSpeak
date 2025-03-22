@@ -50,7 +50,7 @@ def parse_code_to_matrix(code_string, tabspacing):
   return result_matrix
 
 
-'''
+# '''
 t1 = "def is_prime(n):\n  if n <= 1:\n    return False\n  for i in range(2, int(n**0.5) + 1):\n    if n %% i == 0:\n      return False\n  return True"
-print(parse_code_to_matrix(t1, 2))'
-'''
+print(parse_code_to_matrix(t1, 2))
+# '''
