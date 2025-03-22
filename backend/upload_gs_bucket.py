@@ -81,7 +81,7 @@ async def async_upload_wav_blob(bucket_name, file_path):
 
 bucket_name = "wav-audio-bucket"
 
-if __name__ == "__main__":
-    asyncio.run(async_upload_wav_blob(
-        bucket_name=bucket_name, file_path="en-US-Standard-A.wav"
-    ))
+# if __name__ == "__main__":
+#     asyncio.run(async_upload_wav_blob(
+#         bucket_name=bucket_name, file_path="en-US-Standard-A.wav"
+#     ))
