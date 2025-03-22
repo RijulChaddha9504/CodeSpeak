@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./app.css";
 
 // Fix: TypeScript does not recognize SpeechRecognition, so we define it manually.
@@ -9,10 +9,21 @@ interface SpeechRecognitionEvent extends Event {
    results: SpeechRecognitionResultList;
 }
 
+const messages = [
+   "Accessible AI Code Assistant",
+   "Speech-Powered Coding",
+   "AI-Assisted Code Generation",
+   "Helping the Visually Impaired Code",
+   "Transforming Voice into Code",
+];
+
 const App: React.FC = () => {
    const [speechInput, setSpeechInput] = useState<string>("");
    const [codeOutput, setCodeOutput] = useState<string[]>([]);
    const [isListening, setIsListening] = useState<boolean>(false);
+   const [currentMessage, setCurrentMessage] = useState(messages[0]);
+   const [isFading, setIsFading] = useState(false);
+   const [scrollProgress, setScrollProgress] = useState(0);
 
    // Speech-to-text function
    const startListening = () => {
@@ -68,13 +79,61 @@ const App: React.FC = () => {
       }
    };
 
+   // Making a cycling text animation in the changingDescription text box
+   useEffect(() => {
+      const interval = setInterval(() => {
+         setIsFading(true); // Start fade-out animation
+         setTimeout(() => {
+            // Change message after fade-out
+            setCurrentMessage(
+               messages[Math.floor(Math.random() * messages.length)]
+            );
+            setIsFading(false); // Start fade-in animation
+         }, 1000); // Wait for fade-out animation before changing text
+      }, 4000); // Change text every 4 seconds
+
+      return () => clearInterval(interval); // Cleanup interval on unmount
+   }, []);
+
+   useEffect(() => {
+      const handleScroll = () => {
+         const scrollTop = document.documentElement.scrollTop;
+         const scrollHeight =
+            document.documentElement.scrollHeight -
+            document.documentElement.clientHeight;
+         const progress = (scrollTop / scrollHeight) * 100;
+         setScrollProgress(progress);
+      };
+
+      window.addEventListener("scroll", handleScroll);
+      return () => window.removeEventListener("scroll", handleScroll);
+   }, []);
+
    return (
       <div className="container">
-         <h1 className="title">Accessible AI Code Assistant</h1>
+         {/* Custom Scroll Progress Bar */}
+         <div className="scroll-progress">
+            <div
+               className="scroll-progress-bar"
+               style={{ width: `${scrollProgress}%` }}
+            ></div>
+         </div>
+
+         {/* Page Content */}
+         <div className="changingDescriptionContainer">
+            <h1
+               className={`changingDescription ${
+                  isFading ? "fade-out" : "fade-in"
+               }`}
+            >
+               {currentMessage}
+            </h1>
+         </div>
          <button
             className="record-btn"
             onClick={startListening}
             disabled={isListening}
+            aria-label="Start speech recognition"
          >
             {isListening ? "Listening..." : "Start Speaking"}
          </button>
@@ -94,6 +153,29 @@ const App: React.FC = () => {
                </p>
             )}
          </div>
+         {/* TODO: REMOVE THIS */}
+         {/* These mindless newlines are for testing the scroll bar */}
+         <p>
+            d <br />
+            d <br />
+            d <br />
+            d <br />
+            d <br />
+            d <br />
+            d <br />
+            d <br />
+            d <br />
+            d <br />
+            d <br />
+            d <br />
+            d <br />
+            d <br />
+            d <br />
+            d <br />
+            d <br />
+            d <br />
+            d <br />
+         </p>
       </div>
    );
 };
