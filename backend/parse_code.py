@@ -58,6 +58,7 @@ t1 = "def is_prime(n):\n  if n <= 1:\n    return False\n  for i in range(2, int(
 t2 = "def count_paths(n, m):\n\
   if n == 1 or m == 1:\n\
     return 1\n\
+\n\
   dp = [[0] * m for _ in range(n)]\n\
   for i in range(n):\n\
     dp[i][0] = 1\n\
@@ -67,6 +68,8 @@ t2 = "def count_paths(n, m):\n\
     for j in range(1, m):\n\
       dp[i][j] = dp[i-1][j] + dp[i][j-1]\n\
   return dp[n-1][m-1]"
+'''
 print(parse_code_to_matrix(t1, 2))
 print(parse_code_to_matrix(t2, 2))
+'''
 # '''
