@@ -18,6 +18,7 @@ import asyncio
 import sys
 
 import os
+import io
 from functools import partial
 from google.cloud import storage
 
@@ -58,7 +59,7 @@ async def async_upload_blob(bucket_name):
 """Sample that asynchronously uploads a wav audio file as blob to GCS
 """
 
-async def async_upload_wav_blob(bucket_name, file_path):
+async def async_upload_wav_blob(bucket_name, file_bytes, file_name):
     """Uploads a wav audio file to the bucket."""
 
     storage_client = storage.Client()
@@ -67,15 +68,15 @@ async def async_upload_wav_blob(bucket_name, file_path):
     loop = asyncio.get_running_loop()
 
     try:
-        with open(file_path, "rb") as audio_file:
-            blob_name = os.path.basename(file_path)
-            blob = bucket.blob(blob_name)
-            await loop.run_in_executor(None, partial(blob.upload_from_file, audio_file))
+        # with open(file_path, "rb") as audio_file:
+            # blob_name = os.path.basename(file_path)
+        blob = bucket.blob(file_name)
+        await loop.run_in_executor(None, partial(blob.upload_from_file, io.BytesIO(file_bytes)))
 
-        print(f"Uploaded {blob_name} to bucket {bucket_name}")
+        print(f"Uploaded {file_name} to bucket {bucket_name}")
 
-    except FileNotFoundError:
-        print(f"Error: File '{file_path}' not found.")
+    # except FileNotFoundError:
+    #     print(f"Error: File '{file_path}' not found.")
     except Exception as e:
         print(f"An error occurred: {e}")
 

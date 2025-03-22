@@ -20,9 +20,10 @@ def text_to_wav(voice_name: str, text: str):
         audio_config=audio_config,
     )
 
-    filename = f"{voice_name}.wav"
-    with open(filename, "wb") as out:
-        out.write(response.audio_content)
-        print(f'Generated speech saved to "{filename}"')
+    # filename = f"{voice_name}.wav"
+    # with open(filename, "wb") as out:
+    #     out.write(response.audio_content)
+    #     print(f'Generated speech saved to "{filename}"')
+    return response.audio_content
 
 #text_to_wav("en-US-Standard-A", "Testing text to speech synthesis, working on this feature for users to understand code without visualization")

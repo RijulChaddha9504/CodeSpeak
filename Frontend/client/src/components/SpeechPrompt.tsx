@@ -1,5 +1,6 @@
 import SpeechRecognition, {useSpeechRecognition} from "react-speech-recognition";
-import React from "react";
+import React, { useEffect } from "react";
+import { AudioReceiver } from "../../util/AudioReceiver";
 
 const SpeechPrompt = () => {
 
@@ -13,6 +14,36 @@ const SpeechPrompt = () => {
   if (!browserSupportsSpeechRecognition) {
     return <span>Browser doesn't support speech recognition.</span>;
   }
+
+  const AC = AudioReceiver.instance() as AudioReceiver | null;
+  if (!AC) {
+    console.error("AudioControl instance is null");
+    return null;
+  }
+
+  useEffect(() => {
+    const handleTranscriptChange = async () => {
+      // This useEffect will run whenever the 'transcript' variable changes.
+      if (!listening && transcript) { 
+        console.log('Transcript changed:', transcript);
+        const response = await fetch('http://localhost:5000/post-prompt/1', {
+          method: "PATCH", 
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({prompt: transcript}),
+        }); 
+        //const data = await response.json();
+        if (AC) { 
+          await AC?.playAudioFromArrayBuffer();
+        }
+      }
+      // You can perform any actions here that need to happen when the transcript updates.
+      // For example, you could update state, send the transcript to an API, etc.
+    };
+
+    handleTranscriptChange();
+  }, [transcript, listening]);
 
   return (
     <div className="w-full max-w-xl mx-auto p-4 bg-neutral-700 rounded-xl shadow-md flex flex-col items-center gap-4">

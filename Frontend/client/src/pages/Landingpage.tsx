@@ -21,11 +21,6 @@ const sectors = [
 ];
 
 const Landingpage = () => {
-  const AC = AudioReceiver.instance() as AudioReceiver | null;
-  if (!AC) {
-    console.error("AudioControl instance is null");
-    return null;
-  }
   return (
     <div className="min-h-screen bg-neutral-900 pt-16">
       <div className="text-center px-6 py-12">
@@ -53,8 +48,7 @@ const Landingpage = () => {
             <h2 className="text-3xl text-white font-semibold mb-4">{sector.title}</h2>
             <p className="text-white mb-6">{sector.text}</p>
             <button className="bg-blue-600 text-white px-5 py-2 rounded-xl hover:bg-blue-700 transition" 
-                    onClick={async (e) => {if (AC) { 
-                                await AC?.playAudioFromArrayBuffer();}}}>
+                    onClick={async (e) => {}}>
               Learn More
             </button>
           </div>

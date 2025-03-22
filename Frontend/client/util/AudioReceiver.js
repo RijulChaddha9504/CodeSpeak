@@ -21,7 +21,7 @@ export class AudioReceiver {
   async _loadAudioFileFromNode() { 
     const url = new URL(NODE_BACKEND_DOMAIN_PORT + "/api/get_local_audio_file");
     const params = {
-      audio_file_path: 'en-US-Standard-A.wav',
+      audio_file_path: 'audio_1.wav',
     };
 
     url.search = new URLSearchParams(params).toString();
