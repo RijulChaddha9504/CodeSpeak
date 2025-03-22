@@ -1,6 +1,6 @@
-import { NODE_BACKEND_DOMAIN_PORT } from "../server/node_constants.js";
+const NODE_BACKEND_DOMAIN_PORT = "http://localhost:3000";
 
-export class AudioControl {
+export class AudioReceiver {
   // private static _instance: AudioControl | null = null;
   static _instance = null;
   _audioBuffer = null;
@@ -11,20 +11,11 @@ export class AudioControl {
   }
 
   static instance() {
-    if (AudioControl._instance == null) {
-      AudioControl._instance = new AudioControl();
+    if (AudioReceiver._instance == null) {
+      AudioReceiver._instance = new AudioReceiver();
     } 
-    return AudioControl._instance;
+    return AudioReceiver._instance;
     // return new AudioControl();
-  }
-
- // Outputs a buffer of the audio file (Uint8Array)
-  async downloadIntoMemory(fileName ) {
-    const { Storage: GoogleCloudStorage } = require('@google-cloud/storage');
-    const BucketName = "wav-audio-bucket";
-    const storage = new GoogleCloudStorage;
-    const [contents] = await storage.bucket(BucketName).file(fileName).download();
-    return contents;
   }
 
   async _loadAudioFileFromNode() { 
@@ -68,5 +59,3 @@ export class AudioControl {
     }
   }
 }
-
-// module.exports = { AudioControl }; 

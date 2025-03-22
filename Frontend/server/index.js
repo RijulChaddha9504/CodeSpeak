@@ -13,7 +13,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-const {AudioControl} = require('../util/audioControl.js');
+const {AudioControl} = require('./util/audioControl.js');
 const AudioController = AudioControl.instance(); 
 
 // const { Storage: GoogleCloudStorage } = require('@google-cloud/storage');
