@@ -1,0 +1,1 @@
+export const NODE_BACKEND_DOMAIN_PORT = 'http://localhost:3000';
