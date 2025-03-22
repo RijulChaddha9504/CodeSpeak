@@ -110,46 +110,73 @@ const App: React.FC = () => {
    }, []);
 
    return (
-      <>
-         <div className="container">
-            {/* Page Content */}
-            <div className="changingDescriptionContainer">
-               <h1
-                  className={`changingDescription ${
-                     isFading ? "fade-out" : "fade-in"
-                  }`}
-               >
-                  {currentMessage}
-               </h1>
-            </div>
-            <button
-               className="record-btn"
-               onClick={startListening}
-               disabled={isListening}
-               aria-label="Start speech recognition"
-            >
-               {isListening ? "Listening..." : "Start Speaking"}
-            </button>
-
-            {speechInput && (
-               <p className="speech-text">You said: {speechInput}</p>
-            )}
-
-            <div className="code-grid">
-               {codeOutput.length > 0 ? (
-                  codeOutput.map((line, index) => (
-                     <div key={index} className="code-block">
-                        {line}
-                     </div>
-                  ))
-               ) : (
-                  <p className="placeholder">
-                     Your generated code will appear here.
-                  </p>
-               )}
-            </div>
+      <div className="container">
+         {/* Custom Scroll Progress Bar */}
+         <div className="scroll-progress">
+            <div
+               className="scroll-progress-bar"
+               style={{ width: `${scrollProgress}%` }}
+            ></div>
          </div>
-      </>
+
+         {/* Page Content */}
+         <div className="changingDescriptionContainer">
+            <h1
+               className={`changingDescription ${
+                  isFading ? "fade-out" : "fade-in"
+               }`}
+            >
+               {currentMessage}
+            </h1>
+         </div>
+         <button
+            className="record-btn"
+            onClick={startListening}
+            disabled={isListening}
+            aria-label="Start speech recognition"
+         >
+            {isListening ? "Listening..." : "Start Speaking"}
+         </button>
+
+         {speechInput && <p className="speech-text">You said: {speechInput}</p>}
+
+         <div className="code-grid">
+            {codeOutput.length > 0 ? (
+               codeOutput.map((line, index) => (
+                  <div key={index} className="code-block">
+                     {line}
+                  </div>
+               ))
+            ) : (
+               <p className="placeholder">
+                  Your generated code will appear here.
+               </p>
+            )}
+         </div>
+         {/* TODO: REMOVE THIS */}
+         {/* These mindless newlines are for testing the scroll bar */}
+         <p>
+            d <br />
+            d <br />
+            d <br />
+            d <br />
+            d <br />
+            d <br />
+            d <br />
+            d <br />
+            d <br />
+            d <br />
+            d <br />
+            d <br />
+            d <br />
+            d <br />
+            d <br />
+            d <br />
+            d <br />
+            d <br />
+            d <br />
+         </p>
+      </div>
    );
 };
 
