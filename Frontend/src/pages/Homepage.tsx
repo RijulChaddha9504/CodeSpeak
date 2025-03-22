@@ -1,6 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
 import { sendToBackend } from "../utils/api";
 import ChangingText from "../components/ChangingText";
+import SpeechInputButton from "../components/SpeechInputButton";
+import CodeOutputGrid from "../components/CodeOutputGrid";
+import TranscriptFeedback from "../components/TranscriptFeedback";
+import { AudioControl } from "../utils/audioControl";
 
 interface SpeechRecognitionEvent extends Event {
    results: SpeechRecognitionResultList;
@@ -13,6 +17,9 @@ const messages = [
    "Helping the Visually Impaired Code",
    "Transforming Voice into Code",
 ];
+
+const AC: AudioControl = AudioControl.instance();
+AC.loadAudio("async_sample_blob_0")
 
 const Homepage: React.FC = () => {
    const [speechInput, setSpeechInput] = useState<string>("");
@@ -35,15 +42,14 @@ const Homepage: React.FC = () => {
       recognitionRef.current = recognition;
 
       recognition.lang = "en-US";
-      recognition.continuous = true; // 🔥 Keep listening beyond one sentence
+      recognition.continuous = true;
       recognition.interimResults = false;
 
-      transcriptRef.current = ""; // Clear previous session transcript
+      transcriptRef.current = "";
 
       recognition.onstart = () => setIsListening(true);
       recognition.onend = () => {
          setIsListening(false);
-         // Final backend call with the collected transcript
          if (transcriptRef.current.trim()) {
             setSpeechInput(transcriptRef.current);
             handleBackendRequest(transcriptRef.current);
@@ -73,7 +79,6 @@ const Homepage: React.FC = () => {
       setCodeOutput(generatedCode);
    };
 
-   // Spacebar hold to speak
    useEffect(() => {
       const handleKeyDown = (e: KeyboardEvent) => {
          if (e.code === "Space" && !isListening) {
@@ -97,7 +102,6 @@ const Homepage: React.FC = () => {
       };
    }, [isListening]);
 
-   // Mouse hold to speak — listen globally for mouseup
    useEffect(() => {
       const handleMouseUp = () => {
          if (isListening) stopListening();
@@ -109,41 +113,18 @@ const Homepage: React.FC = () => {
 
    return (
       <div className="w-full min-h-screen flex flex-col items-center bg-gray-900 text-white px-4 pt-32 select-none">
-         {/* Animated Changing Text */}
          <div className="w-[40vw] max-w-full text-center mb-8">
             <ChangingText messages={messages} />
          </div>
 
-         {/* Speech Input Button */}
-         <button
-            onMouseDown={(e) => {
-               e.preventDefault(); // prevent focus
-               if (!isListening) startListening();
-            }}
-            disabled={isListening}
-            className="bg-green-500 hover:bg-green-600 disabled:bg-gray-500 text-white text-lg font-semibold py-3 px-6 rounded-lg transition-all focus:ring-4 focus:ring-yellow-400 mb-6"
-            aria-label="Hold to speak or press space"
-         >
-            {isListening ? "Listening..." : "Hold to Speak (or Press Space)"}
-         </button>
+         <SpeechInputButton
+            isListening={isListening}
+            startListening={startListening}
+         />
 
-         {/* User's Spoken Text */}
-         {speechInput && (
-            <p className="text-lg text-blue-300 mb-6">
-               You said: {speechInput}
-            </p>
-         )}
+         <TranscriptFeedback speechInput={speechInput} />
 
-         {/* Code Output Box */}
-         <div className="w-full max-w-2xl bg-gray-800 p-4 rounded-lg shadow-lg text-yellow-400 font-mono text-lg whitespace-pre-wrap">
-            {codeOutput.length > 0 ? (
-               codeOutput.map((line, index) => <div key={index}>{line}</div>)
-            ) : (
-               <p className="text-gray-500">
-                  Your generated code will appear here.
-               </p>
-            )}
-         </div>
+         <CodeOutputGrid codeOutput={codeOutput} />
       </div>
    );
 };
