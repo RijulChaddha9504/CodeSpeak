@@ -1,20 +1,3 @@
-# from vertexai.language_models import CodeGenerationModel
-
-# parameters = {
-#     "temperature": 0.2,  # Temperature controls the degree of randomness in token selection.
-#     "max_output_tokens": 64,  # Token limit determines the maximum amount of text output.
-# }
-
-# code_completion_model = CodeGenerationModel.from_pretrained("gemini-2.0-flash")
-# response = code_completion_model.predict(
-#     prefix="def reverse_string(s):", **parameters
-# )
-
-# print(f"Response from Model: {response.text}")
-# # Example response:
-# # Response from Model:
-# #     return s[::-1]
-
 from google import genai
 from google.genai import types
 import os
