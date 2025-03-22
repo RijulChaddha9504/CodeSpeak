@@ -23,10 +23,14 @@ const colorPalettes: Record<string, string> = {
 
 const GridEditor: React.FC<GridEditorProps> = ({ codeMatrix }) => {
    const maxDepth = Math.max(...codeMatrix.map((row) => row.length));
+
    const [activeCell, setActiveCell] = useState<{
       content: string;
       line: number;
    } | null>(null);
+
+   const [isEditing, setIsEditing] = useState(false);
+   const [draftContent, setDraftContent] = useState("");
 
    const lowerTrimmed = (str: string) => str.toLowerCase().trim();
 
@@ -53,22 +57,81 @@ const GridEditor: React.FC<GridEditorProps> = ({ codeMatrix }) => {
          {activeCell && (
             <div className="absolute inset-0 flex items-center justify-center z-50">
                <div className="bg-white border-4 border-black shadow-2xl rounded-3xl p-16 w-[90vw] max-w-[1200px] max-h-[90vh]">
-                  <div className="flex justify-end mb-6">
-                     <button
-                        onClick={() => setActiveCell(null)}
-                        className="text-black font-bold text-4xl px-6 py-2 rounded hover:bg-gray-200"
+                  <div className="flex justify-end space-x-4 mb-6">
+                     {isEditing ? (
+                        <>
+                           {/* Cancel */}
+                           <button
+                              onClick={() => {
+                                 setIsEditing(false);
+                                 setDraftContent("");
+                              }}
+                              className="text-black font-bold text-4xl px-6 py-2 rounded hover:bg-red-100"
+                              title="Cancel"
+                           >
+                              ✕
+                           </button>
+                           {/* Save */}
+                           <button
+                              onClick={() => {
+                                 setActiveCell({
+                                    ...activeCell,
+                                    content: draftContent,
+                                 });
+                                 setIsEditing(false);
+                              }}
+                              className="text-black font-bold text-4xl px-6 py-2 rounded hover:bg-green-100"
+                              title="Save"
+                           >
+                              ✔
+                           </button>
+                        </>
+                     ) : (
+                        <>
+                           {/* Edit */}
+                           <button
+                              onClick={() => {
+                                 setIsEditing(true);
+                                 setDraftContent(activeCell.content);
+                              }}
+                              className="text-black font-bold text-3xl px-4 py-2 rounded hover:bg-gray-100"
+                              title="Edit"
+                           >
+                              ✏️
+                           </button>
+                           {/* Close */}
+                           <button
+                              onClick={() => setActiveCell(null)}
+                              className="text-black font-bold text-4xl px-6 py-2 rounded hover:bg-gray-200"
+                              title="Close"
+                           >
+                              ✕
+                           </button>
+                        </>
+                     )}
+                  </div>
+
+                  {/* Content or Edit Area */}
+                  {isEditing ? (
+                     <textarea
+                        className={`w-full h-48 border-2 border-black rounded-xl font-mono resize-none px-4 py-2 bg-white text-black ${getFontSizeClass(
+                           draftContent
+                        )}`}
+                        value={draftContent}
+                        onChange={(e) => setDraftContent(e.target.value)}
+                        autoFocus
+                     />
+                  ) : (
+                     <div
+                        className={`text-black font-mono mb-10 whitespace-pre-wrap ${getFontSizeClass(
+                           activeCell.content
+                        )}`}
                      >
-                        ✕
-                     </button>
-                  </div>
-                  <div
-                     className={`text-black font-mono mb-10 whitespace-pre-wrap ${getFontSizeClass(
-                        activeCell.content
-                     )}`}
-                  >
-                     {activeCell.content}
-                  </div>
-                  <div className="text-2xl text-gray-500 font-bold">
+                        {activeCell.content}
+                     </div>
+                  )}
+
+                  <div className="text-2xl text-gray-500 font-bold mt-4">
                      Line {activeCell.line}
                   </div>
                </div>
@@ -92,7 +155,6 @@ const GridEditor: React.FC<GridEditorProps> = ({ codeMatrix }) => {
                   const isLastRow = rowIndex === filteredMatrix.length - 1;
                   const cells: React.JSX.Element[] = [];
 
-                  // Line number cell
                   cells.push(
                      <td
                         key={`line-${rowIndex}`}
@@ -117,6 +179,16 @@ const GridEditor: React.FC<GridEditorProps> = ({ codeMatrix }) => {
                         codeMatrix.length === 1 && maxDepth === 1;
                      const cornerClass = isOnlyCell ? "rounded-2xl" : "";
 
+                     const openPopup = () => {
+                        setActiveCell({
+                           content: cellContent.startsWith("i-")
+                              ? cellContent.replace("i-", "within ")
+                              : cellContent,
+                           line: rowIndex + 1,
+                        });
+                        setIsEditing(false);
+                     };
+
                      if (cellContent.startsWith("i-")) {
                         const style =
                            colorPalettes[cellContent] ||
@@ -124,15 +196,7 @@ const GridEditor: React.FC<GridEditorProps> = ({ codeMatrix }) => {
                         cells.push(
                            <td
                               key={colIndex}
-                              onClick={() =>
-                                 setActiveCell({
-                                    content: cellContent.replace(
-                                       "i-",
-                                       "within "
-                                    ),
-                                    line: rowIndex + 1,
-                                 })
-                              }
+                              onClick={openPopup}
                               className={`${baseClasses} ${style} text-base font-bold text-center align-middle ${cornerClass}`}
                            >
                               {cellContent.replace("i-", "within ")}
@@ -143,12 +207,7 @@ const GridEditor: React.FC<GridEditorProps> = ({ codeMatrix }) => {
                            <td
                               key={colIndex}
                               colSpan={maxDepth - colIndex}
-                              onClick={() =>
-                                 setActiveCell({
-                                    content: cellContent,
-                                    line: rowIndex + 1,
-                                 })
-                              }
+                              onClick={openPopup}
                               className={`${baseClasses} bg-white text-black font-mono text-base font-bold align-middle px-4 ${cornerClass}`}
                            >
                               {cellContent}
@@ -164,7 +223,6 @@ const GridEditor: React.FC<GridEditorProps> = ({ codeMatrix }) => {
                      }
                   });
 
-                  // Add block cell
                   const addBlockClass = [
                      "w-48 h-16 border-1 border-black bg-gray-300 overflow-hidden",
                      isFirstRow ? "rounded-tr-2xl" : "",
