@@ -9,6 +9,7 @@ class CodeFiles(db.Model):
   def to_json(self):
     return {
       "file_id": self.file_id,
+      "file_prompt": self.file_prompt,
       "file_content": self.file_content
     }
   

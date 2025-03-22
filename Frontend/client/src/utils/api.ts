@@ -38,9 +38,21 @@ class apiClient {
       } else {
          throw Error("could not send prompt")
       }
+   }
 
 
-      
+   public static async updateCode(code: string, userId) {
+      const SET_CODE_URL = SERVER_URL + "/set-code/" + String(userId);
+      const response = await fetch(SET_CODE_URL, {
+         method: "PATCH",
+         headers: {"Content-Type": "application/json" }, 
+         body: code
+      })
+      if (response.ok) {
+         return response.json();
+      } else {
+         throw Error ("Could not update code in database")
+      }
    }
 }
 
