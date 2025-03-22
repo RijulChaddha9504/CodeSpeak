@@ -9,9 +9,8 @@ body {
    color: #ffffff;
    margin: 0;
    padding: 0;
-   display: flex;
-   justify-content: center;
-   align-items: center;
+   display: grid;
+   place-items: center;
    height: 100vh;
    overflow-x: hidden;
 }
