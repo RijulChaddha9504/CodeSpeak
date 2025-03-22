@@ -31,6 +31,10 @@ def parse_code_to_matrix(code_string, tabspacing):
   result_matrix = []
   indent_levels = []
   for line_num, line in enumerate(lines_list):
+    clean_line = line.strip()
+    if (clean_line == ""):
+      continue
+
     numspaces = 0
     while (line[numspaces] == " "):
       numspaces += 1
@@ -38,7 +42,6 @@ def parse_code_to_matrix(code_string, tabspacing):
     while (num_indents < len(indent_levels)):
       indent_levels.pop(-1)
 
-    clean_line = line.strip()
     parsed_line = copy.deepcopy(indent_levels)
     parsed_line.append(clean_line)
     
