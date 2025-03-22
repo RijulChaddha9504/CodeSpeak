@@ -24,25 +24,25 @@ def build_model():
     Build a feed-forward neural network with dropout and batch normalization.
     Adjust layer sizes or add regularization as needed for your dataset size.
     """
-    model = keras.Sequential([
-        layers.Dense(256, activation='relu'),
-        layers.BatchNormalization(),
+    model = keras.Sequential([ 
+        layers.Dense(256, activation='relu'), 
+        layers.BatchNormalization(), 
         layers.Dropout(0.3),
 
-        layers.Dense(128, activation='relu'),
-        layers.BatchNormalization(),
+        layers.Dense(128, activation='relu'), 
+        layers.BatchNormalization(), 
         layers.Dropout(0.3),
 
-        layers.Dense(64, activation='relu'),
-        layers.BatchNormalization(),
+        layers.Dense(64, activation='relu'), 
+        layers.BatchNormalization(), 
         layers.Dropout(0.2),
 
-        layers.Dense(32, activation='relu'),
-        layers.BatchNormalization(),
+        layers.Dense(32, activation='relu'), 
+        layers.BatchNormalization(), 
         layers.Dropout(0.2),
 
         # Final output layer for binary classification
-        layers.Dense(1, activation='sigmoid')
+        layers.Dense(1, activation='sigmoid') 
     ])
 
     # Use Adam with a moderate learning rate
@@ -74,21 +74,13 @@ def train_model_neural_network(class0, class1):
     model = build_model()
     model.summary()  # Print model architecture for debugging
 
-    # EarlyStopping to restore best weights if validation stops improving
-    early_stopping = keras.callbacks.EarlyStopping(
-        monitor='val_loss',
-        patience=5,
-        restore_best_weights=True
-    )
-
-    # Train the model
+    # Train the model without early stopping (ensures full epochs run)
     history = model.fit(
         X_train, y_train,
         validation_data=(X_val, y_val),
-        epochs=30,
+        epochs=30,  # Number of epochs to run
         batch_size=64,  # Adjust if your dataset is very small or large
-        shuffle=True,
-        callbacks=[early_stopping]
+        shuffle=True
     )
     return model, history
 

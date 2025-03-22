@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { AudioControl } from "../../../util/audioControl";
+import { AudioReceiver } from "../../util/AudioReceiver";
 
 const sectors = [
   {
@@ -21,7 +21,7 @@ const sectors = [
 ];
 
 const Landingpage = () => {
-  const AC = AudioControl.instance() as AudioControl | null;
+  const AC = AudioReceiver.instance() as AudioReceiver | null;
   if (!AC) {
     console.error("AudioControl instance is null");
     return null;

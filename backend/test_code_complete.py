@@ -3,7 +3,6 @@ from constants import BACKEND_URL
 from google.genai import types
 import os
 import requests
-from text_to_speech import text_to_wav
 
 # def display_code_execution_result(response):
 #   for part in response.candidates[0].content.parts:
@@ -27,18 +26,22 @@ system_prompt = "Generate the code for the calculation, and only the code in Pyt
 #prompt = "Write a function that computes the sum of the first 50 prime numbers."
 #prompt = "Write a function that creates a list of multiples of 2, starting from 2"
 #prompt = "Write an algorithm that finds the number of paths within a grid of size n * m from the top left to the bottom right."
-prompt = "Create a 6d array of size 3x3x3x3x3x3 and set all the elements to zero. Use for loops"
+#prompt = "Create a 6d array of size 3x3x3x3x3x3 and set all the elements to zero. Use for loops"
 
-response = client.models.generate_content(
-    model='gemini-2.0-flash',
-    contents=prompt + system_prompt,
-)
+def generate_code(coding_prompt): 
+    response = client.models.generate_content(
+        model='gemini-2.0-flash',
+        contents=coding_prompt + system_prompt,
+    )
 
 
-print(response.text)
-requests.post(BACKEND_URL + "/set-code/1", json={"file_content": response.text})
-response = requests.get(BACKEND_URL + "/get-code/1")
-print(response.json())
+    print(response.text)
+    return response.text
+
+
+# requests.post(BACKEND_URL + "/set-code/1", json={"file_content": response.text})
+# response = requests.get(BACKEND_URL + "/get-code/1")
+# print(response.json())
 
 # response_tests = client.models.generate_content(
 #   model="gemini-2.0-flash",
@@ -52,13 +55,15 @@ print(response.json())
 
 # print(response_tests.text)
 
-code_analysis_response = client.models.generate_content(
-    model='gemini-2.0-flash',
-    contents=f"Analyze the code and provide a summary of the code provided here: {response.text}. \
-                Do not use ` to indicate code blocks. Simply provide the code as text in the sentence.",
-)
+def generate_analysis(generated_code): 
+    code_analysis_response = client.models.generate_content(
+        model='gemini-2.0-flash',
+        contents=f"Analyze the code and provide a summary of the code provided here: {generated_code}. \
+                    Do not use ` to indicate code blocks. Simply provide the code as text in the sentence.",
+    )
 
-print(code_analysis_response.text)
+    print(code_analysis_response.text)
+    return code_analysis_response.text
 #text_to_wav("en-US-Studio-M", code_analysis_response.text.replace("`", ""))
 #text_to_wav("en-US-Wavenet-A", code_analysis_response.text.replace("`", ""))
 
