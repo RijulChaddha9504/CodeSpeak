@@ -22,11 +22,14 @@ const colorPalettes: Record<string, string> = {
 };
 
 const GridEditor: React.FC<GridEditorProps> = ({ codeMatrix }) => {
-   const maxDepth = Math.max(...codeMatrix.map((row) => row.length));
+   const [matrix, setMatrix] = useState<string[][]>(codeMatrix);
+   const maxDepth = Math.max(...matrix.map((row) => row.length));
 
    const [activeCell, setActiveCell] = useState<{
       content: string;
       line: number;
+      col: number;
+      editable: boolean;
    } | null>(null);
 
    const [isEditing, setIsEditing] = useState(false);
@@ -34,7 +37,7 @@ const GridEditor: React.FC<GridEditorProps> = ({ codeMatrix }) => {
 
    const lowerTrimmed = (str: string) => str.toLowerCase().trim();
 
-   const filteredMatrix = codeMatrix.filter(
+   const filteredMatrix = matrix.filter(
       (row) =>
          !row.some((cell) =>
             ["#codespeak - script begins", "#codespeak - script ends"].includes(
@@ -60,7 +63,29 @@ const GridEditor: React.FC<GridEditorProps> = ({ codeMatrix }) => {
                   <div className="flex justify-end space-x-4 mb-6">
                      {isEditing ? (
                         <>
-                           {/* Cancel */}
+                           {/* Save (✔ on left) */}
+                           <button
+                              onClick={() => {
+                                 setMatrix((prev) => {
+                                    const newMatrix = [...prev];
+                                    const rowIndex = activeCell.line - 1;
+                                    const colIndex = activeCell.col;
+                                    newMatrix[rowIndex] = [
+                                       ...newMatrix[rowIndex],
+                                    ];
+                                    newMatrix[rowIndex][colIndex] =
+                                       draftContent;
+                                    return newMatrix;
+                                 });
+                                 setIsEditing(false);
+                                 setActiveCell(null);
+                              }}
+                              className="text-black font-bold text-4xl px-6 py-2 rounded hover:bg-green-100"
+                              title="Save"
+                           >
+                              ✔
+                           </button>
+                           {/* Cancel (✕ on right) */}
                            <button
                               onClick={() => {
                                  setIsEditing(false);
@@ -71,35 +96,21 @@ const GridEditor: React.FC<GridEditorProps> = ({ codeMatrix }) => {
                            >
                               ✕
                            </button>
-                           {/* Save */}
-                           <button
-                              onClick={() => {
-                                 setActiveCell({
-                                    ...activeCell,
-                                    content: draftContent,
-                                 });
-                                 setIsEditing(false);
-                              }}
-                              className="text-black font-bold text-4xl px-6 py-2 rounded hover:bg-green-100"
-                              title="Save"
-                           >
-                              ✔
-                           </button>
                         </>
                      ) : (
                         <>
-                           {/* Edit */}
-                           <button
-                              onClick={() => {
-                                 setIsEditing(true);
-                                 setDraftContent(activeCell.content);
-                              }}
-                              className="text-black font-bold text-3xl px-4 py-2 rounded hover:bg-gray-100"
-                              title="Edit"
-                           >
-                              ✏️
-                           </button>
-                           {/* Close */}
+                           {activeCell.editable && (
+                              <button
+                                 onClick={() => {
+                                    setIsEditing(true);
+                                    setDraftContent(activeCell.content);
+                                 }}
+                                 className="text-black font-bold text-3xl px-4 py-2 rounded hover:bg-gray-100"
+                                 title="Edit"
+                              >
+                                 ✏️
+                              </button>
+                           )}
                            <button
                               onClick={() => setActiveCell(null)}
                               className="text-black font-bold text-4xl px-6 py-2 rounded hover:bg-gray-200"
@@ -111,7 +122,6 @@ const GridEditor: React.FC<GridEditorProps> = ({ codeMatrix }) => {
                      )}
                   </div>
 
-                  {/* Content or Edit Area */}
                   {isEditing ? (
                      <textarea
                         className={`w-full h-48 border-2 border-black rounded-xl font-mono resize-none px-4 py-2 bg-white text-black ${getFontSizeClass(
@@ -175,21 +185,25 @@ const GridEditor: React.FC<GridEditorProps> = ({ codeMatrix }) => {
                   row.forEach((cellContent, colIndex) => {
                      const baseClasses =
                         "w-48 h-16 border-1 border-black transition-colors duration-200 ease-in-out cursor-pointer hover:brightness-90";
-                     const isOnlyCell =
-                        codeMatrix.length === 1 && maxDepth === 1;
+                     const isOnlyCell = matrix.length === 1 && maxDepth === 1;
                      const cornerClass = isOnlyCell ? "rounded-2xl" : "";
+
+                     const isInstruction = cellContent.startsWith("i-");
+                     const cleanContent = isInstruction
+                        ? cellContent.replace("i-", "within ")
+                        : cellContent;
 
                      const openPopup = () => {
                         setActiveCell({
-                           content: cellContent.startsWith("i-")
-                              ? cellContent.replace("i-", "within ")
-                              : cellContent,
+                           content: cleanContent,
                            line: rowIndex + 1,
+                           col: colIndex,
+                           editable: !isInstruction,
                         });
                         setIsEditing(false);
                      };
 
-                     if (cellContent.startsWith("i-")) {
+                     if (isInstruction) {
                         const style =
                            colorPalettes[cellContent] ||
                            "bg-gray-200 text-black";
@@ -199,7 +213,7 @@ const GridEditor: React.FC<GridEditorProps> = ({ codeMatrix }) => {
                               onClick={openPopup}
                               className={`${baseClasses} ${style} text-base font-bold text-center align-middle ${cornerClass}`}
                            >
-                              {cellContent.replace("i-", "within ")}
+                              {cleanContent}
                            </td>
                         );
                      } else if (colIndex === row.length - 1) {
@@ -210,7 +224,7 @@ const GridEditor: React.FC<GridEditorProps> = ({ codeMatrix }) => {
                               onClick={openPopup}
                               className={`${baseClasses} bg-white text-black font-mono text-base font-bold align-middle px-4 ${cornerClass}`}
                            >
-                              {cellContent}
+                              {cleanContent}
                            </td>
                         );
                      } else {
