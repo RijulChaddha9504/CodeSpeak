@@ -1,8 +1,9 @@
 import SpeechRecognition, {useSpeechRecognition} from "react-speech-recognition";
 import React, { useEffect } from "react";
 import { AudioReceiver } from "../../util/AudioReceiver";
+import { useCompleted } from "../context/CompletedContext.jsx";
 
-const SpeechPrompt = ({onResolveCallback}) => {
+const SpeechPrompt = () => {
 
   const {
     transcript,
@@ -14,6 +15,8 @@ const SpeechPrompt = ({onResolveCallback}) => {
   if (!browserSupportsSpeechRecognition) {
     return <span>Browser doesn't support speech recognition.</span>;
   }
+
+  const {completed, setCompleted} = useCompleted(); 
 
   const AC = AudioReceiver.instance() as AudioReceiver | null;
   if (!AC) {
@@ -33,7 +36,10 @@ const SpeechPrompt = ({onResolveCallback}) => {
           },
           body: JSON.stringify({prompt: transcript}),
         }); 
-        response.json().then((e) => {console.log(e.code); onResolveCallback(e.code)})
+        response.json().then((e) => {
+          console.log(e.code);
+          setCompleted(true);
+        });
         //const data = await response.json();
         if (AC) { 
           await AC?.playAudioFromArrayBuffer();

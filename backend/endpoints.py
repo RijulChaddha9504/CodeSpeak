@@ -53,8 +53,8 @@ def post_prompt(user_id):
                               file_prompt=data.get("prompt", "")))
   db.session.commit()
   generated_code_str = generate_code(data.get("prompt", profile.file_prompt if profile.file_prompt else ""))
-  requests.post(BACKEND_URL + f"/set-code/{user_id}", 
-                  json={"file_content": generated_code_str})
+  requests.patch(BACKEND_URL + f"/set-code/{user_id}",\
+                 json={"file_content": generated_code_str})
   analysis = generate_analysis(generated_code_str)
   audio_bytes = text_to_wav("en-US-Wavenet-A", analysis.replace("`", ""))
   asyncio.run(async_upload_wav_blob(BUCKET_NAME, audio_bytes, f"audio_{user_id}.wav"))

@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import apiClient from "../utils/api";
+import { useCompleted } from "../context/CompletedContext.jsx";
 
 interface GridEditorProps {
    codeMatrix: string[][];
@@ -24,7 +25,7 @@ const colorPalettes: Record<string, string> = {
 
 const GridEditor: React.FC<GridEditorProps> = ({ codeMatrix }) => {
    const [matrix, setMatrix] = useState<string[][]>(codeMatrix);
-   const maxDepth = Math.max(...(matrix.map((row) => row.length)));
+   const [maxDepth, setMaxDepth] = useState(Math.max(...(matrix.map((row) => row.length))));
    const [activeCell, setActiveCell] = useState<{
       content: string;
       line: number;
@@ -34,6 +35,8 @@ const GridEditor: React.FC<GridEditorProps> = ({ codeMatrix }) => {
 
    const [isEditing, setIsEditing] = useState(false);
    const [draftContent, setDraftContent] = useState("");
+
+   const {completed, setCompleted} = useCompleted(); 
 
    const lowerTrimmed = (str: string) => str.toLowerCase().trim();
 
@@ -45,6 +48,19 @@ const GridEditor: React.FC<GridEditorProps> = ({ codeMatrix }) => {
             )
          )
    );
+
+   useEffect(() => { 
+      if (completed) { 
+         setCompleted(false); 
+         const result = apiClient.fetchCodeMatrix();
+         result.then((e) => {
+            const newMatrix = e.parsed_code; 
+            console.log("New Matrix: ", newMatrix); 
+            setMatrix(newMatrix); 
+            setMaxDepth(Math.max(...(newMatrix.map((row) => row.length)))); 
+         }).catch((e) => e)
+      }
+   }, [completed]);
 
    const getFontSizeClass = (content: string) => {
       const length = content.length;

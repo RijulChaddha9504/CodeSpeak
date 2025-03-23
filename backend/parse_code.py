@@ -4,10 +4,10 @@ indentable_syntax = python_indentation_syntax = [
     # Control Flow
     "if",
     "elif",
-    "else",
+    "else:",
     "for",
     "while",
-    "try",
+    "try:",
     "except",
     "finally",
 
