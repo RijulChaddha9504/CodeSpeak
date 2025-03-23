@@ -62,6 +62,33 @@ const GridEditor: React.FC<GridEditorProps> = ({ codeMatrix }) => {
       }
    }, [completed]);
 
+   const addNewRow = (rowIndex) => {
+      const resultMatrix: string[][] = [];
+      for (let i = 0; i < rowIndex; i++) {
+         resultMatrix.push(matrix[i])
+      }
+
+      resultMatrix.push(["# empty line"])
+      for (let i = rowIndex; i < matrix.length; i++) {
+         resultMatrix.push(matrix[i])
+      }
+      const updateRes = apiClient.updateCode(resultMatrix);
+      updateRes.then((e) => {
+         const result = apiClient.fetchCodeMatrix();
+         result.then((e) => {setMatrix(e.parsed_code)}).catch((e) => e)
+      }).catch(e => e)
+   }
+
+   const deleteRow = (rowIndex) => {
+      const resultMatrix = [...matrix]
+      resultMatrix.splice(rowIndex, 1)
+      const updateRes = apiClient.updateCode(resultMatrix);
+      updateRes.then((e) => {
+         const result = apiClient.fetchCodeMatrix();
+         result.then((e) => {setMatrix(e.parsed_code)}).catch((e) => e)
+      }).catch(e => e)
+   }
+
    const getFontSizeClass = (content: string) => {
       const length = content.length;
       if (length <= 20) return "text-7xl";
@@ -71,10 +98,11 @@ const GridEditor: React.FC<GridEditorProps> = ({ codeMatrix }) => {
    };
 
    return (
-      <div className="overflow-x-auto mt-3 mb-3 relative">
+      
+      <div className="mt-3 mb-3 relative w-full h-full">
          {/* Popout Overlay */}
          {activeCell && (
-            <div className="absolute inset-0 flex items-center justify-center z-50">
+            <div className="fixed inset-0 flex items-center justify-center z-50">
                <div className="bg-white border-4 border-black shadow-2xl rounded-3xl p-16 w-[90vw] max-w-[1200px] max-h-[90vh]">
                   <div className="flex justify-end space-x-4 mb-6">
                      {isEditing ? (
@@ -269,7 +297,7 @@ const GridEditor: React.FC<GridEditorProps> = ({ codeMatrix }) => {
                   });
 
                   const addBlockClass = [
-                     "w-48 h-16 border-1 border-black bg-gray-300 overflow-hidden",
+                     "w-48 h-16 border-1 border-black bg-gray-300 overflow-hidden flex flex-row align-middle justify center",
                      isFirstRow ? "rounded-tr-2xl" : "",
                      isLastRow ? "rounded-br-2xl" : "",
                   ]
@@ -278,7 +306,16 @@ const GridEditor: React.FC<GridEditorProps> = ({ codeMatrix }) => {
 
                   cells.push(
                      <td key={`add-${rowIndex}`} className={addBlockClass}>
-                        <div className="w-full h-full" />
+                        {/* <div className="w-50/100 h-full text-center text-black p-2 flex justify-center align-middle">
+                           <button onClick={() => addNewRow(rowIndex)} className="w-full bg-green-600 rounded-2xl">
+                              Add
+                           </button>
+                        </div>
+                        <div className="w-50/100 h-full text-center text-black p-2 flex justify-center align-middle">
+                           <button onClick={()=> {console.log("dete"); deleteRow(rowIndex)}} className="w-full bg-red-500 rounded-2xl">
+                              Delete
+                           </button>
+                        </div> */}
                      </td>
                   );
 

@@ -24,7 +24,7 @@ const Homepage: React.FC = () => {
             <ChangingText messages={messages} />
          </div>
          
-         <div>
+         <div className="">
             <CompletedProvider>
                <SpeechPrompt></SpeechPrompt>
                <CodeOutputGrid
