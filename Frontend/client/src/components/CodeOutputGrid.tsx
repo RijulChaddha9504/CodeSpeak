@@ -38,7 +38,7 @@ const GridEditor: React.FC<GridEditorProps> = ({ codeMatrix }) => {
    const [isEditing, setIsEditing] = useState(false);
    const [draftContent, setDraftContent] = useState("");
 
-   const {completed, setCompleted, isLoading, setIsLoading} = useCompleted(); 
+   const {completed, setCompleted, isLoading, setIsLoading, clearComplete, setClearComplete} = useCompleted(); 
 
    const lowerTrimmed = (str: string) => str.toLowerCase().trim();
 
@@ -213,7 +213,7 @@ const GridEditor: React.FC<GridEditorProps> = ({ codeMatrix }) => {
          
          <div className="flex w-full items-center justify-center gap-4">
          <button className="flex w-40 px-2 py-2 bg-red-500 justify-center items-center text-white rounded-lg hover:bg-gray-600 transition mb-2" 
-                  onClick={() => {setMatrix([[]]); apiClient.setCode("");}}>Clear Code</button>
+                  onClick={async () => {setMatrix([[]]); await apiClient.setCode(""); setClearComplete(true); }}>Clear Code</button>
          </div>
          <table className="border-separate border-spacing-0 w-full">
             <tbody>

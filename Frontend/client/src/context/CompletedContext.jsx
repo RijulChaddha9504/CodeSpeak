@@ -5,9 +5,12 @@ const CompletedContext = createContext();
 export const CompletedProvider = ({ children }) => { 
   const [completed, setCompleted] = useState(false); // For tracking if write to database is complete
   const [isLoading, setIsLoading] = useState(false); 
+  const [clearComplete, setClearComplete] = useState(false);
 
   return (
-    <CompletedContext.Provider value={{completed, setCompleted, isLoading, setIsLoading }}>
+    <CompletedContext.Provider value={{completed, setCompleted, isLoading, setIsLoading, 
+      clearComplete, setClearComplete
+     }}>
       {children}
     </CompletedContext.Provider>
   )

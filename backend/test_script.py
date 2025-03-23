@@ -7,7 +7,7 @@ def test_script(code: str):
     if not code: 
         return {
             "success": False,
-            "output": None,
+            "output": "",
             "error": "No code"
         }
     match = re.match(r"```python\n(.*?)\n```", code, re.DOTALL)

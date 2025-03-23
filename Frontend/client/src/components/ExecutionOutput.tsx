@@ -5,15 +5,16 @@ import { useCompleted } from '../context/CompletedContext';
 function ExecutionOutput() {
   const [output, setOutput] = useState(""); 
 
-  const { completed } = useCompleted(); 
+  const { completed, setCompleted, clearComplete, setClearComplete } = useCompleted(); 
   useEffect(() => { 
     const fetchCode = async () => {
       const code = await apiClient.getCompiledCode(); 
       console.log(code.output); 
       setOutput(code.output);
+      setClearComplete(false);
     }
     fetchCode();
-  }, [completed]); 
+  }, [completed, clearComplete]); 
 
   return (<div className="bg-gray-100 flex items-center justify-center p-4 bg-gray-900">
       <div className="w-full rounded-lg shadow-md overflow-hidden">
