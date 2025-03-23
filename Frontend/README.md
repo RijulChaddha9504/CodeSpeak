@@ -1,54 +1,59 @@
-# React + TypeScript + Vite
+# 🧠 CodeSpeak
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> Code with voice. Navigate with clarity.  
+> A minimalist, voice-powered IDE for blind and low-sight programmers.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 About the Project
 
-## Expanding the ESLint configuration
+Modern IDEs are cluttered, visually dense, and largely inaccessible to blind and low-sight users. Inspired by research from Penn State University, **CodeSpeak** reimagines programming with accessibility at its core — combining a grid-based layout, large readable blocks, keyboard-friendly navigation, and AI-powered speech interaction.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+CodeSpeak empowers visually impaired coders to read, write, and edit code in a structured, low-clutter environment — without needing to rely on traditional visual-heavy IDEs.
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+---
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 💡 Features
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- 🎙️ **Voice Interaction** – Speak your code aloud and have it transcribed, parsed, and inserted in real-time.
+- 🧱 **Grid-Based Editor** – Code is visualized as rows and blocks, each expandable and clearly outlined.
+- 🔁 **Inline Editing** – Select any block to enlarge and edit with precision.
+- 🧑‍💻 **AI Assistance** – Use AI to generate or explain code when needed.
+- 🧭 **Keyboard-Friendly** – Fully navigable via keyboard with no dependency on mouse interactions.
+- 📢 **Audio Feedback** – Real-time speech feedback using Google TTS for line-level accessibility.
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+---
+
+## 🏗️ How We Built It
+
+- **Frontend**: React + Tailwind + Vite
+- **Backend**: Flask (Python), Node.js, Express
+- **AI Model**: Gemini + custom neural verification layer
+- **Speech Services**: Google Cloud TTS + custom speech recognition
+- **Database**: SQLAlchemy (PostgreSQL)
+- **Cloud**: Google Cloud Storage (for audio/data transfer)
+
+---
+
+## 📚 Research Inspiration
+
+This project was inspired by the work of [Dr. Syed Billah at Penn State](https://www.psu.edu/news/information-sciences-and-technology/story/new-coding-tool-could-aid-computer-programmers-who-are), whose Grid Editor proposed a spreadsheet-like layout for accessible coding. We built on these concepts by integrating generative AI and voice-driven workflows.
+
+---
+
+## 🛠️ Local Development
+
+```bash
+# Clone the repo
+git clone https://github.com/yourusername/codespeak.git
+cd codespeak
+
+# Install frontend
+cd frontend
+npm install
+npm run dev
+
+# In a separate terminal, run backend
+cd backend
+pip install -r requirements.txt
+flask run
