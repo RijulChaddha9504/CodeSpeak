@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import apiClient from "../utils/api";
 
 interface GridEditorProps {
    codeMatrix: string[][];
@@ -66,17 +67,28 @@ const GridEditor: React.FC<GridEditorProps> = ({ codeMatrix }) => {
                            {/* Save (✔ on left) */}
                            <button
                               onClick={() => {
-                                 setMatrix((prev) => {
-                                    const newMatrix = [...prev];
-                                    const rowIndex = activeCell.line - 1;
-                                    const colIndex = activeCell.col;
-                                    newMatrix[rowIndex] = [
-                                       ...newMatrix[rowIndex],
-                                    ];
-                                    newMatrix[rowIndex][colIndex] =
-                                       draftContent;
-                                    return newMatrix;
-                                 });
+                                 // setMatrix((prev) => {
+                                 //    const newMatrix = [...prev];
+                                 //    const rowIndex = activeCell.line - 1;
+                                 //    const colIndex = activeCell.col;
+                                 //    newMatrix[rowIndex] = [
+                                 //       ...newMatrix[rowIndex],
+                                 //    ];
+                                 //    newMatrix[rowIndex][colIndex] =
+                                 //       draftContent;
+                                 //    return newMatrix;
+                                 // });
+                                 const prevMat = matrix;
+                                 const newMatrix = [...prevMat];
+                                 const rowIndex = activeCell.line - 1;
+                                 const colIndex = activeCell.col;
+                                 newMatrix[rowIndex] = [
+                                    ...newMatrix[rowIndex],
+                                 ];
+                                 newMatrix[rowIndex][colIndex] = draftContent;
+                                 apiClient.updateCode(newMatrix);
+                                 const result = apiClient.fetchCodeMatrix()
+                                 result.then((e) => {console.log(e); setMatrix(e)}).catch((e) => e)
                                  setIsEditing(false);
                                  setActiveCell(null);
                               }}

@@ -5,6 +5,8 @@ import Landingpage from "./pages/Landingpage";
 import "./hideScrollbar.css"
 import { PageWrapper } from "./components/PageWrapper";
 import { AnimatePresence } from "framer-motion";
+import React from "react";
+
 const App = () => {
    return (
       <Router>
