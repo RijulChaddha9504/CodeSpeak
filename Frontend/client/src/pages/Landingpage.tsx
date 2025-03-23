@@ -1,11 +1,10 @@
 import { motion } from "framer-motion";
-import { AudioReceiver } from "../../util/AudioReceiver";
 
 const sectors = [
    {
       title: "Speak Your Code",
       text: "Use your voice to write and explore code in real time.",
-      img: "/two-men-speaking-data-science.png",
+      img: "./src/assets/two-men-speaking-data-science.png",
    },
    {
       title: "Visual Grid Editor",
