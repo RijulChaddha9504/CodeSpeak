@@ -27,7 +27,7 @@ CodeSpeak empowers visually impaired coders to read, write, and edit code in a s
 
 - **Frontend**: React + Tailwind + Vite
 - **Backend**: Flask (Python), Node.js, Express
-- **AI Model**: Gemini + custom neural verification layer
+- **AI Model**: Gemini + Custom neural verification layer built with PyTorch
 - **Speech Services**: Google Cloud TTS + custom speech recognition
 - **Database**: SQLAlchemy + SQL
 - **Cloud**: Google Cloud Storage (for audio/data transfer)
