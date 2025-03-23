@@ -9,12 +9,12 @@ const sectors = [
    {
       title: "Visual Grid Editor",
       text: "Navigate code blocks in a clean, structured layout.",
-      img: "https://placehold.co/600x400",
+      img: "./src/assets/our-grid-layout.png",
    },
    {
-      title: "Accessible by Design",
-      text: "High-contrast and built for clarity. Supporting visually impaired individuals wherever they code.",
-      img: "https://placehold.co/600x400",
+      title: "Inspired by Research",
+      text: "Built on ideas from Penn State’s Grid Editor study — reimagined with voice and AI for greater accessibility.",
+      img: "./src/assets/original-paper-research.png",
    },
 ];
 
@@ -46,16 +46,22 @@ const Landingpage = () => {
                />
 
                <div className="w-full md:w-1/2 mt-6 md:mt-0 md:px-12 text-left">
-                  <h2 className="text-3xl text-white font-semibold mb-4">
-                     {sector.title}
-                  </h2>
-                  <p className="text-white mb-6">{sector.text}</p>
-                  <button
-                     className="bg-blue-600 text-white px-5 py-2 rounded-xl hover:bg-blue-700 transition"
-                     onClick={async (e) => {}}
-                  >
-                     Learn More
-                  </button>
+                  {sector.title === "Inspired by Research" ? (
+                     <a
+                        href="https://www.psu.edu/news/information-sciences-and-technology/story/new-coding-tool-could-aid-computer-programmers-who-are"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-3xl text-blue-400 font-semibold mb-4 inline-block hover:underline"
+                     >
+                        {sector.title}
+                     </a>
+                  ) : (
+                     <h2 className="text-3xl text-white font-semibold mb-4">
+                        {sector.title}
+                     </h2>
+                  )}
+
+                  <p className="text-white text-3xl mb-6">{sector.text}</p>
                </div>
             </div>
          ))}
