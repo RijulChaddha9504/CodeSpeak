@@ -19,7 +19,6 @@ CodeSpeak empowers visually impaired coders to read, write, and edit code in a s
 - 🧱 **Grid-Based Editor** – Code is visualized as rows and blocks, each expandable and clearly outlined.
 - 🔁 **Inline Editing** – Select any block to enlarge and edit with precision.
 - 🧑‍💻 **AI Assistance** – Use AI to generate or explain code when needed.
-- 🧭 **Keyboard-Friendly** – Fully navigable via keyboard with no dependency on mouse interactions.
 - 📢 **Audio Feedback** – Real-time speech feedback using Google TTS for line-level accessibility.
 
 ---
@@ -30,7 +29,7 @@ CodeSpeak empowers visually impaired coders to read, write, and edit code in a s
 - **Backend**: Flask (Python), Node.js, Express
 - **AI Model**: Gemini + custom neural verification layer
 - **Speech Services**: Google Cloud TTS + custom speech recognition
-- **Database**: SQLAlchemy (PostgreSQL)
+- **Database**: SQLAlchemy + SQL
 - **Cloud**: Google Cloud Storage (for audio/data transfer)
 
 ---
