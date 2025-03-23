@@ -1,7 +1,13 @@
 import io
 import contextlib
+import re
 
 def test_script(code: str):
+    # Extract the code inside """python and """
+    match = re.match(r"```python\n(.*?)\n```", code, re.DOTALL)
+    if match:
+        code = match.group(1)  # Extract the actual code inside the docstring
+
     stdout = io.StringIO()
     stderr = io.StringIO()
 
@@ -19,4 +25,3 @@ def test_script(code: str):
             "output": stdout.getvalue(),
             "error": str(e)
         }
-    

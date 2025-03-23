@@ -1,20 +1,23 @@
 import asyncio
-from extract_data import positive, negative
+import os
+import numpy as np
 from google import genai
 from google.genai.types import EmbedContentConfig
-import numpy as np
-from google.genai import types
+from extract_data import positive, negative  # Import positive and negative lists
 
-# Initialize the client with your API key
-client = genai.Client(api_key="AIzaSyARbC-4FA1uQE8mWA7aVu6kBkHft5FP5U8")  # Replace with your actual API key
+# Set your API key and initialize the client.
+os.environ["GOOGLE_API_KEY"] = ''  # Replace with your actual API key
+client = genai.Client(api_key='')   # Replace with your actual API key
 
-# Define a semaphore to limit concurrent requests (adjust the value as needed)
+# Limit concurrent requests.
 concurrent_requests = 3
 semaphore = asyncio.Semaphore(concurrent_requests)
+
+# Initialize your embedder function.
 async def embed_content(content):
     async with semaphore:
-        # Optionally, you can add a small delay here if needed
-        await asyncio.sleep(0.2)  # adjust the delay as appropriate
+        # Optional delay to avoid rate limits.
+        await asyncio.sleep(0.2)
         loop = asyncio.get_running_loop()
         response = await loop.run_in_executor(
             None,
@@ -22,45 +25,68 @@ async def embed_content(content):
                 model="text-embedding-004",
                 contents=content,
                 config=EmbedContentConfig(
-                    output_dimensionality=500,
-                    task_type="CLUSTERING"  # Include both configurations in a single config object
+                    task_type="CLUSTERING"
                 )
             )
         )
         return response.embeddings
 
-async def main():
-    # Create tasks for each content in your 'positive' list
-    positive_tasks = [asyncio.create_task(embed_content(content)) for content in positive]
-    # Run tasks concurrently with the semaphore limiting the rate
-    positive_results = await asyncio.gather(*positive_tasks)
-
-    negative_tasks = [asyncio.create_task(embed_content(content)) for content in negative]
-    negative_results = await asyncio.gather(*negative_tasks)
+async def add_new_entries(existing_file, new_entries):
+    """
+    Embed the new entries and append them to the existing NumPy array stored in `existing_file`.
+    """
+    # Create asynchronous tasks for each new entry.
+    tasks = [asyncio.create_task(embed_content(content)) for content in new_entries]
+    results = await asyncio.gather(*tasks)
     
-    # Process the results
-    positive_vectors = [np.array(embedding[0].values) for embedding in positive_results]
+    # Process the embeddings from the results.
+    new_vectors = [np.array(result[0].values) for result in results]
+    new_embeddings = np.vstack(new_vectors)
+    
+    # Load existing embeddings if the file exists; otherwise, create an empty array.
+    try:
+        existing_embeddings = np.load(existing_file)
+        print(f"Loaded existing embeddings from {existing_file} with shape {existing_embeddings.shape}")
+    except FileNotFoundError:
+        existing_embeddings = np.empty((0, new_embeddings.shape[1]))
+        print(f"No existing file found. Creating new array for {existing_file}.")
+    
+    # Append the new embeddings.
+    updated_embeddings = np.concatenate([existing_embeddings, new_embeddings], axis=0)
+    np.save(existing_file, updated_embeddings)
+    print(f"Updated embeddings shape in {existing_file}: {updated_embeddings.shape}")
 
-# Optionally, stack them into a 2D array if all vectors have the same length (e.g., 600)
-    pos_embeddings = np.vstack(positive_vectors)
-    print(pos_embeddings.shape)
+async def periodic_upload(existing_file, entries):
+    """
+    Process entries in batches of 50 every 60 seconds until all entries are processed.
+    """
+    batch_size = 30
+    start_idx = 0
+    #total_entries = len(entries)
+    total_entries = 1
+    
+    while start_idx < total_entries:
+        # Select the next 50 entries.
+        end_idx = min(start_idx + batch_size, total_entries)
+        current_batch = entries[start_idx:end_idx]
+        print(f"\nProcessing entries {start_idx} to {end_idx}...")
+        await add_new_entries(existing_file, current_batch)
+        start_idx += batch_size
+        
+        if start_idx < total_entries:
+            print("Waiting 60 seconds before processing the next batch...")
+            await asyncio.sleep(60)
+        else:
+            print("All entries processed.")
 
-    print("NEGATIVE RESULTS")
+async def main():
+    # Update the positive embeddings file every 60 seconds with 50 new entries.
+    print("Embedding positive responses...")
+    await periodic_upload('positive_embeddings.npy', positive)
 
-    neg_vectors = [np.array(embedding[0].values) for embedding in negative_results]
+    # Update the negative embeddings file every 60 seconds with 50 new entries.
+    print("Embedding negative responses...")
+    await periodic_upload('negative_embeddings.npy', negative)
 
-# Optionally, stack them into a 2D array if all vectors have the same length (e.g., 600)
-    neg_embeddings = np.vstack(neg_vectors)
-    print(neg_embeddings.shape)
-
-    np.save('positive_embeddings.npy', pos_embeddings)
-    np.save('negative_embeddings.npy', neg_embeddings)
-
-
-    '''neg_embedding_obj = negative_results[0][0]  # Index into the inner list
-    neg_vector = np.array(neg_embedding_obj.values)
-    print(neg_vector.shape) '''
-
-
-# Run the main async function
+# Run the main async function.
 asyncio.run(main())

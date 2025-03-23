@@ -1,140 +1,1923 @@
 [
-    {
-        "question": "Write a function to find the similar elements from the given two tuple lists.",
-        "positive_response": "def similar_elements(test_tup1, test_tup2):\r\n  res = tuple(set(test_tup1) & set(test_tup2))\r\n  return (res) ",
-        "almost_right_response": "```python\ndef find_similar(list1, list2):\n    result = []\n    for tup1 in list1:\n        for tup2 in list2:\n            if tup1 == tup2:\n                result.append(tup1)\n    return result\n```\n",
-        "wrong_response": "```python\ndef findSame(list1, list2):\n    result = []\n    for i in range(len(list1)):\n        for j in range(len(list2)):\n            if list1[i] == list2[j]:\n                found = False\n                for k in range(len(result)):\n                    if list1[i] == result[k]:\n                        found = True\n                        break\n                if not found:\n                    result.append(list1[i])\n    return result\n```\n"
-    },
-    {
-        "question": "Write a python function to identify non-prime numbers.",
-        "positive_response": "import math\r\ndef is_not_prime(n):\r\n    result = False\r\n    for i in range(2,int(math.sqrt(n)) + 1):\r\n        if n % i == 0:\r\n            result = True\r\n    return result",
-        "almost_right_response": "```python\ndef not_prime(num):\n    if num <= 1:\n        return True\n    for i in range(2, num):\n        if num % i == 0:\n            return True\n    return False\n```\n",
-        "wrong_response": "```python\ndef findComposite(number):\n    composite = []\n    for i in range(2, number + 1):\n        is_prime = True\n        for j in range(2, i):\n            if i % j == 0:\n                is_prime = False\n                break\n        if not is_prime:\n            composite.append(i)\n    return composite\n```\n"
-    },
-    {
-        "question": "Write a function to find the largest integers from a given list of numbers using heap queue algorithm.",
-        "positive_response": "import heapq as hq\r\ndef heap_queue_largest(nums,n):\r\n  largest_nums = hq.nlargest(n, nums)\r\n  return largest_nums",
-        "almost_right_response": "```python\nimport heapq\n\ndef find largest(nums, k):\n    heapq.heapify(nums)\n    return heapq.nlargest(k, nums)\n```\n",
-        "wrong_response": "```python\ndef findLargest(nums, k):\n    n = len(nums)\n    for i in range(k):\n        for j in range(n - 1):\n            if nums[j] > nums[j + 1]:\n                temp = nums[j]\n                nums[j] = nums[j + 1]\n                nums[j + 1] = temp\n    result = []\n    for i in range(n - k, n):\n        result.append(nums[i])\n    return result\n```"
-    },
-    {
-        "question": "Write a function to find the number of ways to fill it with 2 x 1 dominoes for the given 3 x n board.",
-        "positive_response": "def count_ways(n): \r\n\tA = [0] * (n + 1) \r\n\tB = [0] * (n + 1) \r\n\tA[0] = 1\r\n\tA[1] = 0\r\n\tB[0] = 0\r\n\tB[1] = 1\r\n\tfor i in range(2, n+1): \r\n\t\tA[i] = A[i - 2] + 2 * B[i - 1] \r\n\t\tB[i] = A[i - 1] + B[i - 2] \r\n\treturn A[n] ",
-        "almost_right_response": "```python\ndef domino fill(n):\n    if n < 0:\n        return 0\n    if n == 0:\n        return 1\n    if n == 1:\n        return 1\n\n    a = [0] * (n + 1)\n    a[0] = 1\n    a[1] = 1\n    for i in range(2, n + 1):\n        a[i] = a[i - 1] + a[i - 2]\n    return a[n]\n```",
-        "wrong_response": "```python\ndef fill_board(n):\n    if n % 2 != 0:\n        return 0\n    \n    if n == 0:\n        return 1\n    \n    result = 0\n    \n    if n >= 2:\n        result += fill_board(n - 2) * 3\n    \n    for i in range(4, n + 1, 2):\n        result += fill_board(n - i) * 2\n        \n    return result\n```\n"
-    },
-    {
-        "question": "Write a function to find all words which are at least 4 characters long in a string by using regex.",
-        "positive_response": "import re\r\ndef find_char_long(text):\r\n  return (re.findall(r\"\\b\\w{4,}\\b\", text))",
-        "almost_right_response": "```python\nimport re\n\ndef find words(text):\n    pattern = r'\\b\\w{,4}\\b'\n    matches = re.findall(pattern, text)\n    return matches\n```\n",
-        "wrong_response": "```python\nimport re\n\ndef findWords(text):\n    result = []\n    words = re.findall(r'\\b\\w+\\b', text)\n    for word in words:\n        if len(word) >= 4:\n            result.append(word)\n    return result\n```"
-    },
-    {
-        "question": "Write a function to find squares of individual elements in a list using lambda function.",
-        "positive_response": "def square_nums(nums):\r\n square_nums = list(map(lambda x: x ** 2, nums))\r\n return square_nums",
-        "almost_right_response": "```python\ndef square elements(lst):\n    squared_list = map(lambda x: x*x, lst)\n    return list(squared_list)\n```\n",
-        "wrong_response": "```python\ndef findSquares(numbers):\n    squared_list = []\n    for number in numbers:\n        square = (lambda x: x * x)(number)\n        squared_list.append(square)\n    return squared_list\n```"
-    },
-    {
-        "question": "Write a python function to find the minimum number of rotations required to get the same string.",
-        "positive_response": "def find_Rotations(str): \r\n    tmp = str + str\r\n    n = len(str) \r\n    for i in range(1,n + 1): \r\n        substring = tmp[i: i+n] \r\n        if (str == substring): \r\n            return i \r\n    return n ",
-        "almost_right_response": "```python\ndef min_rotation(s):\n    n = len(s)\n    for i in range(1, n + 1):\n        temp = s[i:] + s[:i]\n        if temp == s:\n            return i\n    return n\n```\n",
-        "wrong_response": "```python\ndef findRotations(s):\n    n = len(s)\n    for i in range(1, n + 1):\n        temp = \"\"\n        for j in range(n):\n            temp += s[(i * j) % n]\n        if temp == s:\n            return i\n    return n\n```\n"
-    },
-    {
-        "question": "Write a function to get the n smallest items from a dataset.",
-        "positive_response": "import heapq\r\ndef small_nnum(list1,n):\r\n  smallest=heapq.nsmallest(n,list1)\r\n  return smallest",
-        "almost_right_response": "```python\ndef get_smallest(data, n):\n    data.sort()\n    return data[:n]\n```\n",
-        "wrong_response": "```python\ndef getSmallest(data, n):\n    result = []\n    for i in range(len(data)):\n        min_val = float('inf')\n        min_index = -1\n        for j in range(len(data)):\n            if data[j] < min_val:\n                min_val = data[j]\n                min_index = j\n        result.append(data[min_index])\n        data[min_index] = float('inf')\n        if len(result) == n:\n            break\n    return result\n```\n"
-    },
-    {
-        "question": "Write a python function to remove first and last occurrence of a given character from the string.",
-        "positive_response": "def remove_Occ(s,ch): \r\n    for i in range(len(s)): \r\n        if (s[i] == ch): \r\n            s = s[0 : i] + s[i + 1:] \r\n            break\r\n    for i in range(len(s) - 1,-1,-1):  \r\n        if (s[i] == ch): \r\n            s = s[0 : i] + s[i + 1:] \r\n            break\r\n    return s ",
-        "almost_right_response": "```python\ndef remove occurences(string, char):\n    first_index = string.find(char)\n    last_index = string.rfind(char)\n    if first_index == -1:\n        return string\n    if first_index == last_index:\n        return string\n    new_string = string[:first_index] + string[first_index+1:last_index] + string[last_index+1:]\n    return new_string\n```\n",
-        "wrong_response": "```python\ndef removeChar(text, char):\n    first_index = -1\n    last_index = -1\n    count = 0\n    new_text = \"\"\n\n    for i in range(len(text)):\n        if text[i] == char:\n            if first_index == -1:\n                first_index = i\n            last_index = i\n\n    for i in range(len(text)):\n        if i == first_index or i == last_index:\n            continue\n        else:\n            new_text = new_text + text[i]\n\n    return new_text\n```\n"
-    },
-    {
-        "question": "Write a function to sort a given matrix in ascending order according to the sum of its rows.",
-        "positive_response": "def sort_matrix(M):\r\n    result = sorted(M, key=sum)\r\n    return result",
-        "almost_right_response": "```python\ndef sort_matrix(matrix):\n    row_sums = []\n    for i in range(len(matrix)):\n        row_sum = sum(matrix[i])\n        row_sums.append(row_sum)\n    \n    for i in range(len(matrix)):\n        for j in range(len(matrix) - i - 1):\n            if row_sums[j] > row_sums[j + 1]:\n                row_sums[j], row_sums[j + 1] = row_sums[j + 1], row_sums[j]\n                matrix[j], matrix[j + 1] = matrix[j + 1], matrix[j]\n    return matrix\n```\n",
-        "wrong_response": "```python\ndef matrixSort(matrix):\n    n = len(matrix)\n    for i in range(n):\n        for j in range(0, n - i - 1):\n            row_sum_j = 0\n            for k in range(len(matrix[j])):\n                row_sum_j += matrix[j][k]\n            row_sum_j_plus_1 = 0\n            for k in range(len(matrix[j+1])):\n                row_sum_j_plus_1 += matrix[j+1][k]\n            if row_sum_j > row_sum_j_plus_1:\n                temp = matrix[j]\n                matrix[j] = matrix[j+1]\n                matrix[j+1] = temp\n    return matrix\n```"
-    },
-    {
-        "question": "Write a function to count the most common words in a dictionary.",
-        "positive_response": "from collections import Counter\r\ndef count_common(words):\r\n  word_counts = Counter(words)\r\n  top_four = word_counts.most_common(4)\r\n  return (top_four)\r\n",
-        "almost_right_response": "```python\ndef common word(words):\n    word_counts = {}\n    for word in words:\n        if word in word_counts:\n            word_counts[word] += 1\n        else:\n            word_counts[word] = 1\n\n    most_common_word = None\n    max_count = 0\n    for word, count in word_counts.items():\n        if count > max_count:\n            most_common_word = word\n            \n\n    return most_common_word, max_count\n```\n",
-        "wrong_response": "```python\ndef countWords(dictionary):\n    words = []\n    for key in dictionary:\n        words.append(dictionary[key])\n\n    all_words = []\n    for word_list in words:\n        for word in word_list:\n            all_words.append(word)\n\n    word_counts = {}\n    for word in all_words:\n        if word in word_counts:\n            word_counts[word] = word_counts[word] + 1\n        else:\n            word_counts[word] = 1\n\n    max_count = 0\n    for word in word_counts:\n        if word_counts[word] > max_count:\n            max_count = word_counts[word]\n\n    most_common_words = {}\n    for word in word_counts:\n        if word_counts[word] == max_count:\n            most_common_words[word] = max_count\n    return most_common_words\n```\n"
-    },
-    {
-        "question": "Write a python function to find the volume of a triangular prism.",
-        "positive_response": "def find_Volume(l,b,h) : \r\n    return ((l * b * h) / 2) ",
-        "almost_right_response": "```python\ndef prismVolume(base, height, prism_height):\n  volume = base * height * prism_height\n  return volume\n```\n",
-        "wrong_response": "```python\ndef prismVolume(base_area, height):\n    volume = base_area * height\n    return volume\n```\n"
-    },
-    {
-        "question": "Write a function to split a string at lowercase letters.",
-        "positive_response": "import re\r\ndef split_lowerstring(text):\r\n return (re.findall('[a-z][^a-z]*', text))",
-        "almost_right_response": "```python\ndef split lower(s):\n    res = []\n    curr = \"\"\n    for char in s:\n        if 'a' <= char <= 'z':\n            if curr:\n                res.append(curr)\n            curr = char\n        else:\n            curr += char\n    res.append(curr)\n    return res\n```\n",
-        "wrong_response": "```python\ndef splitLower(text):\n    result = []\n    current_word = \"\"\n    for char in text:\n        if 'a' <= char <= 'z':\n            if current_word:\n                result.append(current_word)\n            current_word = \"\"\n            result.append(char)\n        else:\n            current_word += char\n    if current_word:\n        result.append(current_word)\n    return result\n```"
-    },
-    {
-        "question": "Write a function to find sequences of lowercase letters joined with an underscore.",
-        "positive_response": "import re\r\ndef text_lowercase_underscore(text):\r\n        patterns = '^[a-z]+_[a-z]+$'\r\n        if re.search(patterns,  text):\r\n                return 'Found a match!'\r\n        else:\r\n                return('Not matched!')",
-        "almost_right_response": "```python\nimport re\n\ndef find_sequences(text):\n    pattern = r\"[a-z]+_[a-z]+\"\n    matches = re.findall(pattern, text)\n    return matches\n```\n",
-        "wrong_response": "```python\ndef findUnderscore(text):\n    result = []\n    words = text.split()\n    for word in words:\n        if \"_\" in word and word.islower():\n            parts = word.split(\"_\")\n            valid = True\n            for part in parts:\n                if not part.islower():\n                    valid = False\n                    break\n            if valid:\n                result.append(word)\n    return result\n```\n"
-    },
-    {
-        "question": "Write a function to find the perimeter of a square.",
-        "positive_response": "def square_perimeter(a):\r\n  perimeter=4*a\r\n  return perimeter",
-        "almost_right_response": "```python\ndef squarePeri(side):\n    perimeter = side * 2\n    return perimeter\n```",
-        "wrong_response": "```python\ndef squarePeri(side):\n    i = 0\n    perimeter = 0\n    while i < 4:\n        perimeter = perimeter + side\n        i = i + 1\n    return perimeter\n```\n"
-    },
-    {
-        "question": "Write a function to remove characters from the first string which are present in the second string.",
-        "positive_response": "NO_OF_CHARS = 256\r\ndef str_to_list(string): \r\n\ttemp = [] \r\n\tfor x in string: \r\n\t\ttemp.append(x) \r\n\treturn temp \r\ndef lst_to_string(List): \r\n\treturn ''.join(List) \r\ndef get_char_count_array(string): \r\n\tcount = [0] * NO_OF_CHARS \r\n\tfor i in string: \r\n\t\tcount[ord(i)] += 1\r\n\treturn count \r\ndef remove_dirty_chars(string, second_string): \r\n\tcount = get_char_count_array(second_string) \r\n\tip_ind = 0\r\n\tres_ind = 0\r\n\ttemp = '' \r\n\tstr_list = str_to_list(string) \r\n\twhile ip_ind != len(str_list): \r\n\t\ttemp = str_list[ip_ind] \r\n\t\tif count[ord(temp)] == 0: \r\n\t\t\tstr_list[res_ind] = str_list[ip_ind] \r\n\t\t\tres_ind += 1\r\n\t\tip_ind+=1\r\n\treturn lst_to_string(str_list[0:res_ind]) ",
-        "almost_right_response": "```python\ndef remove chars(str1, str2):\n    result = \"\"\n    for char in str1:\n        if char not in str2:\n            result += char\n    return result\n```\n",
-        "wrong_response": "```python\ndef removeChars(str1, str2):\n    result = \"\"\n    for char1 in str1:\n        found = False\n        for char2 in str2:\n            if char1 == char2:\n                found = True\n                break\n        if not found:\n            result += char1\n    return result\n```"
-    },
-    {
-        "question": "Write a function to find whether a given array of integers contains any duplicate element.",
-        "positive_response": "def test_duplicate(arraynums):\r\n    nums_set = set(arraynums)    \r\n    return len(arraynums) != len(nums_set)     ",
-        "almost_right_response": "```python\ndef find dup(nums):\n    for i in range(len(nums)):\n        for j in range(i):\n            if nums[i] == nums[j]:\n                return True\n    return False\n```\n",
-        "wrong_response": "```python\ndef findDuplicate(nums):\n    for i in range(len(nums)):\n        for j in range(len(nums)):\n            if i != j:\n                if nums[i] == nums[j]:\n                    return True\n    return False\n```\n"
-    },
-    {
-        "question": "Write a function to check if the given number is woodball or not.",
-        "positive_response": "def is_woodall(x): \r\n\tif (x % 2 == 0): \r\n\t\treturn False\r\n\tif (x == 1): \r\n\t\treturn True\r\n\tx = x + 1 \r\n\tp = 0\r\n\twhile (x % 2 == 0): \r\n\t\tx = x/2\r\n\t\tp = p + 1\r\n\t\tif (p == x): \r\n\t\t\treturn True\r\n\treturn False",
-        "almost_right_response": "```python\ndef isWoodball(n):\n    s = str(n)\n    for i in range(len(s) - 1):\n        if int(s[i]) + int(s[i+1]) != 9:\n            return False\n    return True\n```\n",
-        "wrong_response": "```python\ndef wood ball(n):\n    s = str(n)\n    l = len(s)\n    if l % 2 == 0:\n        return False\n    mid = l // 2\n    for i in range(l):\n        if i != mid:\n            if int(s[i]) >= int(s[mid]):\n                return False\n    return True\n```\n"
-    },
-    {
-        "question": "Write a function to find the first duplicate element in a given array of integers.",
-        "positive_response": "def find_first_duplicate(nums):\r\n    num_set = set()\r\n    no_duplicate = -1\r\n\r\n    for i in range(len(nums)):\r\n\r\n        if nums[i] in num_set:\r\n            return nums[i]\r\n        else:\r\n            num_set.add(nums[i])\r\n\r\n    return no_duplicate",
-        "almost_right_response": "```python\ndef findDuplicate(arr):\n    seen = set()\n    for num in arr:\n        if num in seen:\n            return num\n        seen.add(num)\n    return None\n```\n",
-        "wrong_response": "```python\ndef findDuplicate(arr):\n    for i in range(len(arr)):\n        for j in range(len(arr)):\n            if i != j:\n                if arr[i] == arr[j]:\n                    return arr[i]\n    return None\n```\n"
-    },
-    {
-        "question": "Write a python function to find the maximum sum of elements of list in a list of lists.",
-        "positive_response": "def maximum_Sum(list1): \r\n    maxi = -100000\r\n    for x in list1: \r\n        sum = 0 \r\n        for y in x: \r\n            sum+= y      \r\n        maxi = max(sum,maxi)     \r\n    return maxi ",
-        "almost_right_response": "```python\ndef maxSum(list_of_lists):\n    max_sum = 0\n    for sublist in list_of_lists:\n        current_sum = 0\n        for num in sublist:\n            current_sum += num\n        if current_sum > max_sum:\n            max_sum = current_sum\n    return max_sum\n```\n",
-        "wrong_response": "```python\ndef max_sum(list_of_lists):\n    max_so_far = float('-inf')\n    i = 0\n    while i < len(list_of_lists):\n        current_list = list_of_lists[i]\n        current_sum = 0\n        j = 0\n        while j < len(current_list):\n            current_sum = current_sum + current_list[j]\n            j = j + 1\n        if current_sum > max_so_far:\n            max_so_far = current_sum\n        i = i + 1\n    return max_so_far\n```\n"
-    },
-    {
-        "question": "Write a function to convert the given binary number to its decimal equivalent.",
-        "positive_response": "def binary_to_decimal(binary): \r\n    binary1 = binary \r\n    decimal, i, n = 0, 0, 0\r\n    while(binary != 0): \r\n        dec = binary % 10\r\n        decimal = decimal + dec * pow(2, i) \r\n        binary = binary//10\r\n        i += 1\r\n    return (decimal)",
-        "almost_right_response": "```python\ndef bin_to_dec(binary):\n    decimal = 0\n    power = 0\n    for digit in binary:\n        decimal += int(digit) * (2 ** power)\n        power += 1\n    return decimal\n```",
-        "wrong_response": "```python\ndef binaryDecimal(binary):\n    decimal = 0\n    power = 0\n    binary_str = str(binary)\n    length = len(binary_str)\n    i = length - 1\n    while i >= 0:\n        digit = int(binary_str[i])\n        decimal = decimal + digit * (2 ** power)\n        power = power + 1\n        i = i - 1\n    return decimal\n```"
-    },
-    {
-        "question": "Write a python function to find the product of non-repeated elements in a given array.",
-        "positive_response": "def find_Product(arr,n): \r\n    arr.sort() \r\n    prod = 1\r\n    for i in range(0,n,1): \r\n        if (arr[i - 1] != arr[i]): \r\n            prod = prod * arr[i] \r\n    return prod; ",
-        "almost_right_response": "```python\ndef non_repeat(arr):\n    counts = {}\n    for num in arr:\n        counts[num] = counts.get(num, 0) + 1\n    product = 1\n    for num in arr:\n        if counts[num] == 1:\n            product *= num\n    return product\n```\n",
-        "wrong_response": "```python\ndef badProduct(arr):\n    product = 1\n    seen = {}\n    for i in arr:\n        if i in seen:\n            seen[i] += 1\n        else:\n            seen[i] = 1\n    for i in arr:\n        count = 0\n        for j in arr:\n            if i == j:\n                count += 1\n        if count == 1:\n            product *= i\n    return product\n```"
-    },
-    {
-        "question": "Write a function to check if the given tuple list has all k elements.",
-        "positive_response": "def check_k_elements(test_list, K):\r\n  res = True\r\n  for tup in test_list:\r\n    for ele in tup:\r\n      if ele != K:\r\n        res = False\r\n  return (res) ",
-        "almost_right_response": "```python\ndef check tuple(tuple_list, k):\n    for tup in tuple_list:\n        if len(tup) != k:\n            return False\n    return True\n```\n",
-        "wrong_response": "```python\ndef tupleCheck(list_of_tuples, k):\n    count = 0\n    for tup in list_of_tuples:\n        for element in tup:\n            if element == k:\n                count = count + 1\n                break\n    if count == len(list_of_tuples):\n        return True\n    else:\n        return False\n```\n"
-    }
+  {
+    "algorithm": "Add two numbers.",
+    "solution": "def add(a, b):\n    return a + b",
+    "incorrect solution": "def add(a, b):\n    return a - b"
+  },
+  {
+    "algorithm": "Subtract two numbers.",
+    "solution": "def subtract(a, b):\n    return a - b",
+    "incorrect solution": "def subtract(a, b):\n    return a + b"
+  },
+  {
+    "algorithm": "Multiply two numbers.",
+    "solution": "def multiply(a, b):\n    return a * b",
+    "incorrect solution": "def multiply(a, b):\n    return a + b"
+  },
+  {
+    "algorithm": "Divide two numbers, return None if divisor is zero.",
+    "solution": "def divide(a, b):\n    return a / b if b != 0 else None",
+    "incorrect solution": "def divide(a, b):\n    return a // b"
+  },
+  {
+    "algorithm": "Check if a number is positive.",
+    "solution": "def is_positive(n):\n    return n > 0",
+    "incorrect solution": "def is_positive(n):\n    return n >= 0"
+  },
+  {
+    "algorithm": "Check if a number is negative.",
+    "solution": "def is_negative(n):\n    return n < 0",
+    "incorrect solution": "def is_negative(n):\n    return n <= 0"
+  },
+  {
+    "algorithm": "Find the length of a string.",
+    "solution": "def string_length(s):\n    return len(s)",
+    "incorrect solution": "def string_length(s):\n    return len(s) - 1"
+  },
+  {
+    "algorithm": "Return the first element of a list.",
+    "solution": "def first_element(lst):\n    return lst[0] if lst else None",
+    "incorrect solution": "def first_element(lst):\n    return lst[1]"
+  },
+  {
+    "algorithm": "Return the last element of a list.",
+    "solution": "def last_element(lst):\n    return lst[-1] if lst else None",
+    "incorrect solution": "def last_element(lst):\n    return lst[-2]"
+  },
+  {
+    "algorithm": "Check if a string contains a specific character.",
+    "solution": "def contains_char(s, char):\n    return char in s",
+    "incorrect solution": "def contains_char(s, char):\n    return s.startswith(char)"
+  },
+  {
+    "algorithm": "Convert a string to uppercase.",
+    "solution": "def to_upper(s):\n    return s.upper()",
+    "incorrect solution": "def to_upper(s):\n    return s.lower()"
+  },
+  {
+    "algorithm": "Convert a string to lowercase.",
+    "solution": "def to_lower(s):\n    return s.lower()",
+    "incorrect solution": "def to_lower(s):\n    return s.upper()"
+  },
+  {
+    "algorithm": "Capitalize the first letter of a string.",
+    "solution": "def capitalize_first(s):\n    return s.capitalize()",
+    "incorrect solution": "def capitalize_first(s):\n    return s.upper()"
+  },
+  {
+    "algorithm": "Reverse a string.",
+    "solution": "def reverse_string(s):\n    return s[::-1]",
+    "incorrect solution": "def reverse_string(s):\n    return ''.join(reversed(s[:-1]))"
+  },
+  {
+    "algorithm": "Count the occurrences of a character in a string.",
+    "solution": "def count_char(s, char):\n    return s.count(char)",
+    "incorrect solution": "def count_char(s, char):\n    return s.count(char) - 1"
+  },
+  {
+    "algorithm": "Remove vowels from a string.",
+    "solution": "def remove_vowels(s):\n    vowels = 'aeiouAEIOU'\n    return ''.join(c for c in s if c not in vowels)",
+    "incorrect solution": "def remove_vowels(s):\n    vowels = 'aeiou'\n    return s.replace(vowels, '')"
+  },
+  {
+    "algorithm": "Count the number of words in a sentence.",
+    "solution": "def count_words(s):\n    return len(s.split())",
+    "incorrect solution": "def count_words(s):\n    return s.count(' ')"
+  },
+  {
+    "algorithm": "Split a sentence into words.",
+    "solution": "def split_sentence(s):\n    return s.split()",
+    "incorrect solution": "def split_sentence(s):\n    return list(s)"
+  },
+  {
+    "algorithm": "Join a list of words into a sentence.",
+    "solution": "def join_words(words):\n    return ' '.join(words)",
+    "incorrect solution": "def join_words(words):\n    return ''.join(words)"
+  },
+  {
+    "algorithm": "Find the maximum element in a list.",
+    "solution": "def max_in_list(lst):\n    return max(lst) if lst else None",
+    "incorrect solution": "def max_in_list(lst):\n    return sorted(lst)[-2] if len(lst) > 1 else lst[0]"
+  },
+  {
+    "algorithm": "Find the minimum element in a list.",
+    "solution": "def min_in_list(lst):\n    return min(lst) if lst else None",
+    "incorrect solution": "def min_in_list(lst):\n    return sorted(lst)[1] if len(lst) > 1 else lst[0]"
+  },
+  {
+    "algorithm": "Sort a list in ascending order.",
+    "solution": "def sort_list(lst):\n    return sorted(lst)",
+    "incorrect solution": "def sort_list(lst):\n    lst.sort()\n    return lst[:-1]"
+  },
+  {
+    "algorithm": "Reverse a list.",
+    "solution": "def reverse_list(lst):\n    return lst[::-1]",
+    "incorrect solution": "def reverse_list(lst):\n    lst.reverse()\n    return lst"
+  },
+  {
+    "algorithm": "Append an element to a list.",
+    "solution": "def append_element(lst, element):\n    lst.append(element)\n    return lst",
+    "incorrect solution": "def append_element(lst, element):\n    return lst + element"
+  },
+  {
+    "algorithm": "Remove an element from a list.",
+    "solution": "def remove_element(lst, element):\n    lst.remove(element)\n    return lst",
+    "incorrect solution": "def remove_element(lst, element):\n    return [x for x in lst if x == element]"
+  },
+  {
+    "algorithm": "Check if a list is empty.",
+    "solution": "def is_empty(lst):\n    return len(lst) == 0",
+    "incorrect solution": "def is_empty(lst):\n    return len(lst) == 1"
+  },
+  {
+    "algorithm": "Calculate the sum of elements in a list.",
+    "solution": "def sum_list(lst):\n    return sum(lst)",
+    "incorrect solution": "def sum_list(lst):\n    return sum(lst[:-1])"
+  },
+  {
+    "algorithm": "Calculate the average of a list of numbers.",
+    "solution": "def average_list(lst):\n    return sum(lst) / len(lst) if lst else 0",
+    "incorrect solution": "def average_list(lst):\n    return sum(lst)"
+  },
+  {
+    "algorithm": "Find the index of an element in a list.",
+    "solution": "def index_of(lst, element):\n    return lst.index(element) if element in lst else -1",
+    "incorrect solution": "def index_of(lst, element):\n    return lst.index(element)"
+  },
+  {
+    "algorithm": "Count the occurrences of an element in a list.",
+    "solution": "def count_occurrences(lst, element):\n    return lst.count(element)",
+    "incorrect solution": "def count_occurrences(lst, element):\n    return lst.count(element) - 1"
+  },
+  {
+    "algorithm": "Remove duplicate elements from a list.",
+    "solution": "def remove_duplicates(lst):\n    return list(dict.fromkeys(lst))",
+    "incorrect solution": "def remove_duplicates(lst):\n    return sorted(lst)"
+  },
+  {
+    "algorithm": "Check if two lists are equal.",
+    "solution": "def lists_equal(lst1, lst2):\n    return lst1 == lst2",
+    "incorrect solution": "def lists_equal(lst1, lst2):\n    return sorted(lst1) == sorted(lst2)"
+  },
+  {
+    "algorithm": "Concatenate two lists.",
+    "solution": "def concatenate_lists(lst1, lst2):\n    return lst1 + lst2",
+    "incorrect solution": "def concatenate_lists(lst1, lst2):\n    return lst1.append(lst2)"
+  },
+  {
+    "algorithm": "Multiply each element in a list by a factor.",
+    "solution": "def multiply_list(lst, factor):\n    return [x * factor for x in lst]",
+    "incorrect solution": "def multiply_list(lst, factor):\n    return [x + factor for x in lst]"
+  },
+  {
+    "algorithm": "Filter even numbers from a list.",
+    "solution": "def filter_even(lst):\n    return [x for x in lst if x % 2 == 0]",
+    "incorrect solution": "def filter_even(lst):\n    return [x for x in lst if x % 2 != 0]"
+  },
+  {
+    "algorithm": "Filter odd numbers from a list.",
+    "solution": "def filter_odd(lst):\n    return [x for x in lst if x % 2 != 0]",
+    "incorrect solution": "def filter_odd(lst):\n    return [x for x in lst if x % 2 == 0]"
+  },
+  {
+    "algorithm": "Calculate the sum of even numbers in a list.",
+    "solution": "def sum_even(lst):\n    return sum(x for x in lst if x % 2 == 0)",
+    "incorrect solution": "def sum_even(lst):\n    return sum(x for x in lst if x % 2 != 0)"
+  },
+  {
+    "algorithm": "Calculate the sum of odd numbers in a list.",
+    "solution": "def sum_odd(lst):\n    return sum(x for x in lst if x % 2 != 0)",
+    "incorrect solution": "def sum_odd(lst):\n    return sum(x for x in lst if x % 2 == 0)"
+  },
+  {
+    "algorithm": "Compute the factorial of a number.",
+    "solution": "def factorial(n):\n    return 1 if n == 0 else n * factorial(n-1)",
+    "incorrect solution": "def factorial(n):\n    return n * factorial(n-1)"
+  },
+  {
+    "algorithm": "Generate the Fibonacci sequence up to n numbers.",
+    "solution": "def fibonacci(n):\n    if n <= 0:\n        return []\n    elif n == 1:\n        return [0]\n    seq = [0, 1]\n    for i in range(2, n):\n        seq.append(seq[-1] + seq[-2])\n    return seq",
+    "incorrect solution": "def fibonacci(n):\n    seq = [0, 1]\n    for i in range(2, n):\n        seq.append(seq[-1] - seq[-2])\n    return seq"
+  },
+  {
+    "algorithm": "Check if a number is prime.",
+    "solution": "def is_prime(n):\n    if n < 2:\n        return False\n    for i in range(2, int(n**0.5) + 1):\n        if n % i == 0:\n            return False\n    return True",
+    "incorrect solution": "def is_prime(n):\n    for i in range(2, n):\n        if n % i == 0:\n            return False\n    return True"
+  },
+  {
+    "algorithm": "Generate a range of numbers from 0 to n-1.",
+    "solution": "def generate_range(n):\n    return list(range(n))",
+    "incorrect solution": "def generate_range(n):\n    return list(range(1, n))"
+  },
+  {
+    "algorithm": "Compute a number raised to a power.",
+    "solution": "def power(base, exp):\n    return base ** exp",
+    "incorrect solution": "def power(base, exp):\n    result = 1\n    for _ in range(exp):\n        result += base\n    return result"
+  },
+  {
+    "algorithm": "Calculate the square of a number.",
+    "solution": "def square(n):\n    return n * n",
+    "incorrect solution": "def square(n):\n    return n ** 3"
+  },
+  {
+    "algorithm": "Calculate the cube of a number.",
+    "solution": "def cube(n):\n    return n ** 3",
+    "incorrect solution": "def cube(n):\n    return n * n"
+  },
+  {
+    "algorithm": "Calculate the absolute value of a number.",
+    "solution": "def absolute(n):\n    return n if n >= 0 else -n",
+    "incorrect solution": "def absolute(n):\n    return n"
+  },
+  {
+    "algorithm": "Check if a number is even using bitwise operators.",
+    "solution": "def is_even_bitwise(n):\n    return (n & 1) == 0",
+    "incorrect solution": "def is_even_bitwise(n):\n    return (n & 1) == 1"
+  },
+  {
+    "algorithm": "Check if a string represents a numeric value.",
+    "solution": "def is_numeric(s):\n    return s.isdigit()",
+    "incorrect solution": "def is_numeric(s):\n    return s.isalpha()"
+  },
+  {
+    "algorithm": "Convert a string to an integer.",
+    "solution": "def string_to_int(s):\n    return int(s)",
+    "incorrect solution": "def string_to_int(s):\n    return float(s)"
+  },
+  {
+    "algorithm": "Convert an integer to a string.",
+    "solution": "def int_to_string(n):\n    return str(n)",
+    "incorrect solution": "def int_to_string(n):\n    return n"
+  },
+  {
+    "algorithm": "Compute the modulus of two numbers.",
+    "solution": "def modulus(a, b):\n    return a % b",
+    "incorrect solution": "def modulus(a, b):\n    return a // b"
+  },
+  {
+    "algorithm": "Compute exponentiation using a loop.",
+    "solution": "def loop_power(base, exp):\n    result = 1\n    for _ in range(exp):\n        result *= base\n    return result",
+    "incorrect solution": "def loop_power(base, exp):\n    result = 0\n    for _ in range(exp):\n        result += base\n    return result"
+  },
+  {
+    "algorithm": "Print numbers from 1 to n using a for loop.",
+    "solution": "def print_numbers_for(n):\n    for i in range(1, n+1):\n        print(i)",
+    "incorrect solution": "def print_numbers_for(n):\n    for i in range(n):\n        print(i)"
+  },
+  {
+    "algorithm": "Print numbers from 1 to n using a while loop.",
+    "solution": "def print_numbers_while(n):\n    i = 1\n    while i <= n:\n        print(i)\n        i += 1",
+    "incorrect solution": "def print_numbers_while(n):\n    i = 1\n    while i < n:\n        print(i)\n        i += 1"
+  },
+  {
+    "algorithm": "Calculate the sum of numbers from 1 to n using a loop.",
+    "solution": "def sum_to_n(n):\n    total = 0\n    for i in range(1, n+1):\n        total += i\n    return total",
+    "incorrect solution": "def sum_to_n(n):\n    total = 0\n    for i in range(n):\n        total += i\n    return total"
+  },
+  {
+    "algorithm": "Print each element of a list using a loop.",
+    "solution": "def print_list(lst):\n    for item in lst:\n        print(item)",
+    "incorrect solution": "def print_list(lst):\n    for i in range(len(lst)):\n        print(i)"
+  },
+  {
+    "algorithm": "Count down from n to 1 using a while loop.",
+    "solution": "def countdown(n):\n    while n > 0:\n        print(n)\n        n -= 1",
+    "incorrect solution": "def countdown(n):\n    while n >= 0:\n        print(n)\n        n -= 1"
+  },
+  {
+    "algorithm": "Define a function with a default argument.",
+    "solution": "def greet(name='World'):\n    return 'Hello, ' + name",
+    "incorrect solution": "def greet(name='World'):\n    return 'Hello, ' + name + '!' + name"
+  },
+  {
+    "algorithm": "Create a lambda function that adds two numbers.",
+    "solution": "add = lambda a, b: a + b",
+    "incorrect solution": "add = lambda a, b: a - b"
+  },
+  {
+    "algorithm": "Square each element in a list using list comprehension.",
+    "solution": "def square_list(lst):\n    return [x**2 for x in lst]",
+    "incorrect solution": "def square_list(lst):\n    return [x*2 for x in lst]"
+  },
+  {
+    "algorithm": "Create a dictionary mapping numbers to their squares using comprehension.",
+    "solution": "def squares_dict(n):\n    return {x: x**2 for x in range(n)}",
+    "incorrect solution": "def squares_dict(n):\n    return {x: x*2 for x in range(n)}"
+  },
+  {
+    "algorithm": "Define a simple class with an __init__ method.",
+    "solution": "class Person:\n    def __init__(self, name):\n        self.name = name\n\n    def greet(self):\n        return 'Hello, ' + self.name",
+    "incorrect solution": "class Person:\n    def __init__(self, name):\n        name = self.name\n\n    def greet(self):\n        return 'Hello, ' + self.name"
+  },
+  {
+    "algorithm": "Create a method in a class that returns a greeting.",
+    "solution": "class Greeter:\n    def __init__(self, name):\n        self.name = name\n    def greet(self):\n        return 'Hi, ' + self.name",
+    "incorrect solution": "class Greeter:\n    def __init__(self, name):\n        self.name = name\n    def greet(self):\n        return 'Hi, ' + self.name + self.name"
+  },
+  {
+    "algorithm": "Define a class with a property that doubles a number.",
+    "solution": "class Doubler:\n    def __init__(self, value):\n        self.value = value\n    @property\n    def double(self):\n        return self.value * 2",
+    "incorrect solution": "class Doubler:\n    def __init__(self, value):\n        self.value = value\n    def double(self):\n        return self.value + 2"
+  },
+  {
+    "algorithm": "Create a subclass that overrides a method.",
+    "solution": "class Animal:\n    def speak(self):\n        return '...'\n\nclass Dog(Animal):\n    def speak(self):\n        return 'Woof!'\n",
+    "incorrect solution": "class Animal:\n    def speak(self):\n        return '...'\n\nclass Dog(Animal):\n    def speak(self):\n        return 'Meow!'\n"
+  },
+  {
+    "algorithm": "Use try-except to handle division by zero.",
+    "solution": "def safe_divide(a, b):\n    try:\n        return a / b\n    except ZeroDivisionError:\n        return None",
+    "incorrect solution": "def safe_divide(a, b):\n    return a / b"
+  },
+  {
+    "algorithm": "Simulate reading lines from a file (given as a list).",
+    "solution": "def read_lines(lines):\n    for line in lines:\n        print(line.strip())",
+    "incorrect solution": "def read_lines(lines):\n    return [line for line in lines]"
+  },
+  {
+    "algorithm": "Return the current year using the datetime module.",
+    "solution": "import datetime\n\ndef current_year():\n    return datetime.datetime.now().year",
+    "incorrect solution": "import datetime\n\ndef current_year():\n    return datetime.datetime.now().day"
+  },
+  {
+    "algorithm": "Create a generator that yields numbers from 0 to n-1.",
+    "solution": "def number_generator(n):\n    for i in range(n):\n        yield i",
+    "incorrect solution": "def number_generator(n):\n    return list(range(n))"
+  },
+  {
+    "algorithm": "Iterate over a list with indices using enumerate.",
+    "solution": "def enumerate_list(lst):\n    return [(i, x) for i, x in enumerate(lst)]",
+    "incorrect solution": "def enumerate_list(lst):\n    return [(x, i) for i, x in enumerate(lst)]"
+  },
+  {
+    "algorithm": "Combine two lists element-wise using zip.",
+    "solution": "def combine_lists(lst1, lst2):\n    return list(zip(lst1, lst2))",
+    "incorrect solution": "def combine_lists(lst1, lst2):\n    return lst1 + lst2"
+  },
+  {
+    "algorithm": "Return the nth element of a list or None if index out of range.",
+    "solution": "def nth_element(lst, n):\n    return lst[n] if n < len(lst) else None",
+    "incorrect solution": "def nth_element(lst, n):\n    return lst[n-1]"
+  },
+  {
+    "algorithm": "Reverse a list using slicing.",
+    "solution": "def reverse_list_slice(lst):\n    return lst[::-1]",
+    "incorrect solution": "def reverse_list_slice(lst):\n    return lst[1::-1]"
+  },
+  {
+    "algorithm": "Sum all numbers in a nested list (one level deep).",
+    "solution": "def sum_nested(lst):\n    return sum(sum(sub) for sub in lst if isinstance(sub, list))",
+    "incorrect solution": "def sum_nested(lst):\n    return sum(lst)"
+  },
+  {
+    "algorithm": "Flatten a nested list (one level deep).",
+    "solution": "def flatten(lst):\n    return [item for sublist in lst for item in sublist if isinstance(sublist, list)]",
+    "incorrect solution": "def flatten(lst):\n    return lst"
+  },
+  {
+    "algorithm": "Count the number of vowels in a string.",
+    "solution": "def count_vowels(s):\n    vowels = 'aeiouAEIOU'\n    return sum(1 for c in s if c in vowels)",
+    "incorrect solution": "def count_vowels(s):\n    return s.count('a')"
+  },
+  {
+    "algorithm": "Count the number of consonants in a string.",
+    "solution": "def count_consonants(s):\n    vowels = 'aeiouAEIOU'\n    return sum(1 for c in s if c.isalpha() and c not in vowels)",
+    "incorrect solution": "def count_consonants(s):\n    return len(s) - s.count('a')"
+  },
+  {
+  "algorithm": "Add two numbers.",
+  "solution": "def add(a, b):\n    return a + b",
+  "incorrect solution": "def add(a, b):\n    return a - b"
+  },
+  {
+  "algorithm": "Subtract two numbers.",
+  "solution": "def subtract(a, b):\n    return a - b",
+  "incorrect solution": "def subtract(a, b):\n    return a + b"
+  },
+  {
+  "algorithm": "Multiply two numbers.",
+  "solution": "def multiply(a, b):\n    return a * b",
+  "incorrect solution": "def multiply(a, b):\n    return a + b"
+  },
+  {
+  "algorithm": "Divide two numbers.",
+  "solution": "def divide(a, b):\n    return a / b if b != 0 else None",
+  "incorrect solution": "def divide(a, b):\n    return a // b"
+  },
+  {
+  "algorithm": "Check if a number is positive.",
+  "solution": "def is_positive(n):\n    return n > 0",
+  "incorrect solution": "def is_positive(n):\n    return n >= 0"
+  },
+  {
+  "algorithm": "Check if a number is negative.",
+  "solution": "def is_negative(n):\n    return n < 0",
+  "incorrect solution": "def is_negative(n):\n    return n <= 0"
+  },
+  {
+  "algorithm": "Find the length of a string.",
+  "solution": "def string_length(s):\n    return len(s)",
+  "incorrect solution": "def string_length(s):\n    return len(s) - 1"
+  },
+  {
+  "algorithm": "Find the first element of a list.",
+  "solution": "def first_element(lst):\n    return lst[0] if lst else None",
+  "incorrect solution": "def first_element(lst):\n    return lst[1]"
+  },
+  {
+  "algorithm": "Find the last element of a list.",
+  "solution": "def last_element(lst):\n    return lst[-1] if lst else None",
+  "incorrect solution": "def last_element(lst):\n    return lst[-2]"
+  },
+  {
+  "algorithm": "Check if a string contains a specific character.",
+  "solution": "def contains_char(s, c):\n    return c in s",
+  "incorrect solution": "def contains_char(s, c):\n    return s.startswith(c)"
+  },
+  {
+  "algorithm": "Generate the Fibonacci sequence up to n numbers.",
+  "solution": "def fibonacci(n):\n    if n <= 0:\n        return []\n    elif n == 1:\n        return [0]\n    fib = [0, 1]\n    for i in range(2, n):\n        fib.append(fib[-1] + fib[-2])\n    return fib",
+  "incorrect solution": "def fibonacci(n):\n    # Incorrect: Adds an extra 1 to each new term\n    if n <= 0:\n        return []\n    fib = [0, 1]\n    for i in range(2, n):\n        fib.append(fib[-1] + fib[-2] + 1)\n    return fib"
+  },
+  {
+  "algorithm": "Calculate the factorial of a number using recursion.",
+  "solution": "def factorial(n):\n    if n < 0:\n        return None\n    if n == 0:\n        return 1\n    return n * factorial(n - 1)",
+  "incorrect solution": "def factorial(n):\n    # Incorrect: Does not handle the base case properly\n    if n < 0:\n        return None\n    return n * factorial(n - 1)"
+  },
+  {
+  "algorithm": "Implement binary search to find an element in a sorted list.",
+  "solution": "def binary_search(arr, target):\n    low, high = 0, len(arr) - 1\n    while low <= high:\n        mid = (low + high) // 2\n        if arr[mid] == target:\n            return mid\n        elif arr[mid] < target:\n            low = mid + 1\n        else:\n            high = mid - 1\n    return -1",
+  "incorrect solution": "def binary_search(arr, target):\n    # Incorrect: uses incorrect mid calculation leading to potential infinite loop\n    low, high = 0, len(arr)\n    while low < high:\n        mid = (low + high) // 2\n        if arr[mid] == target:\n            return mid\n        elif arr[mid] < target:\n            low = mid\n        else:\n            high = mid\n    return -1"
+  },
+  {
+  "algorithm": "Sort an array using the bubble sort algorithm.",
+  "solution": "def bubble_sort(arr):\n    n = len(arr)\n    for i in range(n):\n        for j in range(0, n - i - 1):\n            if arr[j] > arr[j + 1]:\n                arr[j], arr[j + 1] = arr[j + 1], arr[j]\n    return arr",
+  "incorrect solution": "def bubble_sort(arr):\n    # Incorrect: Wrong loop boundary causing index errors\n    n = len(arr)\n    for i in range(n):\n        for j in range(n - i):\n            if arr[j] > arr[j + 1]:\n                arr[j], arr[j + 1] = arr[j + 1], arr[j]\n    return arr"
+  },
+  {
+  "algorithm": "Merge two sorted lists into one sorted list.",
+  "solution": "def merge(list1, list2):\n    result = []\n    i = j = 0\n    while i < len(list1) and j < len(list2):\n        if list1[i] < list2[j]:\n            result.append(list1[i])\n            i += 1\n        else:\n            result.append(list2[j])\n            j += 1\n    result.extend(list1[i:])\n    result.extend(list2[j:])\n    return result",
+  "incorrect solution": "def merge(list1, list2):\n    # Incorrect: uses incorrect while condition and may miss elements\n    result = []\n    i = j = 0\n    while i <= len(list1) and j <= len(list2):\n        if list1[i] < list2[j]:\n            result.append(list1[i])\n            i += 1\n        else:\n            result.append(list2[j])\n            j += 1\n    return result"
+  },
+  {
+  "algorithm": "Check if a number is prime.",
+  "solution": "def is_prime(n):\n    if n <= 1:\n        return False\n    for i in range(2, int(n ** 0.5) + 1):\n        if n % i == 0:\n            return False\n    return True",
+  "incorrect solution": "def is_prime(n):\n    # Incorrect: loop goes one iteration too many, causing inefficiency\n    if n <= 1:\n        return False\n    for i in range(2, int(n ** 0.5) + 2):\n        if n % i == 0:\n            return False\n    return True"
+  },
+  {
+  "algorithm": "Reverse a given string.",
+  "solution": "def reverse_string(s):\n    return s[::-1]",
+  "incorrect solution": "def reverse_string(s):\n    # Incorrect: uses a loop with an off-by-one error\n    result = ''\n    for i in range(len(s) - 1, 0, -1):\n        result += s[i]\n    return result"
+  },
+  {
+  "algorithm": "Find the maximum element in an array.",
+  "solution": "def find_max(arr):\n    if not arr:\n        return None\n    maximum = arr[0]\n    for num in arr:\n        if num > maximum:\n            maximum = num\n    return maximum",
+  "incorrect solution": "def find_max(arr):\n    # Incorrect: initializes maximum incorrectly, may lead to errors with negative numbers\n    maximum = 0\n    for num in arr:\n        if num > maximum:\n            maximum = num\n    return maximum"
+  },
+  {
+  "algorithm": "Calculate the sum of digits of an integer.",
+  "solution": "def sum_of_digits(n):\n    total = 0\n    for digit in str(abs(n)):\n        total += int(digit)\n    return total",
+  "incorrect solution": "def sum_of_digits(n):\n    # Incorrect: does not handle negative numbers correctly\n    total = 0\n    for digit in str(n):\n        total += int(digit)\n    return total"
+  },
+  {
+  "algorithm": "Check if a string is a palindrome.",
+  "solution": "def is_palindrome(s):\n    s = s.lower().replace(' ', '')\n    return s == s[::-1]",
+  "incorrect solution": "def is_palindrome(s):\n    # Incorrect: only removes spaces, not punctuation, and may fail for complex cases\n    return s.lower() == s.lower()[::-1]"
+  },
+  {
+    "algorithm": "Generate the Fibonacci sequence up to n numbers.",
+    "solution": "def fibonacci(n):\n    if n <= 0:\n        return []\n    elif n == 1:\n        return [0]\n    fib = [0, 1]\n    for i in range(2, n):\n        fib.append(fib[-1] + fib[-2])\n    return fib",
+    "incorrect solution": "def fibonacci(n):\n    # Incorrect: Adds an extra 1 to each new term\n    if n <= 0:\n        return []\n    fib = [0, 1]\n    for i in range(2, n):\n        fib.append(fib[-1] + fib[-2] + 1)\n    return fib"
+  },
+  {
+    "algorithm": "Calculate the factorial of a number using recursion.",
+    "solution": "def factorial(n):\n    if n < 0:\n        return None\n    if n == 0:\n        return 1\n    return n * factorial(n - 1)",
+    "incorrect solution": "def factorial(n):\n    # Incorrect: Does not handle the base case properly\n    if n < 0:\n        return None\n    return n * factorial(n - 1)"
+  },
+  {
+    "algorithm": "Implement binary search to find an element in a sorted list.",
+    "solution": "def binary_search(arr, target):\n    low, high = 0, len(arr) - 1\n    while low <= high:\n        mid = (low + high) // 2\n        if arr[mid] == target:\n            return mid\n        elif arr[mid] < target:\n            low = mid + 1\n        else:\n            high = mid - 1\n    return -1",
+    "incorrect solution": "def binary_search(arr, target):\n    # Incorrect: uses incorrect mid calculation leading to potential infinite loop\n    low, high = 0, len(arr)\n    while low < high:\n        mid = (low + high) // 2\n        if arr[mid] == target:\n            return mid\n        elif arr[mid] < target:\n            low = mid\n        else:\n            high = mid\n    return -1"
+  },
+  {
+    "algorithm": "Sort an array using the bubble sort algorithm.",
+    "solution": "def bubble_sort(arr):\n    n = len(arr)\n    for i in range(n):\n        for j in range(0, n - i - 1):\n            if arr[j] > arr[j + 1]:\n                arr[j], arr[j + 1] = arr[j + 1], arr[j]\n    return arr",
+    "incorrect solution": "def bubble_sort(arr):\n    # Incorrect: Wrong loop boundary causing index errors\n    n = len(arr)\n    for i in range(n):\n        for j in range(n - i):\n            if arr[j] > arr[j + 1]:\n                arr[j], arr[j + 1] = arr[j + 1], arr[j]\n    return arr"
+  },
+  {
+    "algorithm": "Merge two sorted lists into one sorted list.",
+    "solution": "def merge(list1, list2):\n    result = []\n    i = j = 0\n    while i < len(list1) and j < len(list2):\n        if list1[i] < list2[j]:\n            result.append(list1[i])\n            i += 1\n        else:\n            result.append(list2[j])\n            j += 1\n    result.extend(list1[i:])\n    result.extend(list2[j:])\n    return result",
+    "incorrect solution": "def merge(list1, list2):\n    # Incorrect: uses incorrect while condition and may miss elements\n    result = []\n    i = j = 0\n    while i <= len(list1) and j <= len(list2):\n        if list1[i] < list2[j]:\n            result.append(list1[i])\n            i += 1\n        else:\n            result.append(list2[j])\n            j += 1\n    return result"
+  },
+  {
+    "algorithm": "Check if a number is prime.",
+    "solution": "def is_prime(n):\n    if n <= 1:\n        return False\n    for i in range(2, int(n ** 0.5) + 1):\n        if n % i == 0:\n            return False\n    return True",
+    "incorrect solution": "def is_prime(n):\n    # Incorrect: loop goes one iteration too many, causing inefficiency\n    if n <= 1:\n        return False\n    for i in range(2, int(n ** 0.5) + 2):\n        if n % i == 0:\n            return False\n    return True"
+  },
+  {
+    "algorithm": "Reverse a given string.",
+    "solution": "def reverse_string(s):\n    return s[::-1]",
+    "incorrect solution": "def reverse_string(s):\n    # Incorrect: uses a loop with an off-by-one error\n    result = ''\n    for i in range(len(s) - 1, 0, -1):\n        result += s[i]\n    return result"
+  },
+  {
+    "algorithm": "Find the maximum element in an array.",
+    "solution": "def find_max(arr):\n    if not arr:\n        return None\n    maximum = arr[0]\n    for num in arr:\n        if num > maximum:\n            maximum = num\n    return maximum",
+    "incorrect solution": "def find_max(arr):\n    # Incorrect: initializes maximum incorrectly, may lead to errors with negative numbers\n    maximum = 0\n    for num in arr:\n        if num > maximum:\n            maximum = num\n    return maximum"
+  },
+  {
+    "algorithm": "Calculate the sum of digits of an integer.",
+    "solution": "def sum_of_digits(n):\n    total = 0\n    for digit in str(abs(n)):\n        total += int(digit)\n    return total",
+    "incorrect solution": "def sum_of_digits(n):\n    # Incorrect: does not handle negative numbers correctly\n    total = 0\n    for digit in str(n):\n        total += int(digit)\n    return total"
+  },
+  {
+    "algorithm": "Check if a string is a palindrome.",
+    "solution": "def is_palindrome(s):\n    s = s.lower().replace(' ', '')\n    return s == s[::-1]",
+    "incorrect solution": "def is_palindrome(s):\n    # Incorrect: only removes spaces, not punctuation, and may fail for complex cases\n    return s.lower() == s.lower()[::-1]"
+  },
+  {
+    "algorithm": "Generate the Fibonacci sequence up to n numbers.",
+    "solution": "def fibonacci(n):\n    if n <= 0:\n        return []\n    elif n == 1:\n        return [0]\n    fib = [0, 1]\n    for i in range(2, n):\n        fib.append(fib[-1] + fib[-2])\n    return fib",
+    "incorrect solution": "def fibonacci(n):\n    # Incorrect: Adds an extra 1 to each new term\n    if n <= 0:\n        return []\n    fib = [0, 1]\n    for i in range(2, n):\n        fib.append(fib[-1] + fib[-2] + 1)\n    return fib"
+  },
+  {
+    "algorithm": "Calculate the factorial of a number using recursion.",
+    "solution": "def factorial(n):\n    if n < 0:\n        return None\n    if n == 0:\n        return 1\n    return n * factorial(n - 1)",
+    "incorrect solution": "def factorial(n):\n    # Incorrect: Does not handle the base case properly\n    if n < 0:\n        return None\n    return n * factorial(n - 1)"
+  },
+  {
+    "algorithm": "Implement binary search to find an element in a sorted list.",
+    "solution": "def binary_search(arr, target):\n    low, high = 0, len(arr) - 1\n    while low <= high:\n        mid = (low + high) // 2\n        if arr[mid] == target:\n            return mid\n        elif arr[mid] < target:\n            low = mid + 1\n        else:\n            high = mid - 1\n    return -1",
+    "incorrect solution": "def binary_search(arr, target):\n    # Incorrect: uses incorrect mid calculation leading to potential infinite loop\n    low, high = 0, len(arr)\n    while low < high:\n        mid = (low + high) // 2\n        if arr[mid] == target:\n            return mid\n        elif arr[mid] < target:\n            low = mid\n        else:\n            high = mid\n    return -1"
+  },
+  {
+    "algorithm": "Sort an array using the bubble sort algorithm.",
+    "solution": "def bubble_sort(arr):\n    n = len(arr)\n    for i in range(n):\n        for j in range(0, n - i - 1):\n            if arr[j] > arr[j + 1]:\n                arr[j], arr[j + 1] = arr[j + 1], arr[j]\n    return arr",
+    "incorrect solution": "def bubble_sort(arr):\n    # Incorrect: Wrong loop boundary causing index errors\n    n = len(arr)\n    for i in range(n):\n        for j in range(n - i):\n            if arr[j] > arr[j + 1]:\n                arr[j], arr[j + 1] = arr[j + 1], arr[j]\n    return arr"
+  },
+  {
+    "algorithm": "Merge two sorted lists into one sorted list.",
+    "solution": "def merge(list1, list2):\n    result = []\n    i = j = 0\n    while i < len(list1) and j < len(list2):\n        if list1[i] < list2[j]:\n            result.append(list1[i])\n            i += 1\n        else:\n            result.append(list2[j])\n            j += 1\n    result.extend(list1[i:])\n    result.extend(list2[j:])\n    return result",
+    "incorrect solution": "def merge(list1, list2):\n    # Incorrect: uses incorrect while condition and may miss elements\n    result = []\n    i = j = 0\n    while i <= len(list1) and j <= len(list2):\n        if list1[i] < list2[j]:\n            result.append(list1[i])\n            i += 1\n        else:\n            result.append(list2[j])\n            j += 1\n    return result"
+  },
+  {
+    "algorithm": "Check if a number is prime.",
+    "solution": "def is_prime(n):\n    if n <= 1:\n        return False\n    for i in range(2, int(n ** 0.5) + 1):\n        if n % i == 0:\n            return False\n    return True",
+    "incorrect solution": "def is_prime(n):\n    # Incorrect: loop goes one iteration too many, causing inefficiency\n    if n <= 1:\n        return False\n    for i in range(2, int(n ** 0.5) + 2):\n        if n % i == 0:\n            return False\n    return True"
+  },
+  {
+    "algorithm": "Reverse a given string.",
+    "solution": "def reverse_string(s):\n    return s[::-1]",
+    "incorrect solution": "def reverse_string(s):\n    # Incorrect: uses a loop with an off-by-one error\n    result = ''\n    for i in range(len(s) - 1, 0, -1):\n        result += s[i]\n    return result"
+  },
+  {
+    "algorithm": "Find the maximum element in an array.",
+    "solution": "def find_max(arr):\n    if not arr:\n        return None\n    maximum = arr[0]\n    for num in arr:\n        if num > maximum:\n            maximum = num\n    return maximum",
+    "incorrect solution": "def find_max(arr):\n    # Incorrect: initializes maximum incorrectly, may lead to errors with negative numbers\n    maximum = 0\n    for num in arr:\n        if num > maximum:\n            maximum = num\n    return maximum"
+  },
+  {
+    "algorithm": "Calculate the sum of digits of an integer.",
+    "solution": "def sum_of_digits(n):\n    total = 0\n    for digit in str(abs(n)):\n        total += int(digit)\n    return total",
+    "incorrect solution": "def sum_of_digits(n):\n    # Incorrect: does not handle negative numbers correctly\n    total = 0\n    for digit in str(n):\n        total += int(digit)\n    return total"
+  },
+  {
+    "algorithm": "Check if a string is a palindrome.",
+    "solution": "def is_palindrome(s):\n    s = s.lower().replace(' ', '')\n    return s == s[::-1]",
+    "incorrect solution": "def is_palindrome(s):\n    # Incorrect: only removes spaces, not punctuation, and may fail for complex cases\n    return s.lower() == s.lower()[::-1]"
+  },
+  {
+    "algorithm": "Find the minimum element in an array.",
+    "solution": "def find_min(arr):\n    if not arr:\n        return None\n    minimum = arr[0]\n    for num in arr:\n        if num < minimum:\n            minimum = num\n    return minimum",
+    "incorrect solution": "def find_min(arr):\n    # Incorrect: initializes minimum to 0, which fails if all numbers are positive\n    minimum = 0\n    for num in arr:\n        if num < minimum:\n            minimum = num\n    return minimum"
+  },
+  {
+    "algorithm": "Perform a linear search to find an element in a list.",
+    "solution": "def linear_search(lst, target):\n    for index, value in enumerate(lst):\n        if value == target:\n            return index\n    return -1",
+    "incorrect solution": "def linear_search(lst, target):\n    # Incorrect: starts loop at index 1, potentially missing the first element\n    for index in range(1, len(lst)):\n        if lst[index] == target:\n            return index\n    return -1"
+  },
+  {
+    "algorithm": "Check if a list is sorted in ascending order.",
+    "solution": "def is_sorted(lst):\n    return all(lst[i] <= lst[i+1] for i in range(len(lst)-1))",
+    "incorrect solution": "def is_sorted(lst):\n    # Incorrect: loop condition error, might skip comparison of the last pair\n    for i in range(len(lst)):\n        if lst[i] > lst[i+1]:\n            return False\n    return True"
+  },
+  {
+    "algorithm": "Sort an array using insertion sort.",
+    "solution": "def insertion_sort(arr):\n    for i in range(1, len(arr)):\n        key = arr[i]\n        j = i - 1\n        while j >= 0 and key < arr[j]:\n            arr[j + 1] = arr[j]\n            j -= 1\n        arr[j + 1] = key\n    return arr",
+    "incorrect solution": "def insertion_sort(arr):\n    # Incorrect: inner loop uses wrong boundary causing index error\n    for i in range(1, len(arr)):\n        key = arr[i]\n        j = i\n        while j > 0 and key < arr[j-1]:\n            arr[j] = arr[j-1]\n            j -= 1\n        arr[j] = key\n    return arr"
+  },
+  {
+    "algorithm": "Sort an array using selection sort.",
+    "solution": "def selection_sort(arr):\n    n = len(arr)\n    for i in range(n):\n        min_index = i\n        for j in range(i+1, n):\n            if arr[j] < arr[min_index]:\n                min_index = j\n        arr[i], arr[min_index] = arr[min_index], arr[i]\n    return arr",
+    "incorrect solution": "def selection_sort(arr):\n    # Incorrect: swap logic error, swapping inside the inner loop\n    n = len(arr)\n    for i in range(n):\n        for j in range(i+1, n):\n            if arr[j] < arr[i]:\n                arr[i], arr[j] = arr[j], arr[i]\n    return arr"
+  },
+  {
+    "algorithm": "Implement quick sort on an array.",
+    "solution": "def quick_sort(arr):\n    if len(arr) <= 1:\n        return arr\n    pivot = arr[len(arr) // 2]\n    left = [x for x in arr if x < pivot]\n    middle = [x for x in arr if x == pivot]\n    right = [x for x in arr if x > pivot]\n    return quick_sort(left) + middle + quick_sort(right)",
+    "incorrect solution": "def quick_sort(arr):\n    # Incorrect: chooses pivot incorrectly, leading to poor partitioning\n    if len(arr) <= 1:\n        return arr\n    pivot = arr[0]\n    left = [x for x in arr if x <= pivot]\n    right = [x for x in arr if x > pivot]\n    return quick_sort(left) + quick_sort(right)"
+  },
+  {
+    "algorithm": "Sort an array using heap sort.",
+    "solution": "import heapq\n\ndef heap_sort(arr):\n    heapq.heapify(arr)\n    return [heapq.heappop(arr) for _ in range(len(arr))]",
+    "incorrect solution": "import heapq\n\ndef heap_sort(arr):\n    # Incorrect: does not heapify correctly and may modify the list during iteration\n    sorted_arr = []\n    for i in range(len(arr)):\n        sorted_arr.append(heapq.heappop(arr))\n    return sorted_arr"
+  },
+  {
+    "algorithm": "Sort an array using merge sort.",
+    "solution": "def merge_sort(arr):\n    if len(arr) <= 1:\n        return arr\n    mid = len(arr) // 2\n    left = merge_sort(arr[:mid])\n    right = merge_sort(arr[mid:])\n    return merge(left, right)\n\ndef merge(left, right):\n    result = []\n    i = j = 0\n    while i < len(left) and j < len(right):\n        if left[i] < right[j]:\n            result.append(left[i])\n            i += 1\n        else:\n            result.append(right[j])\n            j += 1\n    result.extend(left[i:])\n    result.extend(right[j:])\n    return result",
+    "incorrect solution": "def merge_sort(arr):\n    # Incorrect: missing proper merge of the second half\n    if len(arr) <= 1:\n        return arr\n    mid = len(arr) // 2\n    left = merge_sort(arr[:mid])\n    right = merge_sort(arr[mid:])\n    return left + right"
+  },
+  {
+    "algorithm": "Count the occurrences of an element in an array.",
+    "solution": "def count_occurrences(arr, target):\n    count = 0\n    for num in arr:\n        if num == target:\n            count += 1\n    return count",
+    "incorrect solution": "def count_occurrences(arr, target):\n    # Incorrect: miscounts by not checking equality properly\n    count = 0\n    for num in arr:\n        count += 1 if num != target else 0\n    return count"
+  },
+  {
+    "algorithm": "Remove duplicates from a list while preserving order.",
+    "solution": "def remove_duplicates(lst):\n    seen = set()\n    result = []\n    for item in lst:\n        if item not in seen:\n            seen.add(item)\n            result.append(item)\n    return result",
+    "incorrect solution": "def remove_duplicates(lst):\n    # Incorrect: simply converts to a set, losing the original order\n    return list(set(lst))"
+  },
+  {
+    "algorithm": "Find the intersection of two lists.",
+    "solution": "def intersection(list1, list2):\n    return [x for x in list1 if x in set(list2)]",
+    "incorrect solution": "def intersection(list1, list2):\n    # Incorrect: mistakenly returns the union of the lists\n    return list(set(list1) | set(list2))"
+  },
+  {
+    "algorithm": "Find the union of two lists.",
+    "solution": "def union(list1, list2):\n    return list(set(list1) | set(list2))",
+    "incorrect solution": "def union(list1, list2):\n    # Incorrect: mistakenly returns the intersection of the lists\n    return [x for x in list1 if x in list2]"
+  },
+  {
+    "algorithm": "Calculate the nth power of a number.",
+    "solution": "def power(base, n):\n    return base ** n",
+    "incorrect solution": "def power(base, n):\n    # Incorrect: uses a loop that multiplies one extra time\n    result = 1\n    for i in range(n + 1):\n        result *= base\n    return result"
+  },
+  {
+    "algorithm": "Check if a year is a leap year.",
+    "solution": "def is_leap_year(year):\n    return (year % 4 == 0 and year % 100 != 0) or (year % 400 == 0)",
+    "incorrect solution": "def is_leap_year(year):\n    # Incorrect: does not handle century years correctly\n    return year % 4 == 0"
+  },
+  {
+    "algorithm": "Convert Celsius to Fahrenheit.",
+    "solution": "def celsius_to_fahrenheit(c):\n    return (c * 9/5) + 32",
+    "incorrect solution": "def celsius_to_fahrenheit(c):\n    # Incorrect: uses a wrong multiplier\n    return (c * 5/9) + 32"
+  },
+  {
+    "algorithm": "Convert Fahrenheit to Celsius.",
+    "solution": "def fahrenheit_to_celsius(f):\n    return (f - 32) * 5/9",
+    "incorrect solution": "def fahrenheit_to_celsius(f):\n    # Incorrect: subtracts wrong constant\n    return (f - 32) * 9/5"
+  },
+  {
+    "algorithm": "Find the greatest common divisor (GCD) of two numbers.",
+    "solution": "def gcd(a, b):\n    while b:\n        a, b = b, a % b\n    return a",
+    "incorrect solution": "def gcd(a, b):\n    # Incorrect: wrong loop condition, may result in infinite loop\n    while a % b != 0:\n        a, b = b, a % b\n    return b"
+  },
+  {
+    "algorithm": "Find the least common multiple (LCM) of two numbers.",
+    "solution": "def lcm(a, b):\n    def gcd(a, b):\n        while b:\n            a, b = b, a % b\n        return a\n    return abs(a * b) // gcd(a, b)",
+    "incorrect solution": "def lcm(a, b):\n    # Incorrect: misapplies gcd, resulting in wrong calculation\n    def gcd(a, b):\n        while b:\n            a, b = b, a % b\n        return a\n    return (a * b) // (gcd(a, b) + 1)"
+  },
+  {
+    "algorithm": "Check if two strings are anagrams of each other.",
+    "solution": "def are_anagrams(s1, s2):\n    return sorted(s1) == sorted(s2)",
+    "incorrect solution": "def are_anagrams(s1, s2):\n    # Incorrect: only compares lengths\n    return len(s1) == len(s2)"
+  },
+  {
+    "algorithm": "Compute the sum of an arithmetic series.",
+    "solution": "def arithmetic_series_sum(first, last, n):\n    return n * (first + last) / 2",
+    "incorrect solution": "def arithmetic_series_sum(first, last, n):\n    # Incorrect: multiplication error in the formula\n    return (first + last) / 2"
+  },
+  {
+    "algorithm": "Compute the sum of a geometric series.",
+    "solution": "def geometric_series_sum(first, ratio, n):\n    if ratio == 1:\n        return first * n\n    return first * (1 - ratio**n) / (1 - ratio)",
+    "incorrect solution": "def geometric_series_sum(first, ratio, n):\n    # Incorrect: uses wrong exponent in the calculation\n    return first * (1 - ratio * n) / (1 - ratio)"
+  },
+  {
+    "algorithm": "Calculate the average of a list of numbers.",
+    "solution": "def average(lst):\n    return sum(lst) / len(lst) if lst else 0",
+    "incorrect solution": "def average(lst):\n    # Incorrect: forgets to divide by the length of the list\n    return sum(lst)"
+  },
+  {
+    "algorithm": "Reverse a list.",
+    "solution": "def reverse_list(lst):\n    return lst[::-1]",
+    "incorrect solution": "def reverse_list(lst):\n    # Incorrect: attempts to use the reverse() method but returns None\n    lst.reverse()\n    return lst[::-1]"
+  },
+  {
+    "algorithm": "Compute the product of all elements in a list.",
+    "solution": "def product(lst):\n    result = 1\n    for num in lst:\n        result *= num\n    return result",
+    "incorrect solution": "def product(lst):\n    # Incorrect: mistakenly resets result inside the loop\n    result = 1\n    for num in lst:\n        result = num * result\n        result = 0\n    return result"
+  },
+  {
+    "algorithm": "Count the number of vowels in a string.",
+    "solution": "def count_vowels(s):\n    vowels = 'aeiouAEIOU'\n    return sum(1 for char in s if char in vowels)",
+    "incorrect solution": "def count_vowels(s):\n    # Incorrect: miscounts by checking only lowercase vowels\n    vowels = 'aeiou'\n    return sum(1 for char in s if char in vowels)"
+  },
+  {
+    "algorithm": "Count the number of consonants in a string.",
+    "solution": "def count_consonants(s):\n    vowels = 'aeiouAEIOU'\n    return sum(1 for char in s if char.isalpha() and char not in vowels)",
+    "incorrect solution": "def count_consonants(s):\n    # Incorrect: counts spaces as consonants\n    vowels = 'aeiouAEIOU'\n    return sum(1 for char in s if char not in vowels)"
+  },
+  {
+    "algorithm": "Convert a decimal number to its binary representation.",
+    "solution": "def decimal_to_binary(n):\n    return bin(n)[2:]\n",
+    "incorrect solution": "def decimal_to_binary(n):\n    # Incorrect: does not remove the '0b' prefix\n    return bin(n)"
+  },
+  {
+    "algorithm": "Convert a binary string to its decimal representation.",
+    "solution": "def binary_to_decimal(b):\n    return int(b, 2)",
+    "incorrect solution": "def binary_to_decimal(b):\n    # Incorrect: misparses the binary string by not specifying base 2\n    return int(b)"
+  },
+  {
+    "algorithm": "Check if a number is even.",
+    "solution": "def is_even(n):\n    return n % 2 == 0",
+    "incorrect solution": "def is_even(n):\n    # Incorrect: uses assignment instead of comparison\n    return n % 2 = 0"
+  },
+  {
+    "algorithm": "Check if a number is odd.",
+    "solution": "def is_odd(n):\n    return n % 2 != 0",
+    "incorrect solution": "def is_odd(n):\n    # Incorrect: uses wrong operator leading to wrong result\n    return n % 2 == 1"
+  },
+  {
+    "algorithm": "Find the longest word in a list of words.",
+    "solution": "def longest_word(words):\n    return max(words, key=len) if words else ''",
+    "incorrect solution": "def longest_word(words):\n    # Incorrect: uses min() instead of max()\n    return min(words, key=len) if words else ''"
+  },
+  {
+    "algorithm": "Sort a list of words alphabetically.",
+    "solution": "def sort_words(words):\n    return sorted(words)",
+    "incorrect solution": "def sort_words(words):\n    # Incorrect: sorts the words in reverse order\n    return sorted(words, reverse=True)"
+  },
+  {
+    "algorithm": "Calculate the length of a string without using len().",
+    "solution": "def string_length(s):\n    count = 0\n    for _ in s:\n        count += 1\n    return count",
+    "incorrect solution": "def string_length(s):\n    # Incorrect: returns count - 1\n    count = 0\n    for _ in s:\n        count += 1\n    return count - 1"
+  },
+  {
+    "algorithm": "Remove all whitespace from a string.",
+    "solution": "def remove_whitespace(s):\n    return s.replace(' ', '')",
+    "incorrect solution": "def remove_whitespace(s):\n    # Incorrect: only removes the first occurrence of whitespace\n    return s.replace(' ', '', 1)"
+  },
+  {
+    "algorithm": "Convert a string to title case.",
+    "solution": "def to_title_case(s):\n    return s.title()",
+    "incorrect solution": "def to_title_case(s):\n    # Incorrect: converts the string to uppercase instead\n    return s.upper()"
+  },
+  {
+    "algorithm": "Convert a string to uppercase.",
+    "solution": "def to_uppercase(s):\n    return s.upper()",
+    "incorrect solution": "def to_uppercase(s):\n    # Incorrect: mistakenly converts to lowercase\n    return s.lower()"
+  },
+  {
+    "algorithm": "Convert a string to lowercase.",
+    "solution": "def to_lowercase(s):\n    return s.lower()",
+    "incorrect solution": "def to_lowercase(s):\n    # Incorrect: mistakenly converts to uppercase\n    return s.upper()"
+  },
+  {
+    "algorithm": "Sum all numbers in a nested list.",
+    "solution": "def sum_nested(lst):\n    total = 0\n    for sub in lst:\n        total += sum(sub)\n    return total",
+    "incorrect solution": "def sum_nested(lst):\n    # Incorrect: sums only the first sublist\n    return sum(lst[0])"
+  },
+  {
+    "algorithm": "Flatten a nested list (one level deep).",
+    "solution": "def flatten(lst):\n    return [item for sublist in lst for item in sublist]",
+    "incorrect solution": "def flatten(lst):\n    # Incorrect: does not flatten deeper than one level\n    flat = []\n    for sublist in lst:\n        flat.extend(sublist if isinstance(sublist, list) else [sublist])\n    return flat"
+  },
+  {
+    "algorithm": "Transpose a matrix.",
+    "solution": "def transpose(matrix):\n    return [list(row) for row in zip(*matrix)]",
+    "incorrect solution": "def transpose(matrix):\n    # Incorrect: returns tuples instead of lists\n    return list(zip(*matrix))"
+  },
+  {
+    "algorithm": "Multiply two matrices.",
+    "solution": "def multiply_matrices(A, B):\n    result = [[0 for _ in range(len(B[0]))] for _ in range(len(A))]\n    for i in range(len(A)):\n        for j in range(len(B[0])):\n            for k in range(len(B)):\n                result[i][j] += A[i][k] * B[k][j]\n    return result",
+    "incorrect solution": "def multiply_matrices(A, B):\n    # Incorrect: indexing error, iterates over wrong dimensions\n    result = [[0 for _ in range(len(A[0]))] for _ in range(len(B))]\n    for i in range(len(A)):\n        for j in range(len(B)):\n            for k in range(len(B[0])):\n                result[i][j] += A[i][k] * B[k][j]\n    return result"
+  },
+  {
+    "algorithm": "Calculate the determinant of a 2x2 matrix.",
+    "solution": "def determinant_2x2(matrix):\n    return matrix[0][0]*matrix[1][1] - matrix[0][1]*matrix[1][0]",
+    "incorrect solution": "def determinant_2x2(matrix):\n    # Incorrect: adds instead of subtracts\n    return matrix[0][0]*matrix[1][1] + matrix[0][1]*matrix[1][0]"
+  },
+  {
+    "algorithm": "Calculate the determinant of a 3x3 matrix.",
+    "solution": "def determinant_3x3(m):\n    return (m[0][0]*(m[1][1]*m[2][2] - m[1][2]*m[2][1]) -\n            m[0][1]*(m[1][0]*m[2][2] - m[1][2]*m[2][0]) +\n            m[0][2]*(m[1][0]*m[2][1] - m[1][1]*m[2][0]))",
+    "incorrect solution": "def determinant_3x3(m):\n    # Incorrect: misordered multiplication of elements\n    return m[0][0]*m[1][1]*m[2][2] - m[0][2]*m[1][0]*m[2][1]"
+  },
+  {
+    "algorithm": "Check if two strings are rotations of each other.",
+    "solution": "def are_rotations(s1, s2):\n    return len(s1) == len(s2) and s2 in (s1 + s1)",
+    "incorrect solution": "def are_rotations(s1, s2):\n    # Incorrect: uses incorrect concatenation order\n    return s1 in (s2 + s2)"
+  },
+  {
+    "algorithm": "Implement a simple Caesar cipher for encryption.",
+    "solution": "def caesar_cipher_encrypt(text, shift):\n    result = ''\n    for char in text:\n        if char.isalpha():\n            base = ord('A') if char.isupper() else ord('a')\n            result += chr((ord(char) - base + shift) % 26 + base)\n        else:\n            result += char\n    return result",
+    "incorrect solution": "def caesar_cipher_encrypt(text, shift):\n    # Incorrect: does not wrap around the alphabet correctly\n    result = ''\n    for char in text:\n        if char.isalpha():\n            result += chr(ord(char) + shift)\n        else:\n            result += char\n    return result"
+  },
+  {
+    "algorithm": "Decrypt a simple Caesar cipher.",
+    "solution": "def caesar_cipher_decrypt(text, shift):\n    return caesar_cipher_encrypt(text, -shift)",
+    "incorrect solution": "def caesar_cipher_decrypt(text, shift):\n    # Incorrect: uses the same shift direction instead of reversing it\n    return caesar_cipher_encrypt(text, shift)"
+  },
+  {
+    "algorithm": "Find duplicates in a list.",
+    "solution": "def find_duplicates(lst):\n    seen = set()\n    duplicates = set()\n    for item in lst:\n        if item in seen:\n            duplicates.add(item)\n        else:\n            seen.add(item)\n    return list(duplicates)",
+    "incorrect solution": "def find_duplicates(lst):\n    # Incorrect: returns all items, not just duplicates\n    return lst"
+  },
+  {
+    "algorithm": "Find the frequency of each element in a list.",
+    "solution": "def frequency(lst):\n    freq = {}\n    for item in lst:\n        freq[item] = freq.get(item, 0) + 1\n    return freq",
+    "incorrect solution": "def frequency(lst):\n    # Incorrect: resets the count for each element every iteration\n    freq = {}\n    for item in lst:\n        freq[item] = 1\n    return freq"
+  },
+  {
+    "algorithm": "Remove all occurrences of a specific value from a list.",
+    "solution": "def remove_value(lst, value):\n    return [x for x in lst if x != value]",
+    "incorrect solution": "def remove_value(lst, value):\n    # Incorrect: removes the wrong value by accident\n    return [x for x in lst if x == value]"
+  },
+  {
+    "algorithm": "Find the first non-repeating character in a string.",
+    "solution": "def first_non_repeating(s):\n    for char in s:\n        if s.count(char) == 1:\n            return char\n    return None",
+    "incorrect solution": "def first_non_repeating(s):\n    # Incorrect: returns the last non-repeating character instead\n    result = None\n    for char in s:\n        if s.count(char) == 1:\n            result = char\n    return result"
+  },
+  {
+    "algorithm": "Check if two numbers are co-prime.",
+    "solution": "def are_coprime(a, b):\n    def gcd(a, b):\n        while b:\n            a, b = b, a % b\n        return a\n    return gcd(a, b) == 1",
+    "incorrect solution": "def are_coprime(a, b):\n    # Incorrect: uses sum of numbers instead of gcd\n    return (a + b) == 1"
+  },
+  {
+    "algorithm": "Convert a list of strings into a single string joined by spaces.",
+    "solution": "def join_strings(lst):\n    return ' '.join(lst)",
+    "incorrect solution": "def join_strings(lst):\n    # Incorrect: joins with commas instead of spaces\n    return ','.join(lst)"
+  },
+  {
+    "algorithm": "Count the number of words in a string.",
+    "solution": "def word_count(s):\n    return len(s.split())",
+    "incorrect solution": "def word_count(s):\n    # Incorrect: splits by characters rather than words\n    return len(list(s))"
+  },
+  {
+    "algorithm": "Sort a list of tuples by the second element.",
+    "solution": "def sort_tuples(lst):\n    return sorted(lst, key=lambda x: x[1])",
+    "incorrect solution": "def sort_tuples(lst):\n    # Incorrect: sorts by the first element\n    return sorted(lst, key=lambda x: x[0])"
+  },
+  {
+    "algorithm": "Sum all even numbers in a list.",
+    "solution": "def sum_even(lst):\n    return sum(x for x in lst if x % 2 == 0)",
+    "incorrect solution": "def sum_even(lst):\n    # Incorrect: sums odd numbers instead\n    return sum(x for x in lst if x % 2 != 0)"
+  },
+  {
+    "algorithm": "Sum all odd numbers in a list.",
+    "solution": "def sum_odd(lst):\n    return sum(x for x in lst if x % 2 != 0)",
+    "incorrect solution": "def sum_odd(lst):\n    # Incorrect: sums even numbers instead\n    return sum(x for x in lst if x % 2 == 0)"
+  },
+  {
+    "algorithm": "Calculate the area of a circle given its radius.",
+    "solution": "import math\n\ndef circle_area(r):\n    return math.pi * r**2",
+    "incorrect solution": "import math\n\ndef circle_area(r):\n    # Incorrect: uses circumference formula\n    return 2 * math.pi * r"
+  },
+  {
+    "algorithm": "Calculate the circumference of a circle given its radius.",
+    "solution": "import math\n\ndef circle_circumference(r):\n    return 2 * math.pi * r",
+    "incorrect solution": "import math\n\ndef circle_circumference(r):\n    # Incorrect: uses area formula\n    return math.pi * r**2"
+  },
+  {
+    "algorithm": "Convert miles to kilometers.",
+    "solution": "def miles_to_km(miles):\n    return miles * 1.60934",
+    "incorrect solution": "def miles_to_km(miles):\n    # Incorrect: uses wrong multiplier\n    return miles * 1.5"
+  },
+  {
+    "algorithm": "Convert kilometers to miles.",
+    "solution": "def km_to_miles(km):\n    return km / 1.60934",
+    "incorrect solution": "def km_to_miles(km):\n    # Incorrect: multiplies instead of divides\n    return km * 1.60934"
+  },
+  {
+    "algorithm": "Check if a list contains any duplicates.",
+    "solution": "def has_duplicates(lst):\n    return len(lst) != len(set(lst))",
+    "incorrect solution": "def has_duplicates(lst):\n    # Incorrect: always returns False\n    return False"
+  },
+  {
+    "algorithm": "Calculate the median of a list of numbers.",
+    "solution": "def median(lst):\n    s = sorted(lst)\n    n = len(s)\n    mid = n // 2\n    return (s[mid] if n % 2 != 0 else (s[mid - 1] + s[mid]) / 2) if n else None",
+    "incorrect solution": "def median(lst):\n    # Incorrect: does not sort the list\n    n = len(lst)\n    mid = n // 2\n    return lst[mid] if n % 2 != 0 else (lst[mid - 1] + lst[mid]) / 2"
+  },
+  {
+    "algorithm": "Calculate the mode of a list of numbers.",
+    "solution": "from collections import Counter\n\ndef mode(lst):\n    if not lst:\n        return None\n    counts = Counter(lst)\n    return counts.most_common(1)[0][0]",
+    "incorrect solution": "def mode(lst):\n    # Incorrect: returns the first element regardless of frequency\n    return lst[0] if lst else None"
+  },
+  {
+    "algorithm": "Calculate the range (difference between max and min) of a list of numbers.",
+    "solution": "def range_of_list(lst):\n    return max(lst) - min(lst) if lst else None",
+    "incorrect solution": "def range_of_list(lst):\n    # Incorrect: calculates the sum instead of the difference\n    return sum(lst) if lst else None"
+  },
+  {
+    "algorithm": "Generate a random integer between two values (inclusive).",
+    "solution": "import random\n\ndef random_int(a, b):\n    return random.randint(a, b)",
+    "incorrect solution": "import random\n\ndef random_int(a, b):\n    # Incorrect: uses random.random() which returns a float\n    return int(random.random() * (b - a) + a)"
+  },
+  {
+    "algorithm": "Generate a random float between 0 and 1.",
+    "solution": "import random\n\ndef random_float():\n    return random.random()",
+    "incorrect solution": "import random\n\ndef random_float():\n    # Incorrect: returns a fixed value\n    return 0.5"
+  },
+  {
+    "algorithm": "Shuffle a list randomly.",
+    "solution": "import random\n\ndef shuffle_list(lst):\n    random.shuffle(lst)\n    return lst",
+    "incorrect solution": "import random\n\ndef shuffle_list(lst):\n    # Incorrect: returns the list without shuffling\n    return lst"
+  },
+  {
+    "algorithm": "Remove punctuation from a string.",
+    "solution": "import string\n\ndef remove_punctuation(s):\n    return s.translate(str.maketrans('', '', string.punctuation))",
+    "incorrect solution": "import string\n\ndef remove_punctuation(s):\n    # Incorrect: only removes a subset of punctuation\n    for p in ['.', ',', '!']:\n        s = s.replace(p, '')\n    return s"
+  },
+  {
+    "algorithm": "Count the occurrence of a substring in a string.",
+    "solution": "def count_substring(s, sub):\n    return s.count(sub)",
+    "incorrect solution": "def count_substring(s, sub):\n    # Incorrect: uses a loop that doesn't correctly count overlapping substrings\n    count = 0\n    index = 0\n    while index < len(s):\n        if s.find(sub, index) != -1:\n            count += 1\n            index += 1\n        else:\n            break\n    return count"
+  },
+  {
+    "algorithm": "Replace all occurrences of a substring in a string.",
+    "solution": "def replace_substring(s, old, new):\n    return s.replace(old, new)",
+    "incorrect solution": "def replace_substring(s, old, new):\n    # Incorrect: only replaces the first occurrence\n    return s.replace(old, new, 1)"
+  },
+  {
+    "algorithm": "Check if a string starts with a given prefix.",
+    "solution": "def starts_with(s, prefix):\n    return s.startswith(prefix)",
+    "incorrect solution": "def starts_with(s, prefix):\n    # Incorrect: uses find() incorrectly\n    return s.find(prefix) > 0"
+  },
+  {
+    "algorithm": "Check if a string ends with a given suffix.",
+    "solution": "def ends_with(s, suffix):\n    return s.endswith(suffix)",
+    "incorrect solution": "def ends_with(s, suffix):\n    # Incorrect: only compares the last character\n    return s[-1] == suffix[-1] if suffix else False"
+  },
+  {
+    "algorithm": "Sort a list in descending order.",
+    "solution": "def sort_descending(lst):\n    return sorted(lst, reverse=True)",
+    "incorrect solution": "def sort_descending(lst):\n    # Incorrect: sorts in ascending order\n    return sorted(lst)"
+  },
+  {
+    "algorithm": "Check if a list is empty.",
+    "solution": "def is_empty(lst):\n    return not lst",
+    "incorrect solution": "def is_empty(lst):\n    # Incorrect: mistakenly checks if the length is 1\n    return len(lst) == 1"
+  },
+  {
+    "algorithm": "Duplicate each element in a list.",
+    "solution": "def duplicate_elements(lst):\n    return [x for x in lst for _ in (0, 1)]",
+    "incorrect solution": "def duplicate_elements(lst):\n    # Incorrect: duplicates only the first element\n    return [lst[0]] * len(lst)"
+  },
+  {
+    "algorithm": "Zip two lists together.",
+    "solution": "def zip_lists(list1, list2):\n    return list(zip(list1, list2))",
+    "incorrect solution": "def zip_lists(list1, list2):\n    # Incorrect: uses concatenation instead of zipping\n    return list1 + list2"
+  },
+  {
+    "algorithm": "Unzip a list of tuples into separate lists.",
+    "solution": "def unzip(lst):\n    return list(map(list, zip(*lst)))",
+    "incorrect solution": "def unzip(lst):\n    # Incorrect: returns a tuple of zipped lists\n    return zip(*lst)"
+  },
+  {
+    "algorithm": "Convert a list of characters into a string.",
+    "solution": "def list_to_string(lst):\n    return ''.join(lst)",
+    "incorrect solution": "def list_to_string(lst):\n    # Incorrect: joins with spaces between characters\n    return ' '.join(lst)"
+  },
+  {
+    "algorithm": "Check if a string contains only digits.",
+    "solution": "def is_digit_string(s):\n    return s.isdigit()",
+    "incorrect solution": "def is_digit_string(s):\n    # Incorrect: mistakenly uses isnumeric(), which may behave differently\n    return s.isnumeric()"
+  },
+  {
+    "algorithm": "Check if a string contains only letters.",
+    "solution": "def is_alpha_string(s):\n    return s.isalpha()",
+    "incorrect solution": "def is_alpha_string(s):\n    # Incorrect: uses isalnum(), which allows digits\n    return s.isalnum()"
+  },
+  {
+    "algorithm": "Convert a Roman numeral to an integer.",
+    "solution": "def roman_to_int(s):\n    roman = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000}\n    total = 0\n    prev = 0\n    for char in s[::-1]:\n        value = roman[char]\n        if value < prev:\n            total -= value\n        else:\n            total += value\n        prev = value\n    return total",
+    "incorrect solution": "def roman_to_int(s):\n    # Incorrect: does not account for subtractive notation\n    roman = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000}\n    return sum(roman[char] for char in s)"
+  },
+  {
+    "algorithm": "Convert an integer to a Roman numeral.",
+    "solution": "def int_to_roman(num):\n    val = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1]\n    syms = ['M', 'CM', 'D', 'CD', 'C', 'XC', 'L', 'XL', 'X', 'IX', 'V', 'IV', 'I']\n    roman = ''\n    for i, v in enumerate(val):\n        while num >= v:\n            roman += syms[i]\n            num -= v\n    return roman",
+    "incorrect solution": "def int_to_roman(num):\n    # Incorrect: uses wrong mapping order\n    val = [1000, 500, 100, 50, 10, 5, 1]\n    syms = ['M', 'D', 'C', 'L', 'X', 'V', 'I']\n    roman = ''\n    for i, v in enumerate(val):\n        while num >= v:\n            roman += syms[i]\n            num -= v\n    return roman"
+  },
+  {
+    "algorithm": "Compute the nth triangular number.",
+    "solution": "def triangular_number(n):\n    return n * (n + 1) // 2",
+    "incorrect solution": "def triangular_number(n):\n    # Incorrect: uses square of n\n    return n * n"
+  },
+  {
+    "algorithm": "Compute the nth square number.",
+    "solution": "def square_number(n):\n    return n * n",
+    "incorrect solution": "def square_number(n):\n    # Incorrect: calculates cube instead of square\n    return n ** 3"
+  },
+  {
+    "algorithm": "Compute the nth cube number.",
+    "solution": "def cube_number(n):\n    return n ** 3",
+    "incorrect solution": "def cube_number(n):\n    # Incorrect: calculates square instead of cube\n    return n * n"
+  },
+  {
+    "algorithm": "Convert a list of numbers to a comma-separated string.",
+    "solution": "def list_to_csv(lst):\n    return ','.join(str(x) for x in lst)",
+    "incorrect solution": "def list_to_csv(lst):\n    # Incorrect: joins without commas\n    return ''.join(str(x) for x in lst)"
+  },
+  {
+    "algorithm": "Compute the sum of the squares of numbers in a list.",
+    "solution": "def sum_of_squares(lst):\n    return sum(x**2 for x in lst)",
+    "incorrect solution": "def sum_of_squares(lst):\n    # Incorrect: uses multiplication instead of exponentiation\n    return sum(x * 2 for x in lst)"
+  },
+  {
+    "algorithm": "Compute the product of the digits of an integer.",
+    "solution": "def product_of_digits(n):\n    product = 1\n    for digit in str(abs(n)):\n        product *= int(digit)\n    return product",
+    "incorrect solution": "def product_of_digits(n):\n    # Incorrect: sums the digits instead of multiplying\n    total = 0\n    for digit in str(abs(n)):\n        total += int(digit)\n    return total"
+  },
+  {
+    "algorithm": "Check if a year is a century year.",
+    "solution": "def is_century_year(year):\n    return year % 100 == 0",
+    "incorrect solution": "def is_century_year(year):\n    # Incorrect: uses modulus with 4\n    return year % 4 == 0"
+  },
+  {
+    "algorithm": "Compute the nth harmonic number.",
+    "solution": "def harmonic_number(n):\n    return sum(1/i for i in range(1, n+1))",
+    "incorrect solution": "def harmonic_number(n):\n    # Incorrect: sums the integers instead of their reciprocals\n    return sum(i for i in range(1, n+1))"
+  },
+  {
+    "algorithm": "Check if a number is even using bitwise operators.",
+    "solution": "def is_even_bitwise(n):\n    return (n & 1) == 0",
+    "incorrect solution": "def is_even_bitwise(n):\n    return (n & 1) == 1"
+  },
+  {
+    "algorithm": "Find the binary representation of a number using recursion.",
+    "solution": "def to_binary(n):\n    if n == 0:\n        return '0'\n    if n == 1:\n        return '1'\n    return to_binary(n // 2) + str(n % 2)",
+    "incorrect solution": "def to_binary(n):\n    if n < 2:\n        return str(n)\n    return str(n % 2) + to_binary(n // 2)"
+  },
+  {
+    "algorithm": "Reverse the digits of an integer.",
+    "solution": "def reverse_digits(n):\n    sign = -1 if n < 0 else 1\n    n = abs(n)\n    rev = 0\n    while n:\n        rev = rev * 10 + n % 10\n        n //= 10\n    return sign * rev",
+    "incorrect solution": "def reverse_digits(n):\n    rev = 0\n    while n:\n        rev = rev + n % 10\n        n //= 10\n    return rev"
+  },
+  {
+    "algorithm": "Check if a string is numeric using regex.",
+    "solution": "import re\n\ndef is_numeric(s):\n    return bool(re.fullmatch(r'\\d+', s))",
+    "incorrect solution": "import re\n\ndef is_numeric(s):\n    return bool(re.search(r'\\d', s))"
+  },
+  {
+    "algorithm": "Extract all numbers from a string.",
+    "solution": "import re\n\ndef extract_numbers(s):\n    return re.findall(r'\\d+', s)",
+    "incorrect solution": "import re\n\ndef extract_numbers(s):\n    return re.findall(r'\\d', s)"
+  },
+  {
+    "algorithm": "Convert a string to a list of integers separated by commas.",
+    "solution": "def string_to_int_list(s):\n    return [int(x.strip()) for x in s.split(',') if x.strip().isdigit()]",
+    "incorrect solution": "def string_to_int_list(s):\n    return [int(x) for x in s.split(',')]"
+  },
+  {
+    "algorithm": "Sum numbers in a string using regex.",
+    "solution": "import re\n\ndef sum_numbers_in_string(s):\n    numbers = re.findall(r'\\d+', s)\n    return sum(int(num) for num in numbers)",
+    "incorrect solution": "import re\n\ndef sum_numbers_in_string(s):\n    numbers = re.findall(r'\\d', s)\n    return sum(int(num) for num in numbers)"
+  },
+  {
+    "algorithm": "Find the first capital letter in a string.",
+    "solution": "import re\n\ndef first_capital(s):\n    match = re.search(r'[A-Z]', s)\n    return match.group(0) if match else None",
+    "incorrect solution": "import re\n\ndef first_capital(s):\n    match = re.findall(r'[A-Z]', s)\n    return match[-1] if match else None"
+  },
+  {
+    "algorithm": "Capitalize the first letter of each word in a sentence.",
+    "solution": "def capitalize_words(s):\n    return ' '.join(word.capitalize() for word in s.split())",
+    "incorrect solution": "def capitalize_words(s):\n    return s.upper()"
+  },
+  {
+    "algorithm": "Count the occurrence of a specific character in a string using recursion.",
+    "solution": "def count_char(s, char):\n    if not s:\n        return 0\n    return (1 if s[0] == char else 0) + count_char(s[1:], char)",
+    "incorrect solution": "def count_char(s, char):\n    if not s:\n        return 0\n    return (0 if s[0] == char else 1) + count_char(s[1:], char)"
+  },
+  {
+    "algorithm": "Remove vowels from a string.",
+    "solution": "def remove_vowels(s):\n    vowels = 'aeiouAEIOU'\n    return ''.join(c for c in s if c not in vowels)",
+    "incorrect solution": "def remove_vowels(s):\n    vowels = 'aeiou'\n    return s.replace(vowels, '')"
+  },
+  {
+    "algorithm": "Replace multiple spaces with a single space in a string.",
+    "solution": "import re\n\ndef normalize_spaces(s):\n    return re.sub(r'\\s+', ' ', s)",
+    "incorrect solution": "def normalize_spaces(s):\n    return s.replace('  ', ' ')"
+  },
+  {
+    "algorithm": "Check if a string is a valid palindrome ignoring case and punctuation.",
+    "solution": "import re\n\ndef is_clean_palindrome(s):\n    cleaned = re.sub(r'[^a-zA-Z0-9]', '', s).lower()\n    return cleaned == cleaned[::-1]",
+    "incorrect solution": "def is_clean_palindrome(s):\n    return s.lower() == s.lower()[::-1]"
+  },
+  {
+    "algorithm": "Find the longest word in a sentence.",
+    "solution": "def longest_word_sentence(s):\n    words = s.split()\n    return max(words, key=len) if words else ''",
+    "incorrect solution": "def longest_word_sentence(s):\n    words = s.split()\n    return min(words, key=len) if words else ''"
+  },
+  {
+    "algorithm": "Count the number of words in a sentence using split.",
+    "solution": "def word_count(s):\n    return len(s.split())",
+    "incorrect solution": "def word_count(s):\n    return s.count(' ')"
+  },
+  {
+    "algorithm": "Reverse the order of words in a sentence.",
+    "solution": "def reverse_words(s):\n    return ' '.join(s.split()[::-1])",
+    "incorrect solution": "def reverse_words(s):\n    return s[::-1]"
+  },
+  {
+    "algorithm": "Sort characters in a string alphabetically.",
+    "solution": "def sort_chars(s):\n    return ''.join(sorted(s))",
+    "incorrect solution": "def sort_chars(s):\n    return ''.join(sorted(s, reverse=True))"
+  },
+  {
+    "algorithm": "Count the frequency of each character in a string.",
+    "solution": "def char_frequency(s):\n    freq = {}\n    for c in s:\n        freq[c] = freq.get(c, 0) + 1\n    return freq",
+    "incorrect solution": "def char_frequency(s):\n    freq = {}\n    for c in s:\n        freq[c] = 1\n    return freq"
+  },
+  {
+    "algorithm": "Convert a string to a list of ASCII values.",
+    "solution": "def string_to_ascii(s):\n    return [ord(c) for c in s]",
+    "incorrect solution": "def string_to_ascii(s):\n    return [int(c) for c in s if c.isdigit()]"
+  },
+  {
+    "algorithm": "Convert a list of ASCII values back to a string.",
+    "solution": "def ascii_to_string(lst):\n    return ''.join(chr(i) for i in lst)",
+    "incorrect solution": "def ascii_to_string(lst):\n    return ''.join(str(i) for i in lst)"
+  },
+  {
+    "algorithm": "Interleave two strings character by character.",
+    "solution": "def interleave_strings(s1, s2):\n    result = ''\n    for a, b in zip(s1, s2):\n        result += a + b\n    return result + s1[len(s2):] + s2[len(s1):]\n",
+    "incorrect solution": "def interleave_strings(s1, s2):\n    return s1 + s2"
+  },
+  {
+    "algorithm": "Merge two dictionaries into one.",
+    "solution": "def merge_dicts(d1, d2):\n    merged = d1.copy()\n    merged.update(d2)\n    return merged",
+    "incorrect solution": "def merge_dicts(d1, d2):\n    return {**d1, **d1}"
+  },
+  {
+    "algorithm": "Invert a dictionary (swap keys and values).",
+    "solution": "def invert_dict(d):\n    return {v: k for k, v in d.items()}",
+    "incorrect solution": "def invert_dict(d):\n    return {k: v for k, v in d.items()}"
+  },
+  {
+    "algorithm": "Sort a dictionary by keys.",
+    "solution": "def sort_dict_by_keys(d):\n    return dict(sorted(d.items()))",
+    "incorrect solution": "def sort_dict_by_keys(d):\n    return dict(d.items())"
+  },
+  {
+    "algorithm": "Sort a dictionary by values.",
+    "solution": "def sort_dict_by_values(d):\n    return dict(sorted(d.items(), key=lambda item: item[1]))",
+    "incorrect solution": "def sort_dict_by_values(d):\n    return dict(sorted(d.items(), key=lambda item: item[0]))"
+  },
+  {
+    "algorithm": "Merge two lists element-wise.",
+    "solution": "def merge_lists(l1, l2):\n    return [a + b for a, b in zip(l1, l2)]",
+    "incorrect solution": "def merge_lists(l1, l2):\n    return l1 + l2"
+  },
+  {
+    "algorithm": "Zip three lists into a list of tuples.",
+    "solution": "def zip_three(l1, l2, l3):\n    return list(zip(l1, l2, l3))",
+    "incorrect solution": "def zip_three(l1, l2, l3):\n    return list(zip(l1, l2))"
+  },
+  {
+    "algorithm": "Unzip a list of triplets into three lists.",
+    "solution": "def unzip_triplets(lst):\n    a, b, c = zip(*lst)\n    return list(a), list(b), list(c)",
+    "incorrect solution": "def unzip_triplets(lst):\n    return list(zip(*lst))"
+  },
+  {
+    "algorithm": "Find the sum of elements in a list using recursion.",
+    "solution": "def recursive_sum(lst):\n    if not lst:\n        return 0\n    return lst[0] + recursive_sum(lst[1:])",
+    "incorrect solution": "def recursive_sum(lst):\n    if not lst:\n        return 0\n    return recursive_sum(lst[1:])"
+  },
+  {
+    "algorithm": "Calculate the product of elements in a list using recursion.",
+    "solution": "def recursive_product(lst):\n    if not lst:\n        return 1\n    return lst[0] * recursive_product(lst[1:])",
+    "incorrect solution": "def recursive_product(lst):\n    if not lst:\n        return 1\n    return lst[0] + recursive_product(lst[1:])"
+  },
+  {
+    "algorithm": "Find the average of elements in a list without using sum().",
+    "solution": "def average(lst):\n    total = 0\n    for num in lst:\n        total += num\n    return total / len(lst) if lst else 0",
+    "incorrect solution": "def average(lst):\n    total = 0\n    for num in lst:\n        total += num\n    return total"
+  },
+  {
+    "algorithm": "Find the median of a list without sorting the list.",
+    "solution": "def median_unsorted(lst):\n    # This uses a selection algorithm (quickselect) approach\n    def kth_smallest(nums, k):\n        pivot = nums[len(nums) // 2]\n        lows = [el for el in nums if el < pivot]\n        highs = [el for el in nums if el > pivot]\n        pivots = [el for el in nums if el == pivot]\n        if k < len(lows):\n            return kth_smallest(lows, k)\n        elif k < len(lows) + len(pivots):\n            return pivot\n        else:\n            return kth_smallest(highs, k - len(lows) - len(pivots))\n    n = len(lst)\n    if n % 2 == 1:\n        return kth_smallest(lst, n // 2)\n    else:\n        return (kth_smallest(lst, n // 2 - 1) + kth_smallest(lst, n // 2)) / 2",
+    "incorrect solution": "def median_unsorted(lst):\n    return lst[len(lst)//2]"
+  },
+  {
+    "algorithm": "Find the mode of a list without using collections.",
+    "solution": "def mode(lst):\n    freq = {}\n    for x in lst:\n        freq[x] = freq.get(x, 0) + 1\n    return max(freq, key=freq.get) if freq else None",
+    "incorrect solution": "def mode(lst):\n    return lst[0] if lst else None"
+  },
+  {
+    "algorithm": "Normalize a list of numbers between 0 and 1.",
+    "solution": "def normalize(lst):\n    min_val, max_val = min(lst), max(lst)\n    return [(x - min_val) / (max_val - min_val) for x in lst] if max_val != min_val else [0 for _ in lst]",
+    "incorrect solution": "def normalize(lst):\n    min_val, max_val = min(lst), max(lst)\n    return [x / max_val for x in lst]"
+  },
+  {
+    "algorithm": "Standardize a list of numbers (z-score) manually.",
+    "solution": "def standardize(lst):\n    mean = sum(lst) / len(lst)\n    std = (sum((x - mean) ** 2 for x in lst) / len(lst)) ** 0.5\n    return [(x - mean) / std for x in lst] if std != 0 else [0 for _ in lst]",
+    "incorrect solution": "def standardize(lst):\n    mean = sum(lst) / len(lst)\n    return [(x - mean) for x in lst]"
+  },
+  {
+    "algorithm": "Calculate the variance of a list of numbers.",
+    "solution": "def variance(lst):\n    mean = sum(lst) / len(lst)\n    return sum((x - mean) ** 2 for x in lst) / len(lst) if lst else 0",
+    "incorrect solution": "def variance(lst):\n    return sum(lst) / len(lst) if lst else 0"
+  },
+  {
+    "algorithm": "Calculate the standard deviation of a list of numbers.",
+    "solution": "def std_deviation(lst):\n    var = variance(lst)\n    return var ** 0.5",
+    "incorrect solution": "def std_deviation(lst):\n    return variance(lst)"
+  },
+  {
+    "algorithm": "Generate a list of n random integers within a range without using random module.",
+    "solution": "def pseudo_random(n, low, high):\n    # Using a simple linear congruential generator\n    a, c, m = 1103515245, 12345, 2**31\n    seed = 42\n    result = []\n    for _ in range(n):\n        seed = (a * seed + c) % m\n        result.append(low + seed % (high - low + 1))\n    return result",
+    "incorrect solution": "def pseudo_random(n, low, high):\n    return [low for _ in range(n)]"
+  },
+  {
+    "algorithm": "Generate a list of n sequential numbers starting from a given number.",
+    "solution": "def sequential_numbers(n, start):\n    return [start + i for i in range(n)]",
+    "incorrect solution": "def sequential_numbers(n, start):\n    return [start * i for i in range(n)]"
+  },
+  {
+    "algorithm": "Compute the cumulative sum of a list.",
+    "solution": "def cumulative_sum(lst):\n    total = 0\n    result = []\n    for num in lst:\n        total += num\n        result.append(total)\n    return result",
+    "incorrect solution": "def cumulative_sum(lst):\n    return [sum(lst)] * len(lst)"
+  },
+  {
+    "algorithm": "Compute the cumulative product of a list.",
+    "solution": "def cumulative_product(lst):\n    prod = 1\n    result = []\n    for num in lst:\n        prod *= num\n        result.append(prod)\n    return result",
+    "incorrect solution": "def cumulative_product(lst):\n    return [prod for prod in lst]"
+  },
+  {
+    "algorithm": "Find the maximum difference between any two elements in a list.",
+    "solution": "def max_diff(lst):\n    return max(lst) - min(lst) if lst else 0",
+    "incorrect solution": "def max_diff(lst):\n    return max(lst) - lst[0] if lst else 0"
+  },
+  {
+    "algorithm": "Check if all elements in a list are unique.",
+    "solution": "def all_unique(lst):\n    return len(lst) == len(set(lst))",
+    "incorrect solution": "def all_unique(lst):\n    return True"
+  },
+  {
+    "algorithm": "Check if a list is a permutation of another.",
+    "solution": "def is_permutation(l1, l2):\n    return sorted(l1) == sorted(l2)",
+    "incorrect solution": "def is_permutation(l1, l2):\n    return l1 == l2"
+  },
+  {
+    "algorithm": "Find the index of the first occurrence of an element in a list using recursion.",
+    "solution": "def recursive_index(lst, target, index=0):\n    if index >= len(lst):\n        return -1\n    if lst[index] == target:\n        return index\n    return recursive_index(lst, target, index+1)",
+    "incorrect solution": "def recursive_index(lst, target, index=0):\n    if lst[index] == target:\n        return index\n    return recursive_index(lst, target, index+1)"
+  },
+  {
+    "algorithm": "Find the last occurrence of an element in a list using recursion.",
+    "solution": "def recursive_last_index(lst, target, index=None):\n    if index is None:\n        index = len(lst) - 1\n    if index < 0:\n        return -1\n    if lst[index] == target:\n        return index\n    return recursive_last_index(lst, target, index-1)",
+    "incorrect solution": "def recursive_last_index(lst, target, index=0):\n    if lst[index] == target:\n        return index\n    return recursive_last_index(lst, target, index+1)"
+  },
+  {
+    "algorithm": "Remove all None values from a list.",
+    "solution": "def remove_nones(lst):\n    return [x for x in lst if x is not None]",
+    "incorrect solution": "def remove_nones(lst):\n    return [x for x in lst if x]"
+  },
+  {
+    "algorithm": "Replace all occurrences of a value in a list with another value.",
+    "solution": "def replace_value(lst, old, new):\n    return [new if x == old else x for x in lst]",
+    "incorrect solution": "def replace_value(lst, old, new):\n    return [new for x in lst if x == old]"
+  },
+  {
+    "algorithm": "Find the common elements between two lists without using sets.",
+    "solution": "def common_elements(l1, l2):\n    return [x for x in l1 if x in l2]",
+    "incorrect solution": "def common_elements(l1, l2):\n    return l1 + l2"
+  },
+  {
+    "algorithm": "Find the uncommon elements between two lists.",
+    "solution": "def uncommon_elements(l1, l2):\n    return [x for x in l1 if x not in l2] + [x for x in l2 if x not in l1]",
+    "incorrect solution": "def uncommon_elements(l1, l2):\n    return [x for x in l1 if x in l2]"
+  },
+  {
+    "algorithm": "Sort a list of tuples based on the third element.",
+    "solution": "def sort_by_third(lst):\n    return sorted(lst, key=lambda x: x[2])",
+    "incorrect solution": "def sort_by_third(lst):\n    return sorted(lst, key=lambda x: x[0])"
+  },
+  {
+    "algorithm": "Filter a list of numbers to only include primes.",
+    "solution": "def is_prime(n):\n    if n < 2:\n        return False\n    for i in range(2, int(n ** 0.5) + 1):\n        if n % i == 0:\n            return False\n    return True\n\ndef filter_primes(lst):\n    return [x for x in lst if is_prime(x)]",
+    "incorrect solution": "def filter_primes(lst):\n    return [x for x in lst if x % 2 != 0]"
+  },
+  {
+    "algorithm": "Filter a list of numbers to only include even numbers using list comprehension.",
+    "solution": "def filter_evens(lst):\n    return [x for x in lst if x % 2 == 0]",
+    "incorrect solution": "def filter_evens(lst):\n    return [x for x in lst if x % 2 != 0]"
+  },
+  {
+    "algorithm": "Filter a list of numbers to only include odd numbers using list comprehension.",
+    "solution": "def filter_odds(lst):\n    return [x for x in lst if x % 2 != 0]",
+    "incorrect solution": "def filter_odds(lst):\n    return [x for x in lst if x % 2 == 0]"
+  },
+  {
+    "algorithm": "Convert a list of strings to uppercase.",
+    "solution": "def list_to_upper(lst):\n    return [s.upper() for s in lst]",
+    "incorrect solution": "def list_to_upper(lst):\n    return [s.lower() for s in lst]"
+  },
+  {
+    "algorithm": "Convert a list of strings to lowercase.",
+    "solution": "def list_to_lower(lst):\n    return [s.lower() for s in lst]",
+    "incorrect solution": "def list_to_lower(lst):\n    return [s.upper() for s in lst]"
+  },
+  {
+    "algorithm": "Capitalize all strings in a list.",
+    "solution": "def capitalize_list(lst):\n    return [s.capitalize() for s in lst]",
+    "incorrect solution": "def capitalize_list(lst):\n    return [s.upper() for s in lst]"
+  },
+  {
+    "algorithm": "Reverse each string in a list.",
+    "solution": "def reverse_each_string(lst):\n    return [s[::-1] for s in lst]",
+    "incorrect solution": "def reverse_each_string(lst):\n    return lst[::-1]"
+  },
+  {
+    "algorithm": "Filter out empty strings from a list.",
+    "solution": "def remove_empty_strings(lst):\n    return [s for s in lst if s]",
+    "incorrect solution": "def remove_empty_strings(lst):\n    return lst"
+  },
+  {
+    "algorithm": "Count the total number of characters in a list of strings.",
+    "solution": "def total_chars(lst):\n    return sum(len(s) for s in lst)",
+    "incorrect solution": "def total_chars(lst):\n    return len(lst)"
+  },
+  {
+    "algorithm": "Find the union of two lists without using sets.",
+    "solution": "def union_lists(l1, l2):\n    result = l1[:]\n    for x in l2:\n        if x not in result:\n            result.append(x)\n    return result",
+    "incorrect solution": "def union_lists(l1, l2):\n    return l1 + l2"
+  },
+  {
+    "algorithm": "Find the intersection of two lists without using sets.",
+    "solution": "def intersection_lists(l1, l2):\n    return [x for x in l1 if x in l2]",
+    "incorrect solution": "def intersection_lists(l1, l2):\n    return l1 + l2"
+  },
+  {
+    "algorithm": "Find the difference between two lists (elements in first but not in second).",
+    "solution": "def difference_lists(l1, l2):\n    return [x for x in l1 if x not in l2]",
+    "incorrect solution": "def difference_lists(l1, l2):\n    return [x for x in l1 if x in l2]"
+  },
+  {
+    "algorithm": "Check if one list is a subset of another without using sets.",
+    "solution": "def is_subset(l1, l2):\n    return all(x in l2 for x in l1)",
+    "incorrect solution": "def is_subset(l1, l2):\n    return any(x in l2 for x in l1)"
+  },
+  {
+    "algorithm": "Generate a Fibonacci sequence recursively.",
+    "solution": "def fibonacci_recursive(n):\n    if n <= 0:\n        return []\n    if n == 1:\n        return [0]\n    if n == 2:\n        return [0, 1]\n    seq = fibonacci_recursive(n-1)\n    seq.append(seq[-1] + seq[-2])\n    return seq",
+    "incorrect solution": "def fibonacci_recursive(n):\n    if n <= 0:\n        return []\n    return [0, 1]"
+  },
+  {
+    "algorithm": "Generate a Fibonacci sequence iteratively.",
+    "solution": "def fibonacci_iterative(n):\n    if n <= 0:\n        return []\n    seq = [0, 1]\n    for i in range(2, n):\n        seq.append(seq[-1] + seq[-2])\n    return seq[:n]",
+    "incorrect solution": "def fibonacci_iterative(n):\n    seq = [0, 1]\n    for i in range(2, n):\n        seq.append(seq[-1] - seq[-2])\n    return seq"
+  },
+  {
+    "algorithm": "Compute the nth Fibonacci number using recursion.",
+    "solution": "def fib_n(n):\n    if n < 2:\n        return n\n    return fib_n(n-1) + fib_n(n-2)",
+    "incorrect solution": "def fib_n(n):\n    if n < 2:\n        return n\n    return fib_n(n-1) - fib_n(n-2)"
+  },
+  {
+    "algorithm": "Compute the nth Fibonacci number using iteration.",
+    "solution": "def fib_n_iter(n):\n    a, b = 0, 1\n    for _ in range(n):\n        a, b = b, a + b\n    return a",
+    "incorrect solution": "def fib_n_iter(n):\n    a, b = 0, 1\n    for _ in range(n):\n        a, b = b, a - b\n    return a"
+  },
+  {
+    "algorithm": "Compute the factorial of a number using a for loop.",
+    "solution": "def factorial_for(n):\n    result = 1\n    for i in range(1, n+1):\n        result *= i\n    return result",
+    "incorrect solution": "def factorial_for(n):\n    result = 0\n    for i in range(1, n+1):\n        result += i\n    return result"
+  },
+  {
+    "algorithm": "Compute the factorial of a number using a while loop.",
+    "solution": "def factorial_while(n):\n    result = 1\n    while n > 0:\n        result *= n\n        n -= 1\n    return result",
+    "incorrect solution": "def factorial_while(n):\n    result = 1\n    while n > 0:\n        result += n\n        n -= 1\n    return result"
+  },
+  {
+    "algorithm": "Compute the factorial of a number using recursion with memoization.",
+    "solution": "def factorial_memo(n, memo={}):\n    if n in memo:\n        return memo[n]\n    if n <= 1:\n        return 1\n    memo[n] = n * factorial_memo(n-1, memo)\n    return memo[n]",
+    "incorrect solution": "def factorial_memo(n, memo={}):\n    if n <= 1:\n        return 1\n    return n + factorial_memo(n-1, memo)"
+  },
+  {
+    "algorithm": "Check if a number is a perfect cube.",
+    "solution": "def is_perfect_cube(n):\n    cube_root = round(n ** (1/3))\n    return cube_root ** 3 == n",
+    "incorrect solution": "def is_perfect_cube(n):\n    cube_root = int(n ** (1/3))\n    return cube_root ** 3 != n"
+  },
+  {
+    "algorithm": "Find the cube root of a number using binary search.",
+    "solution": "def cube_root_binary(n):\n    low, high = 0, max(1, n)\n    while high - low > 1e-6:\n        mid = (low + high) / 2\n        if mid**3 < n:\n            low = mid\n        else:\n            high = mid\n    return (low + high) / 2",
+    "incorrect solution": "def cube_root_binary(n):\n    low, high = 0, n\n    while high - low > 1e-6:\n        mid = (low + high) / 2\n        if mid**3 > n:\n            low = mid\n        else:\n            high = mid\n    return (low + high) / 2"
+  },
+  {
+    "algorithm": "Find the sum of digits of a number recursively.",
+    "solution": "def sum_digits_recursive(n):\n    n = abs(n)\n    if n < 10:\n        return n\n    return n % 10 + sum_digits_recursive(n // 10)",
+    "incorrect solution": "def sum_digits_recursive(n):\n    if n < 10:\n        return n\n    return n % 10 * sum_digits_recursive(n // 10)"
+  },
+  {
+    "algorithm": "Find the digital root of a number recursively.",
+    "solution": "def digital_root(n):\n    n = abs(n)\n    if n < 10:\n        return n\n    return digital_root(sum(int(d) for d in str(n)))",
+    "incorrect solution": "def digital_root(n):\n    return sum(int(d) for d in str(n))"
+  },
+  {
+    "algorithm": "Check if a number is a palindrome number by comparing digits.",
+    "solution": "def is_numeric_palindrome(n):\n    s = str(n)\n    return s == s[::-1]",
+    "incorrect solution": "def is_numeric_palindrome(n):\n    s = str(n)\n    return s[0] == s[-1]"
+  },
+  {
+    "algorithm": "Reverse an integer using arithmetic operations.",
+    "solution": "def reverse_int(n):\n    sign = -1 if n < 0 else 1\n    n = abs(n)\n    rev = 0\n    while n:\n        rev = rev * 10 + n % 10\n        n //= 10\n    return sign * rev",
+    "incorrect solution": "def reverse_int(n):\n    rev = 0\n    while n:\n        rev += n % 10\n        n //= 10\n    return rev"
+  },
+  {
+    "algorithm": "Check if an integer is negative without using comparison operators.",
+    "solution": "def is_negative(n):\n    return (n >> 31) & 1 == 1",
+    "incorrect solution": "def is_negative(n):\n    return n < 0"
+  },
+  {
+    "algorithm": "Convert an integer to a string without using str().",
+    "solution": "def int_to_string(n):\n    negative = n < 0\n    n = abs(n)\n    s = ''\n    if n == 0:\n        s = '0'\n    while n:\n        s = chr(48 + n % 10) + s\n        n //= 10\n    return '-' + s if negative else s",
+    "incorrect solution": "def int_to_string(n):\n    return ''.join([chr(48 + int(d)) for d in str(n)])"
+  },
+  {
+    "algorithm": "Convert a string to an integer without using int().",
+    "solution": "def string_to_int(s):\n    negative = s[0] == '-'\n    if negative:\n        s = s[1:]\n    num = 0\n    for c in s:\n        num = num * 10 + (ord(c) - 48)\n    return -num if negative else num",
+    "incorrect solution": "def string_to_int(s):\n    return sum(ord(c) for c in s)"
+  },
+  {
+    "algorithm": "Calculate the absolute value of a number without using abs().",
+    "solution": "def absolute(n):\n    return n if n >= 0 else -n",
+    "incorrect solution": "def absolute(n):\n    return n"
+  },
+  {
+    "algorithm": "Find the minimum element in a list using recursion.",
+    "solution": "def recursive_min(lst):\n    if len(lst) == 1:\n        return lst[0]\n    sub_min = recursive_min(lst[1:])\n    return lst[0] if lst[0] < sub_min else sub_min",
+    "incorrect solution": "def recursive_min(lst):\n    return lst[0]"
+  },
+  {
+    "algorithm": "Find the maximum element in a list using recursion.",
+    "solution": "def recursive_max(lst):\n    if len(lst) == 1:\n        return lst[0]\n    sub_max = recursive_max(lst[1:])\n    return lst[0] if lst[0] > sub_max else sub_max",
+    "incorrect solution": "def recursive_max(lst):\n    return lst[-1]"
+  },
+  {
+    "algorithm": "Find the second largest element in a list.",
+    "solution": "def second_largest(lst):\n    unique = list(set(lst))\n    if len(unique) < 2:\n        return None\n    unique.sort()\n    return unique[-2]",
+    "incorrect solution": "def second_largest(lst):\n    lst.sort()\n    return lst[1]"
+  },
+  {
+    "algorithm": "Find the second smallest element in a list.",
+    "solution": "def second_smallest(lst):\n    unique = list(set(lst))\n    if len(unique) < 2:\n        return None\n    unique.sort()\n    return unique[1]",
+    "incorrect solution": "def second_smallest(lst):\n    lst.sort()\n    return lst[-2]"
+  },
+  {
+    "algorithm": "Implement a simple exponential function using a loop.",
+    "solution": "def exp_loop(x, n):\n    # computes x^n\n    result = 1\n    for _ in range(n):\n        result *= x\n    return result",
+    "incorrect solution": "def exp_loop(x, n):\n    result = 0\n    for _ in range(n):\n        result *= x\n    return result"
+  },
+  {
+    "algorithm": "Compute e^x using its Taylor series approximation.",
+    "solution": "def taylor_exp(x, terms=10):\n    result = 1\n    factorial = 1\n    power = 1\n    for i in range(1, terms):\n        power *= x\n        factorial *= i\n        result += power / factorial\n    return result",
+    "incorrect solution": "def taylor_exp(x, terms=10):\n    result = 1\n    for i in range(1, terms):\n        result += x / i\n    return result"
+  },
+  {
+    "algorithm": "Compute the natural logarithm of a number using iteration.",
+    "solution": "def ln_approx(x, iterations=100):\n    # using a simple series expansion for ln(1+y) with y = x-1\n    if x <= 0:\n        return None\n    y = x - 1\n    result = 0\n    for i in range(1, iterations):\n        result += ((-1)**(i+1)) * (y**i) / i\n    return result",
+    "incorrect solution": "def ln_approx(x, iterations=100):\n    if x <= 0:\n        return None\n    y = x - 1\n    result = 0\n    for i in range(1, iterations):\n        result += y / i\n    return result"
+  },
+  {
+    "algorithm": "Compute the base-10 logarithm of a number using math.log10.",
+    "solution": "import math\n\ndef log10_val(x):\n    return math.log10(x)",
+    "incorrect solution": "import math\n\ndef log10_val(x):\n    return math.log(x)"
+  },
+  {
+    "algorithm": "Check if a number is a power of three.",
+    "solution": "def is_power_of_three(n):\n    if n < 1:\n        return False\n    while n % 3 == 0:\n        n //= 3\n    return n == 1",
+    "incorrect solution": "def is_power_of_three(n):\n    return n % 3 == 0"
+  },
+  {
+    "algorithm": "Check if a number is a power of four.",
+    "solution": "def is_power_of_four(n):\n    if n < 1:\n        return False\n    while n % 4 == 0:\n        n //= 4\n    return n == 1",
+    "incorrect solution": "def is_power_of_four(n):\n    return n % 4 == 0"
+  },
+  {
+    "algorithm": "Find the next prime number after a given number.",
+    "solution": "def next_prime(n):\n    def is_prime(x):\n        if x < 2:\n            return False\n        for i in range(2, int(x ** 0.5) + 1):\n            if x % i == 0:\n                return False\n        return True\n    candidate = n + 1\n    while not is_prime(candidate):\n        candidate += 1\n    return candidate",
+    "incorrect solution": "def next_prime(n):\n    return n + 1"
+  },
+  {
+    "algorithm": "Find the previous prime number before a given number.",
+    "solution": "def previous_prime(n):\n    def is_prime(x):\n        if x < 2:\n            return False\n        for i in range(2, int(x ** 0.5) + 1):\n            if x % i == 0:\n                return False\n        return True\n    candidate = n - 1\n    while candidate > 1 and not is_prime(candidate):\n        candidate -= 1\n    return candidate if candidate > 1 else None",
+    "incorrect solution": "def previous_prime(n):\n    return n - 1"
+  },
+  {
+    "algorithm": "Check if a year is a leap year using bitwise operators (incorrect usage).",
+    "solution": "def is_leap_year_bitwise(year):\n    # Correct leap year logic (bitwise not applicable here) is used normally\n    return (year % 4 == 0 and year % 100 != 0) or (year % 400 == 0)",
+    "incorrect solution": "def is_leap_year_bitwise(year):\n    return (year & 3) == 0"
+  },
+  {
+    "algorithm": "Convert a time in seconds to hours, minutes, and seconds.",
+    "solution": "def seconds_to_hms(sec):\n    h = sec // 3600\n    m = (sec % 3600) // 60\n    s = sec % 60\n    return h, m, s",
+    "incorrect solution": "def seconds_to_hms(sec):\n    h = sec / 3600\n    m = (sec / 60) % 60\n    s = sec % 60\n    return h, m, s"
+  },
+  {
+    "algorithm": "Convert hours, minutes, and seconds to total seconds.",
+    "solution": "def hms_to_seconds(h, m, s):\n    return h * 3600 + m * 60 + s",
+    "incorrect solution": "def hms_to_seconds(h, m, s):\n    return h + m + s"
+  },
+  {
+    "algorithm": "Convert a 12-hour format time string to 24-hour format.",
+    "solution": "def to_24_hour(time_str):\n    parts = time_str.strip().split()\n    time_part = parts[0]\n    ampm = parts[1].lower()\n    h, m, s = map(int, time_part.split(':'))\n    if ampm == 'pm' and h != 12:\n        h += 12\n    if ampm == 'am' and h == 12:\n        h = 0\n    return f\"{h:02d}:{m:02d}:{s:02d}\"",
+    "incorrect solution": "def to_24_hour(time_str):\n    return time_str.replace('AM', '').replace('PM', '')"
+  },
+  {
+    "algorithm": "Convert a 24-hour format time string to 12-hour format.",
+    "solution": "def to_12_hour(time_str):\n    h, m, s = map(int, time_str.split(':'))\n    ampm = 'AM' if h < 12 else 'PM'\n    h = h if 1 <= h <= 12 else (h - 12 if h > 12 else 12)\n    return f\"{h:02d}:{m:02d}:{s:02d} {ampm}\"",
+    "incorrect solution": "def to_12_hour(time_str):\n    return time_str"
+  },
+  {
+    "algorithm": "Format a date string from MM/DD/YYYY to YYYY-MM-DD.",
+    "solution": "def format_date(date_str):\n    m, d, y = date_str.split('/')\n    return f\"{y}-{m.zfill(2)}-{d.zfill(2)}\"",
+    "incorrect solution": "def format_date(date_str):\n    return date_str.replace('/', '-')"
+  },
+  {
+    "algorithm": "Parse a date string in YYYY-MM-DD format and return a tuple (year, month, day).",
+    "solution": "def parse_date(date_str):\n    y, m, d = date_str.split('-')\n    return int(y), int(m), int(d)",
+    "incorrect solution": "def parse_date(date_str):\n    return date_str.split('-')"
+  },
+  {
+    "algorithm": "Check if a number is even using bitwise operators (alternate version).",
+    "solution": "def is_even(n):\n    return (n & 1) == 0",
+    "incorrect solution": "def is_even(n):\n    return (n & 1) != 0"
+  },
+  {
+    "algorithm": "Find the nth Fibonacci number using memoization (alternate).",
+    "solution": "def fib_memo(n, memo={}):\n    if n in memo:\n        return memo[n]\n    if n < 2:\n        return n\n    memo[n] = fib_memo(n-1, memo) + fib_memo(n-2, memo)\n    return memo[n]",
+    "incorrect solution": "def fib_memo(n, memo={}):\n    if n < 2:\n        return n\n    return fib_memo(n-1, memo) - fib_memo(n-2, memo)"
+  },
+  {
+    "algorithm": "Find the binary representation of a number using recursion (alternate).",
+    "solution": "def bin_recursive(n):\n    if n == 0:\n        return '0'\n    return bin_recursive(n // 2).lstrip('0') + str(n % 2)",
+    "incorrect solution": "def bin_recursive(n):\n    if n == 0:\n        return '0'\n    return str(n % 2) + bin_recursive(n // 2)"
+  },
+  {
+    "algorithm": "Determine if a string contains only digits using all().",
+    "solution": "def is_all_digits(s):\n    return all(c.isdigit() for c in s)",
+    "incorrect solution": "def is_all_digits(s):\n    return any(c.isdigit() for c in s)"
+  },
+  {
+    "algorithm": "Extract all uppercase letters from a string.",
+    "solution": "def extract_uppercase(s):\n    return ''.join(c for c in s if c.isupper())",
+    "incorrect solution": "def extract_uppercase(s):\n    return ''.join(c for c in s if c.islower())"
+  },
+  {
+    "algorithm": "Replace all vowels in a string with a given character.",
+    "solution": "def replace_vowels(s, ch):\n    vowels = 'aeiouAEIOU'\n    return ''.join(ch if c in vowels else c for c in s)",
+    "incorrect solution": "def replace_vowels(s, ch):\n    return s.replace('a', ch)"
+  },
+  {
+    "algorithm": "Reverse the order of words in a sentence (alternate).",
+    "solution": "def reverse_word_order(s):\n    words = s.split()\n    return ' '.join(words[::-1])",
+    "incorrect solution": "def reverse_word_order(s):\n    return s[::-1]"
+  },
+  {
+    "algorithm": "Capitalize only the first word of a sentence.",
+    "solution": "def capitalize_first(s):\n    return s[:1].upper() + s[1:] if s else s",
+    "incorrect solution": "def capitalize_first(s):\n    return s.upper()"
+  },
+  {
+    "algorithm": "Count the number of digits in a string.",
+    "solution": "def count_digits(s):\n    return sum(1 for c in s if c.isdigit())",
+    "incorrect solution": "def count_digits(s):\n    return len(s)"
+  },
+  {
+    "algorithm": "Check if a string contains any whitespace characters.",
+    "solution": "def contains_whitespace(s):\n    return any(c.isspace() for c in s)",
+    "incorrect solution": "def contains_whitespace(s):\n    return ' ' in s"
+  },
+  {
+    "algorithm": "Convert a list of strings into a single comma-separated string.",
+    "solution": "def list_to_comma_string(lst):\n    return ','.join(lst)",
+    "incorrect solution": "def list_to_comma_string(lst):\n    return ' '.join(lst)"
+  },
+  {
+    "algorithm": "Split a string into a list of words without using split().",
+    "solution": "def manual_split(s):\n    word = ''\n    result = []\n    for c in s:\n        if c == ' ':\n            if word:\n                result.append(word)\n                word = ''\n        else:\n            word += c\n    if word:\n        result.append(word)\n    return result",
+    "incorrect solution": "def manual_split(s):\n    return list(s)"
+  },
+  {
+    "algorithm": "Check if a string contains all letters of the alphabet (pangram).",
+    "solution": "import string\n\ndef is_pangram(s):\n    s = s.lower()\n    return set(string.ascii_lowercase).issubset(set(s))",
+    "incorrect solution": "import string\n\ndef is_pangram(s):\n    return all(letter in s for letter in string.ascii_lowercase)"
+  },
+  {
+    "algorithm": "Find the sum of the digits of a string containing numbers.",
+    "solution": "def sum_digits_in_string(s):\n    return sum(int(c) for c in s if c.isdigit())",
+    "incorrect solution": "def sum_digits_in_string(s):\n    return sum(int(c) for c in s)"
+  },
+  {
+    "algorithm": "Replace digits in a string with their word equivalents.",
+    "solution": "def replace_digits_with_words(s):\n    mapping = {'0':'zero','1':'one','2':'two','3':'three','4':'four','5':'five','6':'six','7':'seven','8':'eight','9':'nine'}\n    return ''.join(mapping[c] if c in mapping else c for c in s)",
+    "incorrect solution": "def replace_digits_with_words(s):\n    return s.replace('0', 'zero')"
+  },
+  {
+    "algorithm": "Check if a given year is within a leap cycle (400-year cycle).",
+    "solution": "def in_leap_cycle(year):\n    return year % 400 == 0",
+    "incorrect solution": "def in_leap_cycle(year):\n    return year % 100 == 0"
+  },
+  {
+    "algorithm": "Compute the sum of even digits in an integer.",
+    "solution": "def sum_even_digits(n):\n    return sum(int(d) for d in str(abs(n)) if int(d) % 2 == 0)",
+    "incorrect solution": "def sum_even_digits(n):\n    return sum(int(d) for d in str(n) if int(d) % 2 != 0)"
+  },
+  {
+    "algorithm": "Compute the sum of odd digits in an integer.",
+    "solution": "def sum_odd_digits(n):\n    return sum(int(d) for d in str(abs(n)) if int(d) % 2 != 0)",
+    "incorrect solution": "def sum_odd_digits(n):\n    return sum(int(d) for d in str(n) if int(d) % 2 == 0)"
+  },
+  {
+    "algorithm": "Implement a simple Caesar cipher encryption.",
+    "solution": "def caesar_encrypt(text, shift):\n    result = ''\n    for c in text:\n        if c.isalpha():\n            base = ord('A') if c.isupper() else ord('a')\n            result += chr((ord(c) - base + shift) % 26 + base)\n        else:\n            result += c\n    return result",
+    "incorrect solution": "def caesar_encrypt(text, shift):\n    return ''.join(chr(ord(c) + shift) for c in text)"
+  },
+  {
+    "algorithm": "Implement a simple Caesar cipher decryption.",
+    "solution": "def caesar_decrypt(text, shift):\n    return caesar_encrypt(text, -shift)",
+    "incorrect solution": "def caesar_decrypt(text, shift):\n    return caesar_encrypt(text, shift)"
+  },
+  {
+    "algorithm": "Determine if a string contains only alphabetic characters.",
+    "solution": "def is_alpha(s):\n    return s.isalpha()",
+    "incorrect solution": "def is_alpha(s):\n    return s.isalnum()"
+  },
+  {
+    "algorithm": "Find the length of a string without using len().",
+    "solution": "def length_without_len(s):\n    count = 0\n    for _ in s:\n        count += 1\n    return count",
+    "incorrect solution": "def length_without_len(s):\n    return sum(1 for _ in s) - 1"
+  },
+  {
+    "algorithm": "Convert a list of binary strings to integers.",
+    "solution": "def binary_list_to_int(lst):\n    return [int(b, 2) for b in lst]",
+    "incorrect solution": "def binary_list_to_int(lst):\n    return [int(b) for b in lst]"
+  },
+  {
+    "algorithm": "Convert a list of integers to binary strings.",
+    "solution": "def int_list_to_binary(lst):\n    return [bin(x)[2:] for x in lst]",
+    "incorrect solution": "def int_list_to_binary(lst):\n    return [str(x) for x in lst]"
+  },
+  {
+    "algorithm": "Find the maximum difference between adjacent elements in a list.",
+    "solution": "def max_adjacent_diff(lst):\n    return max(abs(lst[i] - lst[i+1]) for i in range(len(lst)-1)) if len(lst) >= 2 else 0",
+    "incorrect solution": "def max_adjacent_diff(lst):\n    return max(lst) - min(lst) if lst else 0"
+  },
+  { 
+    "algorithm": "Generate the nth Lucas number.",
+    "solution": "def lucas(n):\n    if n == 0: return 2\n    if n == 1: return 1\n    a, b = 2, 1\n    for _ in range(2, n+1):\n        a, b = b, a + b\n    return b",
+    "incorrect solution": "def lucas(n):\n    if n == 0: return 0\n    if n == 1: return 1\n    a, b = 0, 1\n    for _ in range(2, n+1):\n        a, b = b, a + b\n    return b"
+  },
+  {
+    "algorithm": "Calculate the digital root of a number.",
+    "solution": "def digital_root(n):\n    while n > 9:\n        n = sum(int(d) for d in str(n))\n    return n",
+    "incorrect solution": "def digital_root(n):\n    return sum(int(d) for d in str(n))"
+  },
+  {
+    "algorithm": "Check if a number is a happy number.",
+    "solution": "def is_happy(n):\n    seen = set()\n    while n != 1 and n not in seen:\n        seen.add(n)\n        n = sum(int(d)**2 for d in str(n))\n    return n == 1",
+    "incorrect solution": "def is_happy(n):\n    return sum(int(d)**2 for d in str(n)) == 1"
+  },
+  {
+    "algorithm": "Generate all balanced parentheses of n pairs.",
+    "solution": "def generate_parentheses(n):\n    result = []\n    def backtrack(s, left, right):\n        if len(s) == 2 * n:\n            result.append(s)\n            return\n        if left < n:\n            backtrack(s+'(', left+1, right)\n        if right < left:\n            backtrack(s+')', left, right+1)\n    backtrack('', 0, 0)\n    return result",
+    "incorrect solution": "def generate_parentheses(n):\n    return ['(' * n + ')' * n]"
+  },
+  {
+    "algorithm": "Solve the Tower of Hanoi problem and return moves.",
+    "solution": "def tower_of_hanoi(n, source, target, auxiliary):\n    moves = []\n    def move(n, src, tgt, aux):\n        if n == 1:\n            moves.append((src, tgt))\n        else:\n            move(n-1, src, aux, tgt)\n            moves.append((src, tgt))\n            move(n-1, aux, tgt, src)\n    move(n, source, target, auxiliary)\n    return moves",
+    "incorrect solution": "def tower_of_hanoi(n, source, target, auxiliary):\n    return [(source, target)] * n"
+  },
+  {
+    "algorithm": "Implement a function to flatten a deeply nested list.",
+    "solution": "def flatten_deep(lst):\n    result = []\n    for item in lst:\n        if isinstance(item, list):\n            result.extend(flatten_deep(item))\n        else:\n            result.append(item)\n    return result",
+    "incorrect solution": "def flatten_deep(lst):\n    return [item for sub in lst for item in sub]"
+  },
+  {
+    "algorithm": "Compute the depth of nested lists.",
+    "solution": "def list_depth(lst):\n    if not isinstance(lst, list):\n        return 0\n    return 1 + max((list_depth(item) for item in lst), default=0)",
+    "incorrect solution": "def list_depth(lst):\n    return len(lst)"
+  },
+  {
+    "algorithm": "Merge two sorted arrays without extra space.",
+    "solution": "def merge_in_place(a, b):\n    i = 0\n    j = 0\n    while i < len(a) and j < len(b):\n        if a[i] <= b[j]:\n            i += 1\n        else:\n            a.insert(i, b[j])\n            j += 1\n            i += 1\n    a.extend(b[j:])\n    return a",
+    "incorrect solution": "def merge_in_place(a, b):\n    return sorted(a + b)"
+  },
+  {
+    "algorithm": "Find the longest common prefix among an array of strings.",
+    "solution": "def longest_common_prefix(strs):\n    if not strs: return \"\"\n    prefix = strs[0]\n    for s in strs[1:]:\n        while not s.startswith(prefix):\n            prefix = prefix[:-1]\n            if not prefix:\n                return \"\"\n    return prefix",
+    "incorrect solution": "def longest_common_prefix(strs):\n    return min(strs, key=len)"
+  },
+  {
+    "algorithm": "Implement a function to calculate compound interest.",
+    "solution": "def compound_interest(principal, rate, times, years):\n    return principal * (1 + rate / times) ** (times * years)",
+    "incorrect solution": "def compound_interest(principal, rate, times, years):\n    return principal + rate * years"
+  },
+  {
+    "algorithm": "Convert a fraction to a decimal string with repeating decimals in parentheses.",
+    "solution": "def fraction_to_decimal(numerator, denominator):\n    if numerator % denominator == 0:\n        return str(numerator // denominator)\n    sign = '-' if (numerator < 0) ^ (denominator < 0) else ''\n    numerator, denominator = abs(numerator), abs(denominator)\n    integer_part = numerator // denominator\n    remainder = numerator % denominator\n    decimals = ''\n    seen = {}\n    while remainder and remainder not in seen:\n        seen[remainder] = len(decimals)\n        remainder *= 10\n        decimals += str(remainder // denominator)\n        remainder %= denominator\n    if remainder:\n        index = seen[remainder]\n        decimals = decimals[:index] + '(' + decimals[index:] + ')'\n    return sign + str(integer_part) + '.' + decimals",
+    "incorrect solution": "def fraction_to_decimal(numerator, denominator):\n    return str(numerator / denominator)"
+  },
+  {
+    "algorithm": "Calculate the simple moving average of a list of numbers.",
+    "solution": "def simple_moving_average(lst, window):\n    return [sum(lst[i:i+window]) / window for i in range(len(lst)-window+1)]\n",
+    "incorrect solution": "def simple_moving_average(lst, window):\n    return [sum(lst) / window] * len(lst)"
+  },
+  {
+    "algorithm": "Calculate the exponential moving average of a list of numbers.",
+    "solution": "def exponential_moving_average(lst, alpha):\n    ema = [lst[0]]\n    for x in lst[1:]:\n        ema.append(alpha * x + (1 - alpha) * ema[-1])\n    return ema",
+    "incorrect solution": "def exponential_moving_average(lst, alpha):\n    return [sum(lst)/len(lst)] * len(lst)"
+  },
+  {
+    "algorithm": "Calculate the weighted average of a list of numbers with weights.",
+    "solution": "def weighted_average(lst, weights):\n    total_weight = sum(weights)\n    return sum(x * w for x, w in zip(lst, weights)) / total_weight if total_weight else 0",
+    "incorrect solution": "def weighted_average(lst, weights):\n    return sum(lst) / len(lst)"
+  },
+  {
+    "algorithm": "Implement the binary search algorithm recursively.",
+    "solution": "def binary_search_recursive(arr, target, low=0, high=None):\n    if high is None:\n        high = len(arr) - 1\n    if low > high:\n        return -1\n    mid = (low + high) // 2\n    if arr[mid] == target:\n        return mid\n    elif arr[mid] < target:\n        return binary_search_recursive(arr, target, mid+1, high)\n    else:\n        return binary_search_recursive(arr, target, low, mid-1)",
+    "incorrect solution": "def binary_search_recursive(arr, target, low=0, high=None):\n    if high is None:\n        high = len(arr)\n    mid = (low + high) // 2\n    if arr[mid] == target:\n        return mid\n    else:\n        return binary_search_recursive(arr, target, low, mid)"
+  },
+  {
+    "algorithm": "Find the peak element in an array.",
+    "solution": "def find_peak(lst):\n    for i in range(1, len(lst)-1):\n        if lst[i] > lst[i-1] and lst[i] > lst[i+1]:\n            return lst[i]\n    return lst[0] if lst else None",
+    "incorrect solution": "def find_peak(lst):\n    return max(lst) if lst else None"
+  },
+  {
+    "algorithm": "Find the valley element in an array.",
+    "solution": "def find_valley(lst):\n    for i in range(1, len(lst)-1):\n        if lst[i] < lst[i-1] and lst[i] < lst[i+1]:\n            return lst[i]\n    return lst[0] if lst else None",
+    "incorrect solution": "def find_valley(lst):\n    return min(lst) if lst else None"
+  },
+  {
+    "algorithm": "Rotate an array left by d positions.",
+    "solution": "def rotate_left(lst, d):\n    d = d % len(lst) if lst else 0\n    return lst[d:] + lst[:d]",
+    "incorrect solution": "def rotate_left(lst, d):\n    return lst[-d:] + lst[:-d]"
+  },
+  {
+    "algorithm": "Rotate an array right by d positions.",
+    "solution": "def rotate_right(lst, d):\n    d = d % len(lst) if lst else 0\n    return lst[-d:] + lst[:-d]",
+    "incorrect solution": "def rotate_right(lst, d):\n    return lst[d:] + lst[:d]"
+  },
+  {
+    "algorithm": "Shuffle a string randomly.",
+    "solution": "import random\n\ndef shuffle_string(s):\n    lst = list(s)\n    random.shuffle(lst)\n    return ''.join(lst)",
+    "incorrect solution": "import random\n\ndef shuffle_string(s):\n    return s"
+  },
+  {
+    "algorithm": "Check if two rectangles overlap.",
+    "solution": "def rectangles_overlap(r1, r2):\n    # r: (x1, y1, x2, y2) where (x1,y1) is bottom-left and (x2,y2) is top-right\n    return not (r1[2] < r2[0] or r1[0] > r2[2] or r1[3] < r2[1] or r1[1] > r2[3])",
+    "incorrect solution": "def rectangles_overlap(r1, r2):\n    return r1[0] < r2[2] and r1[1] < r2[3]"
+  },
+  {
+    "algorithm": "Calculate the area of overlap between two rectangles.",
+    "solution": "def overlap_area(r1, r2):\n    if not rectangles_overlap(r1, r2):\n        return 0\n    x_overlap = max(0, min(r1[2], r2[2]) - max(r1[0], r2[0]))\n    y_overlap = max(0, min(r1[3], r2[3]) - max(r1[1], r2[1]))\n    return x_overlap * y_overlap",
+    "incorrect solution": "def overlap_area(r1, r2):\n    return abs(r1[2] - r2[0]) * abs(r1[3] - r2[1])"
+  },
+  {
+    "algorithm": "Determine if two circles intersect.",
+    "solution": "import math\n\ndef circles_intersect(c1, c2):\n    # c: (x, y, r)\n    dist = math.hypot(c1[0]-c2[0], c1[1]-c2[1])\n    return dist <= (c1[2] + c2[2])",
+    "incorrect solution": "import math\n\ndef circles_intersect(c1, c2):\n    return abs(c1[0]-c2[0]) + abs(c1[1]-c2[1]) <= (c1[2] + c2[2])"
+  },
+  {
+    "algorithm": "Calculate the intersection area of two circles (approximation).",
+    "solution": "def circle_intersection_area(c1, c2):\n    # This is a complex formula; here we return a placeholder\n    if circles_intersect(c1, c2):\n        return min(math.pi*c1[2]**2, math.pi*c2[2]**2) / 2\n    return 0",
+    "incorrect solution": "def circle_intersection_area(c1, c2):\n    return math.pi * c1[2]**2 + math.pi * c2[2]**2"
+  },
+  {
+    "algorithm": "Implement the bubble sort algorithm recursively.",
+    "solution": "def bubble_sort_recursive(lst):\n    n = len(lst)\n    if n <= 1:\n        return lst\n    for i in range(n-1):\n        if lst[i] > lst[i+1]:\n            lst[i], lst[i+1] = lst[i+1], lst[i]\n    return bubble_sort_recursive(lst[:-1]) + [lst[-1]]\n",
+    "incorrect solution": "def bubble_sort_recursive(lst):\n    return sorted(lst)"
+  },
+  {
+    "algorithm": "Implement selection sort recursively.",
+    "solution": "def selection_sort_recursive(lst):\n    if not lst:\n        return []\n    min_val = min(lst)\n    lst.remove(min_val)\n    return [min_val] + selection_sort_recursive(lst)",
+    "incorrect solution": "def selection_sort_recursive(lst):\n    lst.sort()\n    return lst"
+  },
+  {
+    "algorithm": "Implement insertion sort recursively.",
+    "solution": "def insertion_sort_recursive(lst):\n    if len(lst) <= 1:\n        return lst\n    last = lst.pop()\n    sorted_lst = insertion_sort_recursive(lst)\n    for i in range(len(sorted_lst)+1):\n        if i == len(sorted_lst) or last < sorted_lst[i]:\n            sorted_lst.insert(i, last)\n            break\n    return sorted_lst",
+    "incorrect solution": "def insertion_sort_recursive(lst):\n    return sorted(lst)"
+  },
+  {
+    "algorithm": "Merge two sorted linked lists recursively.",
+    "solution": "def merge_linked(l1, l2):\n    if not l1:\n        return l2\n    if not l2:\n        return l1\n    if l1.val < l2.val:\n        l1.next = merge_linked(l1.next, l2)\n        return l1\n    else:\n        l2.next = merge_linked(l1, l2.next)\n        return l2",
+    "incorrect solution": "def merge_linked(l1, l2):\n    return l1"
+  },
+  {
+    "algorithm": "Reverse the words in a sentence.",
+    "solution": "def reverse_sentence_words(s):\n    return ' '.join(s.split()[::-1])",
+    "incorrect solution": "def reverse_sentence_words(s):\n    return s[::-1]"
+  },
+  {
+    "algorithm": "Find the longest word in a sentence.",
+    "solution": "def longest_word_in_sentence(s):\n    words = s.split()\n    return max(words, key=len) if words else \"\"",
+    "incorrect solution": "def longest_word_in_sentence(s):\n    return s.split()[0] if s else \"\""
+  },
+  {
+    "algorithm": "Convert a list of integers to a single concatenated number string.",
+    "solution": "def list_to_number_string(lst):\n    return ''.join(str(x) for x in lst)",
+    "incorrect solution": "def list_to_number_string(lst):\n    return ' '.join(str(x) for x in lst)"
+  },
+  {
+    "algorithm": "Split a string into a list of words without using split().",
+    "solution": "def manual_word_split(s):\n    words, word = [], ''\n    for c in s:\n        if c == ' ':\n            if word:\n                words.append(word)\n                word = ''\n        else:\n            word += c\n    if word:\n        words.append(word)\n    return words",
+    "incorrect solution": "def manual_word_split(s):\n    return list(s)"
+  },
+  {
+    "algorithm": "Check if a string is a pangram (contains all letters).",
+    "solution": "import string\n\ndef is_pangram(s):\n    return set(string.ascii_lowercase).issubset(set(s.lower()))",
+    "incorrect solution": "def is_pangram(s):\n    return all(letter in s for letter in s.lower())"
+  },
+  {
+    "algorithm": "Find the sum of digits in a string containing numbers.",
+    "solution": "def sum_digits_in_str(s):\n    return sum(int(c) for c in s if c.isdigit())",
+    "incorrect solution": "def sum_digits_in_str(s):\n    return sum(int(c) for c in s)"
+  },
+  {
+    "algorithm": "Replace digits in a string with their English word equivalents.",
+    "solution": "def digits_to_words(s):\n    mapping = {'0':'zero','1':'one','2':'two','3':'three','4':'four','5':'five','6':'six','7':'seven','8':'eight','9':'nine'}\n    return ''.join(mapping[c] if c in mapping else c for c in s)",
+    "incorrect solution": "def digits_to_words(s):\n    return s.replace('0','zero')"
+  },
+  {
+    "algorithm": "Check if a given year is within a century (e.g., 1901-2000).",
+    "solution": "def in_century(year, start):\n    return start <= year < start + 100",
+    "incorrect solution": "def in_century(year, start):\n    return year % 100 == 0"
+  },
+  {
+    "algorithm": "Compute the sum of two matrices.",
+    "solution": "def add_matrices(A, B):\n    return [[a + b for a, b in zip(rowA, rowB)] for rowA, rowB in zip(A, B)]",
+    "incorrect solution": "def add_matrices(A, B):\n    return [[a * b for a, b in zip(rowA, rowB)] for rowA, rowB in zip(A, B)]"
+  },
+  {
+    "algorithm": "Multiply two matrices using list comprehensions.",
+    "solution": "def multiply_matrices(A, B):\n    return [[sum(a*b for a, b in zip(row, col)) for col in zip(*B)] for row in A]",
+    "incorrect solution": "def multiply_matrices(A, B):\n    return [[a+b for a, b in zip(row, col)] for row in A for col in zip(*B)]"
+  },
+  {
+    "algorithm": "Calculate the mean squared error between two lists of numbers.",
+    "solution": "def mse(lst1, lst2):\n    n = len(lst1)\n    return sum((a - b) ** 2 for a, b in zip(lst1, lst2)) / n if n else 0",
+    "incorrect solution": "def mse(lst1, lst2):\n    return sum(abs(a - b) for a, b in zip(lst1, lst2))"
+  },
+  {
+    "algorithm": "Calculate the Pearson correlation coefficient between two lists.",
+    "solution": "def pearson_correlation(x, y):\n    n = len(x)\n    sum_x = sum(x)\n    sum_y = sum(y)\n    sum_xy = sum(a*b for a, b in zip(x, y))\n    sum_x2 = sum(a*a for a in x)\n    sum_y2 = sum(b*b for b in y)\n    numerator = n * sum_xy - sum_x * sum_y\n    denominator = ((n * sum_x2 - sum_x**2) * (n * sum_y2 - sum_y**2)) ** 0.5\n    return numerator / denominator if denominator else 0",
+    "incorrect solution": "def pearson_correlation(x, y):\n    return sum(x) * sum(y)"
+  },
+  {
+    "algorithm": "Implement linear regression using the least squares method.",
+    "solution": "def linear_regression(x, y):\n    n = len(x)\n    sum_x = sum(x)\n    sum_y = sum(y)\n    sum_xy = sum(a*b for a, b in zip(x, y))\n    sum_x2 = sum(a*a for a in x)\n    slope = (n*sum_xy - sum_x*sum_y) / (n*sum_x2 - sum_x**2)\n    intercept = (sum_y - slope*sum_x) / n\n    return slope, intercept",
+    "incorrect solution": "def linear_regression(x, y):\n    return sum(x)/len(x), sum(y)/len(y)"
+  },
+  {
+    "algorithm": "Implement logistic regression prediction for binary classification.",
+    "solution": "import math\n\ndef logistic_regression_predict(features, weights):\n    z = sum(f*w for f, w in zip(features, weights))\n    return 1 if 1/(1+math.exp(-z)) >= 0.5 else 0",
+    "incorrect solution": "import math\n\ndef logistic_regression_predict(features, weights):\n    z = sum(f+w for f, w in zip(features, weights))\n    return 1 if z > 0 else 0"
+  },
+  {
+    "algorithm": "Calculate the Euclidean norm of a vector.",
+    "solution": "def euclidean_norm(vec):\n    return sum(x**2 for x in vec) ** 0.5",
+    "incorrect solution": "def euclidean_norm(vec):\n    return sum(vec)"
+  },
+  {
+    "algorithm": "Calculate the Manhattan norm of a vector.",
+    "solution": "def manhattan_norm(vec):\n    return sum(abs(x) for x in vec)",
+    "incorrect solution": "def manhattan_norm(vec):\n    return max(abs(x) for x in vec)"
+  },
+  {
+    "algorithm": "Normalize a list of numbers to a given range [0,1].",
+    "solution": "def normalize_range(lst):\n    min_val, max_val = min(lst), max(lst)\n    return [(x - min_val) / (max_val - min_val) for x in lst] if max_val != min_val else [0 for _ in lst]",
+    "incorrect solution": "def normalize_range(lst):\n    return [x/100 for x in lst]"
+  },
+  {
+    "algorithm": "Standardize a list of numbers (z-score normalization).",
+    "solution": "def standardize_list(lst):\n    mean = sum(lst)/len(lst)\n    std = (sum((x-mean)**2 for x in lst)/len(lst))**0.5\n    return [(x-mean)/std for x in lst] if std != 0 else [0 for _ in lst]",
+    "incorrect solution": "def standardize_list(lst):\n    return [(x - min(lst))/(max(lst)-min(lst)) for x in lst]"
+  },
+  {
+    "algorithm": "Implement the factorial function using tail recursion.",
+    "solution": "def tail_factorial(n, acc=1):\n    if n == 0:\n        return acc\n    return tail_factorial(n-1, acc*n)",
+    "incorrect solution": "def tail_factorial(n, acc=1):\n    return n * tail_factorial(n-1, acc)"
+  },
+  {
+    "algorithm": "Find the nth term of an arithmetic sequence.",
+    "solution": "def arithmetic_term(a, d, n):\n    return a + (n-1)*d",
+    "incorrect solution": "def arithmetic_term(a, d, n):\n    return a * (n-1) + d"
+  },
+  {
+    "algorithm": "Find the nth term of a geometric sequence.",
+    "solution": "def geometric_term(a, r, n):\n    return a * (r ** (n-1))",
+    "incorrect solution": "def geometric_term(a, r, n):\n    return a + (r ** (n-1))"
+  },
+  {
+    "algorithm": "Convert a list of binary strings to integers.",
+    "solution": "def bin_list_to_int(lst):\n    return [int(b, 2) for b in lst]",
+    "incorrect solution": "def bin_list_to_int(lst):\n    return [int(b) for b in lst]"
+  },
+  {
+    "algorithm": "Convert a list of integers to binary strings.",
+    "solution": "def int_list_to_bin(lst):\n    return [bin(x)[2:] for x in lst]",
+    "incorrect solution": "def int_list_to_bin(lst):\n    return [str(x) for x in lst]"
+  },
+  {
+    "algorithm": "Find the maximum difference between adjacent elements in a list.",
+    "solution": "def max_adjacent_difference(lst):\n    return max(abs(lst[i]-lst[i+1]) for i in range(len(lst)-1)) if len(lst) >= 2 else 0",
+    "incorrect solution": "def max_adjacent_difference(lst):\n    return max(lst) - min(lst) if lst else 0"
+  }
+
 ]

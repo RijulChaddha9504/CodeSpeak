@@ -10,20 +10,17 @@ with open(json_file_path, 'r') as file:
 # Initialize empty lists for each column
 questions = []
 positive_responses = []
-almost_responses = []
 negative_responses = []
 
 # Iterate over each entry in the data
 for entry in data:
-    question = entry.get("question")
-    positive_response = entry.get("positive_response")
-    almost_response = entry.get("almost_right_response")
-    negative_response = entry.get("wrong_response")
+    question = entry.get("algorithm")
+    positive_response = entry.get("solution")
+    negative_response = entry.get("incorrect solution")
     
     # Append questions to the questions list
     questions.append(question)
     positive_responses.append(positive_response)
-    almost_responses.append(almost_response)
     negative_responses.append(negative_response)
 
 # Helper function to clean and standardize response formatting
@@ -32,8 +29,8 @@ def clean_response(response):
     return "```python\n" + response.strip().replace("\r\n", "\n") + "\n```"
 
 # Format the positive and negative responses as strings
-positive = [f"Question: \n{q} \nCode: \n{clean_response(r)}" for q, r in zip(questions, positive_responses)]
-negative = [f"Question: \n{q} \nCode: \n{r} " for q, r in zip(questions, negative_responses)]
 
-print("Positive Responses:", positive[1])
-print("Negative Responses:", negative[1])
+print("Positive Responses:", positive_responses)
+print("Negative Responses:", negative_responses)
+positive = positive_responses
+negative = negative_responses
