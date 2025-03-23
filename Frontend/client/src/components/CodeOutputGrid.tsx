@@ -24,8 +24,7 @@ const colorPalettes: Record<string, string> = {
 
 const GridEditor: React.FC<GridEditorProps> = ({ codeMatrix }) => {
    const [matrix, setMatrix] = useState<string[][]>(codeMatrix);
-   const maxDepth = Math.max(...matrix.map((row) => row.length));
-
+   const maxDepth = Math.max(...(matrix.map((row) => row.length)));
    const [activeCell, setActiveCell] = useState<{
       content: string;
       line: number;
@@ -86,9 +85,13 @@ const GridEditor: React.FC<GridEditorProps> = ({ codeMatrix }) => {
                                     ...newMatrix[rowIndex],
                                  ];
                                  newMatrix[rowIndex][colIndex] = draftContent;
-                                 apiClient.updateCode(newMatrix);
-                                 const result = apiClient.fetchCodeMatrix()
-                                 result.then((e) => {console.log(e); setMatrix(e)}).catch((e) => e)
+                                 const updateRes = apiClient.updateCode(newMatrix);
+                                 updateRes.then((e) => {
+                                    const result = apiClient.fetchCodeMatrix();
+                                    result.then((e) => {setMatrix(e.parsed_code)}).catch((e) => e)
+                                 }).catch(e => e)
+                                 
+                                 
                                  setIsEditing(false);
                                  setActiveCell(null);
                               }}
