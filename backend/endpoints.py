@@ -67,7 +67,7 @@ def post_prompt(user_id):
 @app.route("/compile-test/<int:user_id>", methods = ["GET"])
 def test_output(user_id):
   code_string = CodeFiles.query.get(user_id)
-  return jsonify(test_script(code_string.file_contents))
+  return jsonify(test_script(code_string.file_content))
 
 
 if (__name__ == "__main__"):

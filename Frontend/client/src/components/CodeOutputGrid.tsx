@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import apiClient from "../utils/api";
 import { useCompleted } from "../context/CompletedContext.jsx";
 import { LoadingOverlay } from "./LoadingOverlay.js";
+import ExecutionOutput from "./ExecutionOutput.js";
 
 interface GridEditorProps {
    codeMatrix: string[][];
@@ -340,6 +341,7 @@ const GridEditor: React.FC<GridEditorProps> = ({ codeMatrix }) => {
                </tr>
             </tbody>
          </table>
+         <ExecutionOutput />
       </div>
    );
 };

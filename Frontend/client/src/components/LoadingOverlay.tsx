@@ -18,7 +18,7 @@ export function LoadingOverlay() {
           newIdx = Math.floor(Math.random() * messages.length);
         } while (prevMessageIdx.current === newIdx);
         prevMessageIdx.current = newIdx; 
-        console.log(newIdx); 
+        // console.log(newIdx); 
         setCurrentMessage(messages[newIdx]); 
         setOpacity(1); 
       }, 500); 

@@ -81,6 +81,19 @@ class apiClient {
          throw Error ("Could not update code in database")
       }
    }
+
+   public static async getCompiledCode(userId: number = 1) {
+      const COMPILE_CODE_URL = SERVER_URL + "/compile-test/" + String(userId);
+      const response = await fetch(COMPILE_CODE_URL, {
+         method: "GET",
+       })
+
+      if (response.ok) {
+         return await response.json()
+      } else {
+         throw Error("could not get code")
+      }
+   }
 }
 
 export default apiClient
