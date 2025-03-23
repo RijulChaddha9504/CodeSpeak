@@ -16,7 +16,7 @@ const SpeechPrompt = () => {
     return <span>Browser doesn't support speech recognition.</span>;
   }
 
-  const {completed, setCompleted} = useCompleted(); 
+  const {completed, setCompleted, isLoading, setIsLoading } = useCompleted(); 
 
   const AC = AudioReceiver.instance() as AudioReceiver | null;
   if (!AC) {
@@ -29,6 +29,7 @@ const SpeechPrompt = () => {
       // This useEffect will run whenever the 'transcript' variable changes.
       if (!listening && transcript) { 
         console.log('Transcript changed:', transcript);
+        setIsLoading(true); 
         const response = await fetch('http://localhost:5000/post-prompt/1', {
           method: "PATCH", 
           headers: {

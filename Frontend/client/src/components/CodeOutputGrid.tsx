@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import apiClient from "../utils/api";
 import { useCompleted } from "../context/CompletedContext.jsx";
+import { LoadingOverlay } from "./LoadingOverlay.js";
 
 interface GridEditorProps {
    codeMatrix: string[][];
@@ -36,7 +37,7 @@ const GridEditor: React.FC<GridEditorProps> = ({ codeMatrix }) => {
    const [isEditing, setIsEditing] = useState(false);
    const [draftContent, setDraftContent] = useState("");
 
-   const {completed, setCompleted} = useCompleted(); 
+   const {completed, setCompleted, isLoading, setIsLoading} = useCompleted(); 
 
    const lowerTrimmed = (str: string) => str.toLowerCase().trim();
 
@@ -59,6 +60,7 @@ const GridEditor: React.FC<GridEditorProps> = ({ codeMatrix }) => {
             setMatrix(newMatrix); 
             setMaxDepth(Math.max(...(newMatrix.map((row) => row.length)))); 
          }).catch((e) => e)
+         setIsLoading(false); 
       }
    }, [completed]);
 
@@ -100,6 +102,7 @@ const GridEditor: React.FC<GridEditorProps> = ({ codeMatrix }) => {
    return (
       
       <div className="mt-3 mb-3 relative w-full h-full">
+         {isLoading && <LoadingOverlay />}
          {/* Popout Overlay */}
          {activeCell && (
             <div className="fixed inset-0 flex items-center justify-center z-50">
