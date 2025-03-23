@@ -33,14 +33,14 @@ def generate_code(coding_prompt, prev_code):
     if (prev_code != ""): 
         input_prompt += f" .Be sure to make edits to the following code in generating your response: {prev_code}"
     input_prompt += system_prompt
-    print(input_prompt)
+    # print(input_prompt)
     response = client.models.generate_content(
         model='gemini-2.0-flash',
         contents=input_prompt,
     )
 
 
-    print(response.text)
+    #print(response.text)
     return response.text
 
 
@@ -70,7 +70,7 @@ def generate_analysis(generated_code, prev_code):
         contents=input_prompt,
     )
 
-    print(code_analysis_response.text)
+    #print(code_analysis_response.text)
     return code_analysis_response.text
 #text_to_wav("en-US-Studio-M", code_analysis_response.text.replace("`", ""))
 #text_to_wav("en-US-Wavenet-A", code_analysis_response.text.replace("`", ""))
