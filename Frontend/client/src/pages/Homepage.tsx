@@ -15,14 +15,18 @@ const messages = [
 const Homepage: React.FC = () => {
    const [userId, setUserId] = useState(0);
 
+   function setCode(str: string) {
+      
+   }
+
    return (
       <div className="w-full min-h-screen flex flex-col items-center bg-gray-900 text-white px-4 pt-32 select-none">
          <div className="w-[40vw] max-w-full text-center mb-8">
             <ChangingText messages={messages} />
          </div>
-
+         
          <div>
-            <SpeechPrompt></SpeechPrompt>
+            <SpeechPrompt onResolveCallback={setCode}></SpeechPrompt>
             <CodeOutputGrid
                codeMatrix={[
                   ["import numpy as np"],

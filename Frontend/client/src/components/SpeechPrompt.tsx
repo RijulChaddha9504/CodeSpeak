@@ -2,7 +2,7 @@ import SpeechRecognition, {useSpeechRecognition} from "react-speech-recognition"
 import React, { useEffect } from "react";
 import { AudioReceiver } from "../../util/AudioReceiver";
 
-const SpeechPrompt = () => {
+const SpeechPrompt = ({onResolveCallback}) => {
 
   const {
     transcript,
@@ -33,6 +33,7 @@ const SpeechPrompt = () => {
           },
           body: JSON.stringify({prompt: transcript}),
         }); 
+        response.json().then((e) => {console.log(e.code); onResolveCallback(e.code)})
         //const data = await response.json();
         if (AC) { 
           await AC?.playAudioFromArrayBuffer();
