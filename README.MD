@@ -47,10 +47,15 @@ This project was inspired by the work of [Dr. Syed Billah at Penn State](https:/
 git clone https://github.com/yourusername/codespeak.git
 cd codespeak
 
-# Install frontend
-cd frontend
+# Install frontend website display
+cd Frontend/client
 npm install
 npm run dev
+
+# Run nodejs server to allow for Google Cloud Storage Fetch
+cd Frontend/server
+npm install
+npm start
 
 # In a separate terminal, run backend
 cd backend
