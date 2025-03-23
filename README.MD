@@ -58,6 +58,9 @@ npm install
 npm start
 
 # In a separate terminal, run backend
+# Note you will need a .env file with the GOOGLE_API_KEY listed
+# Within your cmd, you will have to install the Google Cloud CLI and configure to point at a valid TTS project
 cd backend
 pip install -r requirements.txt
-flask run
+flask --app endpoints run
+
