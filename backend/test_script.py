@@ -4,6 +4,12 @@ import re
 
 def test_script(code: str):
     # Extract the code inside """python and """
+    if not code: 
+        return {
+            "success": False,
+            "output": stdout.getvalue(),
+            "error": str(e)
+        }
     match = re.match(r"```python\n(.*?)\n```", code, re.DOTALL)
     if match:
         code = match.group(1)  # Extract the actual code inside the docstring

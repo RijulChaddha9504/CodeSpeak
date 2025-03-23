@@ -2,7 +2,8 @@ from google import genai
 from constants import BACKEND_URL
 from google.genai import types
 import os
-import requests
+from LLM import code_loop_gen
+
 
 # def display_code_execution_result(response):
 #   for part in response.candidates[0].content.parts:
@@ -31,17 +32,21 @@ system_prompt = "Generate the code for the calculation, and only the code in Pyt
 def generate_code(coding_prompt, prev_code): 
     input_prompt = coding_prompt
     if (prev_code != ""): 
-        input_prompt += f" .Be sure to make edits to the following code in generating your response: {prev_code}"
+        input_prompt += f" . The user wants you to make edits to the following code \
+                        in generating your response: {prev_code}"
     input_prompt += system_prompt
     # print(input_prompt)
-    response = client.models.generate_content(
-        model='gemini-2.0-flash',
-        contents=input_prompt,
-    )
+    # response = client.models.generate_content(
+    #     model='gemini-2.0-flash',
+    #     contents=input_prompt,
+    # )
 
+
+    response = code_loop_gen(input_prompt)
 
     #print(response.text)
-    return response.text
+    #return response.text
+    return response
 
 
 # requests.post(BACKEND_URL + "/set-code/1", json={"file_content": response.text})

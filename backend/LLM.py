@@ -119,11 +119,11 @@ def code_loop_gen(user_input):
             output_code = generated_code
 
         if tries > 4:
-            output_code.replace("```python", "").replace("```", "").strip()
+            output_code = output_code.replace("```python", "").replace("```", "").strip()
             return output_code
 
         previous_code = generated_code
         tries += 1
 
-if __name__ == '__main__':
-    code_loop_gen("Generate me a for loop that counts from 1-10")
+# if __name__ == '__main__':
+#     code_loop_gen("Generate me a for loop that counts from 1-10")
