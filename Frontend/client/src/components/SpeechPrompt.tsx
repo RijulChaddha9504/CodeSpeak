@@ -62,16 +62,23 @@ const SpeechPrompt = () => {
         <div className="flex flex-row justify-center gap-4 w-80 h-full">
           <button
             className=" h-full w-40 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
-            onClick={SpeechRecognition.startListening}
+            onClick={() => {resetTranscript(); SpeechRecognition.startListening({continuous: true})}}
           >
             Start
           </button>
 
           <button
-            className="w-40 px-2 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition"
+            className="w-40 px-2 py-2 bg-red-500 text-white rounded-lg hover:bg-gray-600 transition"
             onClick={SpeechRecognition.stopListening}
           >
             Stop
+          </button>
+
+          <button 
+            className="w-40 px-2 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition"
+            onClick={resetTranscript}
+          >
+            Clear
           </button>
         </div>
         
