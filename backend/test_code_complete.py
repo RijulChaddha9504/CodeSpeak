@@ -28,10 +28,15 @@ system_prompt = "Generate the code for the calculation, and only the code in Pyt
 #prompt = "Write an algorithm that finds the number of paths within a grid of size n * m from the top left to the bottom right."
 #prompt = "Create a 6d array of size 3x3x3x3x3x3 and set all the elements to zero. Use for loops"
 
-def generate_code(coding_prompt): 
+def generate_code(coding_prompt, prev_code): 
+    input_prompt = coding_prompt
+    if (prev_code != ""): 
+        input_prompt += f" .Be sure to make edits to the following code in generating your response: {prev_code}"
+    input_prompt += system_prompt
+    print(input_prompt)
     response = client.models.generate_content(
         model='gemini-2.0-flash',
-        contents=coding_prompt + system_prompt,
+        contents=input_prompt,
     )
 
 
@@ -55,11 +60,14 @@ def generate_code(coding_prompt):
 
 # print(response_tests.text)
 
-def generate_analysis(generated_code): 
+def generate_analysis(generated_code, prev_code): 
+    input_prompt = f"Analyze the code and provide a summary of the code provided here: {generated_code}. \
+                    Do not use ` to indicate code blocks. Simply provide the code as text in the sentence."
+    if (prev_code != ""):
+        input_prompt += f"Relate how the generated code relates to the following code (which you made edits in): {prev_code}. Be clear and concise (30-40 words) in explaining."
     code_analysis_response = client.models.generate_content(
         model='gemini-2.0-flash',
-        contents=f"Analyze the code and provide a summary of the code provided here: {generated_code}. \
-                    Do not use ` to indicate code blocks. Simply provide the code as text in the sentence.",
+        contents=input_prompt,
     )
 
     print(code_analysis_response.text)

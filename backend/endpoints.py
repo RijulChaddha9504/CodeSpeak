@@ -51,11 +51,12 @@ def post_prompt(user_id):
   else:
     db.session.add(CodeFiles(file_id=user_id, file_content=data.get("file_content", ""), 
                               file_prompt=data.get("prompt", "")))
+  prev_code = profile.file_content
   db.session.commit()
-  generated_code_str = generate_code(data.get("prompt", profile.file_prompt if profile.file_prompt else ""))
+  generated_code_str = generate_code(data.get("prompt", profile.file_prompt if profile.file_prompt else ""), prev_code)
   requests.patch(BACKEND_URL + f"/set-code/{user_id}",\
                  json={"file_content": generated_code_str})
-  analysis = generate_analysis(generated_code_str)
+  analysis = generate_analysis(generated_code_str, prev_code)
   audio_bytes = text_to_wav("en-US-Wavenet-A", analysis.replace("`", ""))
   asyncio.run(async_upload_wav_blob(BUCKET_NAME, audio_bytes, f"audio_{user_id}.wav"))
   return jsonify({"message": "updated prompt", "code": generated_code_str, 

@@ -40,6 +40,21 @@ class apiClient {
       }
    }
 
+   public static async setCode(code: string, userId: number = 1) {
+      const SET_CODE_URL = SERVER_URL + "/set-code/" + String(userId);
+      const response = await fetch(SET_CODE_URL, {
+         method: "PATCH",
+         headers: { "Content-Type": "application/json" },
+         body: JSON.stringify({file_content: code})
+       })
+
+      if (response.ok) {
+         return response.json()
+      } else {
+         throw Error("could not set code")
+      }
+   }
+
 
    public static async updateCode(code: string[][], userId = 1) {
       // add parsing here

@@ -4,6 +4,7 @@ import ChangingText from "../components/ChangingText";
 import CodeOutputGrid from "../components/CodeOutputGrid";
 import SpeechPrompt from "../components/SpeechPrompt";
 import { CompletedProvider } from "../context/CompletedContext";
+import apiClient from "../utils/api";
 
 const messages = [
    "Accessible AI Code Assistant",
@@ -16,6 +17,7 @@ const messages = [
 const Homepage: React.FC = () => {
    const [userId, setUserId] = useState(0);
 
+   apiClient.setCode(""); 
    return (
       <div className="w-full min-h-screen flex flex-col items-center bg-gray-900 text-white px-4 pt-32 select-none">
          <div className="w-[40vw] max-w-full text-center mb-8">
